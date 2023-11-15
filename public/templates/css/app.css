@@ -1,0 +1,7 @@
+.table td,
+.table th {
+    vertical-align: middle;
+}
+.table.table-xl td, .table.table-xl th{
+    text-align: center;
+}

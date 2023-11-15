@@ -1,0 +1,24 @@
+.paging {
+	margin: 6px 0 6px 0;
+	margin-top: 6px;
+	float: left;
+	margin-top: 8px;
+	position: relative;
+	left: 30%;
+}
+
+.paging a {
+	display: block;
+	padding: 5px 8px;
+	float: left;
+	line-height: 10px;
+	margin-left: 5px;
+	border: solid 1px #BBBBBB;
+	text-decoration: none;
+	color: #333;
+}
+
+.paging a.current, .paging a:hover {
+	background: #222;
+	color: white;
+}

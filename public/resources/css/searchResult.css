@@ -1,0 +1,64 @@
+.paging {
+
+    margin: 6px 0 6px 0;
+        margin-top: 6px;
+    float: right;
+    margin-top: 8px;
+}
+
+.paging a{
+    display: block;
+    padding: 5px 8px;
+    float: left;
+    line-height: 10px;
+    margin-left: 5px;
+    border: solid 1px #BBBBBB;
+    text-decoration: none;
+    color: #333;
+}
+
+.paging a.current, .paging a:hover {
+
+    background: #222;
+    color: white;
+
+}
+
+.top_area_list_page {
+
+    height: 45px;
+    background: #eee;
+    padding: 0 8px;
+    margin-bottom: 8px;
+
+}
+
+.sort_pro {
+
+    float: left;
+    margin-left: 20px;
+    margin-top: 7px;
+    position: relative;
+    display: inline;
+}
+
+.search-submit{
+	margin-left: 10px;
+    padding: 5px 9px 5px 10px;
+    border: 1px solid #e5e5e5;
+    border-left: none;
+    background: #94CB32;
+    font-weight: bold;
+    background: #94CB32;
+	color: white;
+
+}
+
+.select-range{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.inline{
+	display:inline-block;
+}
