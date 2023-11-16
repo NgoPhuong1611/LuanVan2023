@@ -1,5 +1,6 @@
-<?= $this->extend('User/layout') ?>
-<?= $this->section('content') ?>
+@extends('User.layout')
+
+@section('content')
 <style type="text/css">
     .hidden {
         display: none;
@@ -18,7 +19,7 @@
         visibility: hidden;
     }
 
-    .imageGrammar {
+    .imageGrammar {url
         float: left;
         height: 150px;
         width: 250px;
@@ -88,7 +89,7 @@
                         <div class="span5">
 
                             <div>
-                                <a id="btn" value="Show Alert" href="<?= base_url('Exam/ExamToeicRandom') ?>" class="btn btn-primary">Tạo Đề Thi Ngẫu Nhiên</a>
+                                <a id="btn" value="Show Alert" href="<?= url('Exam/ExamToeicRandom') ?>" class="btn btn-primary">Tạo Đề Thi Ngẫu Nhiên</a>
                             </div>
                             <script language="javascript">
                                 var button = document.getElementById("btn");
@@ -139,4 +140,4 @@
 <br>
 <br>
 
-<?= $this->endSection() ?>
+@endsection

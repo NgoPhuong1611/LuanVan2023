@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Services;
 use App\Http\Controllers\Admin\Home;
 use App\Http\Controllers\Admin\LoginController;
-
+// route user
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ListExamController;
@@ -11,6 +11,8 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
+// route admin
+
 Route::group([], function () {
     Route::get('',  [HomeController::class, 'index']);
 
@@ -65,11 +67,13 @@ Route::group([], function () {
 
 // Route::get('/', [Home::class, 'index']);
 // Route::get('/', 'Home::index');
-Route::get('admin-login',  [LoginController::class, 'index'])->name('admin-login');
-Route::post('admin-login', [oginController::class,'authLogin'])->name('admin-authLogin');
-Route::get('logout', [LoginController::class,'logout'])->name('admin-logout');
+// Route::get('admin-login',  [LoginController::class, 'index'])->name('admin-login');
+// Route::post('admin-login', [oginController::class,'authLogin'])->name('admin-authLogin');
+// Route::get('logout', [LoginController::class,'logout'])->name('admin-logout');
 // Route::get('/', [Home::class, 'index'])->name('Home');
-Route::prefix('dashboard')->middleware('Admin')->group(function () {
+// Route::prefix('dashboard')->middleware('Admin')->group(function () {
+     Route::prefix('dashboard')->group(function () {
+
     Route::get('', 'HomeController@index');
 
     Route::group(['prefix' => 'admin'], function () {

@@ -1,5 +1,4 @@
 @extends('User.layout')
-
 @section('content')
     <!-- Your content here -->
 

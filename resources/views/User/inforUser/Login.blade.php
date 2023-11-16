@@ -1,5 +1,6 @@
-<?= $this->extend('User/layout') ?>
-<?= $this->section('content') ?>
+@extends('User.layout')
+
+@section('content')
 <input style="display:none;" id="baseUrl" value="" />
 </head>
 
@@ -9,13 +10,13 @@
         <br>
         <ul class="nav nav-tabs" id="tabs">
             <li class="active"><a>Đăng Nhập</a></li>
-            <li><a href="<?= base_url('User/Register') ?>">Đăng Ký</a></li>
+            <li><a href="<?= url('User/Register') ?>">Đăng Ký</a></li>
         </ul>
         <div class="tab-content">
-            <form class="form-login" action="<?= base_url('User/userlogin') ?>" method="post">
-
+        <form class="form-login" action="<?= url('User/userlogin') ?>" method="post">
+            @csrf
                 <div class="col-12">
-                    <?php $errors = session()->getFlashdata('error_msg') ?>
+                    <?php $errors = session()->get('error_msg') ?>
                     <?php if (!empty($errors)) :  ?>
                         <?php if (!is_array($errors)) : ?>
                             <div class="alert alert-danger mb-1">
@@ -39,10 +40,10 @@
                     <br>
                     <button type="submit">Login</button>
                 </div>
-            </form>
+        </form>
         </div>
     </div>
 </body>
 
-<script src="<?= base_url() ?>resources/js/client/profileClient.js"></script>
-<?= $this->endSection() ?>
+<script src="{{asset('resources/js/client/profileClient.js')}}"></script>
+@endsection
