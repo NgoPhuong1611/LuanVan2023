@@ -47,22 +47,7 @@ $menu = [
             ],
         ]
     ],
-    [
-        'url' => '',
-        'name' => 'Quản lý Danh mục',
-        'active' => 'dashboard/category',
-        'icon' => '<i class="fa fa-bars"></i>',
-        'sub_menu' => [
-            [
-                'url' => url('dashboard/category'),
-                'name' => 'Danh sách',
-            ],
-            [
-                'url' => url('dashboard/category/detail'),
-                'name' => 'Thêm mới',
-            ],
-        ]
-    ],
+
     [
         'url' => '',
         'active' => 'dashboard/question',
@@ -178,6 +163,22 @@ $menu = [
                         'name' => 'Thêm mới',
                     ],
                 ]
+            ],
+        ]
+    ],
+    [
+        'url' => '',
+        'name' => 'Quản lý Danh mục',
+        'active' => 'dashboard/category',
+        'icon' => '<i class="fa fa-bars"></i>',
+        'sub_menu' => [
+            [
+                'url' => url('dashboard/category'),
+                'name' => 'Danh sách',
+            ],
+            [
+                'url' => url('dashboard/category/detail'),
+                'name' => 'Thêm mới',
             ],
         ]
     ],

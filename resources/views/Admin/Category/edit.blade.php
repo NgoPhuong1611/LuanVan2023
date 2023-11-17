@@ -1,5 +1,5 @@
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
+@extends('Admin.layout')
+@section('content')
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -58,8 +58,9 @@
                                             <div class="edit-info">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <form action="<?= base_url('dashboard/category/update/'.$category['id']) ?>" method="post">
-                                                            <input type="hidden" name="id" value="">
+                                                        <form action="<?= url('dashboard/category/update/'.$category['id']) ?>" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="">
                                                             <div class="general-info">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
@@ -77,7 +78,7 @@
                                                                 </div>
                                                                 <div class="row">
 
-                                                                    
+
                                                                     <div class="col-md-6">
                                                                         <label for="status">Trạng thái</label>
                                                                         <div class="input-group">
@@ -103,7 +104,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-12 text-right">
                                                                         <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
-                                                                        <a href="<?= base_url('dashboard/category/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
+                                                                        <a href="<?= url('dashboard/category/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -132,9 +133,10 @@
     </div>
 </div>
 
-<?= $this->endSection() ?>
+@endsection
 
-<?= $this->section('js') ?>
+@yield('js')
+@section('js')
 
 <script>
     CKEDITOR.replace('editor');
@@ -179,4 +181,13 @@
     }
 </script>
 
-<?= $this->endSection() ?>
+@endsection
+@if ($errors->any())
+       <div class="alert alert-danger">
+           <ul>
+               @foreach ($errors->all() as $error)
+                   <li>{{ $error }}</li>
+               @endforeach
+           </ul>
+       </div>
+   @endif

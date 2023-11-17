@@ -1,95 +1,85 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Controllers\BaseController;
-use App\Models\CategoryModel;
-use App\Models\PostsModel;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Post; // Assuming your model is named Post, change it if it's different
 use Exception;
 
-class Category extends BaseController
+class CategoryController extends Controller
 {
     public function index()
     {
-
-        $categoryModel = new CategoryModel();
-        $category = $categoryModel->paginate(10);
-        $datas['category'] = $category;
-        return view('Admin/Category/index',$datas);
+        $category = Category::paginate(10);
+        return view('Admin.Category.index', ['category' => $category]);
     }
 
     public function detail()
     {
-        return view('Admin/Category/detail');
+        return view('Admin.Category.detail');
     }
-    public function save()
+
+    public function save(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'status' => 'required',
+        ]);
 
-        $name=$this->request->getPost('name');
-        $slug = $this->request->getPost('slug');
-        $status=$this->request->getPost('status');
-        $datas = [
-
-            'name' => $name,
-            'slug' => $slug,
-            'status'=> $status,
+        $data = [
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug'),
+            'status' => $request->input('status'),
         ];
-        $category = new CategoryModel();
 
-        $isInsert = $category->insert($datas);
+        $isInsert = Category::create($data);
+
         if (!$isInsert) {
             throw new Exception(UNEXPECTED_ERROR_MESSAGE);
         }
+
         return redirect()->to('dashboard/category/detail');
     }
-    public function delete()
+
+    public function delete($id)
     {
-         $id = $this->request->getUri()->getSegment(4);
-        //xóa bảng posts chứa khóa ngoai
-        $postsModel = new PostsModel();
-        $posts = $postsModel->where('category_id', $id)->findAll();
-        $posts = $postsModel->where('category_id', $id)->delete();
+        // Delete related posts
+        Post::where('category_id', $id)->delete();
 
+        // Delete category
+        Category::destroy($id);
 
-        $categoryModel=new CategoryModel();
-        $categoryModel->delete($id);
-
-         return redirect()->to('dashboard/category');
-    }
-    public function edit()
-    {
-        $id = $this->request->getUri()->getSegment(4);
-        // $a = current_url(true);
-        // $uri = new \CodeIgniter\HTTP\URI($a);
-        // $id = $uri->getSegment(4);
-
-        $categoryModel = new CategoryModel();
-        $category = $categoryModel->find($id);
-        $datas['category'] = $category;
-
-        return view('Admin/Category/edit',$datas);
-    }
-    public function update()
-    {
-        $id = $this->request->getUri()->getSegment(4);
-        // $a = current_url(true);
-        // $uri = new \CodeIgniter\HTTP\URI($a);
-        // $id = $uri->getSegment(4);
-
-        $categoryModel = new CategoryModel();
-        $categoryModel->find($id);
-
-
-        $name=$this->request->getPost('name');
-        $slug = $this->request->getPost('slug');
-        $status=$this->request->getPost('status');
-        $datas = [
-
-            'name' => $name,
-            'slug' => $slug,
-            'status'=>$status,
-        ];
-        $categoryModel->update($id, $datas);
         return redirect()->to('dashboard/category');
+    }
+
+    public function edit($id)
+    {
+        $category = Category::find($id);
+
+        return view('Admin.Category.edit', ['category' => $category]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        //dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'status' => 'required',
+        ]);
+
+        $data = [
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug'),
+            'status' => $request->input('status'),
+        ];
+        
+        Category::find($id)->update($data);
+
+       return redirect()->to('dashboard/category');
     }
 }

@@ -1,5 +1,6 @@
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
+@extends('Admin.layout')
+
+@section('content')
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -54,10 +55,10 @@
                                                 </td>
                                                 <td>
                                                     <div style="width: 90px;" class="btn-group btn-group-sm">
-                                                        <a href ="<?= base_url('dashboard/category/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                        <a href ="<?= url('dashboard/category/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                             <span class="icofont icofont-ui-edit"></span>
                                                         </a>
-                                                        <a href ="<?= base_url('dashboard/category/delete/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                        <a href ="<?= url('dashboard/category/delete/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
                                                             <span class="icofont icofont-ui-delete"></span>
                                                         </a>
                                                     </div>
@@ -79,9 +80,9 @@
 </div>
 
 
-<?= $this->endSection() ?>
+@endsection
 
-<?= $this->section('js') ?>
+@yield('js')
 <script>
     function delete_account(id, name) {
         const is_confirm = confirm(`Bạn muốn xóa tài khoản "${name}" ?`);
@@ -97,7 +98,7 @@
             redirect: 'follow'
         };
 
-        fetch('<?= base_url('dashboard/category/delete') ?>', requestOptions)
+        fetch('<?= url('dashboard/category/delete') ?>', requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
@@ -117,4 +118,3 @@
     }
 </script>
 
-<?= $this->endSection() ?>
