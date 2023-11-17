@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Controllers\BaseController;
-use App\Models\AdminModel;
-use App\Models\CategoryModel;
-use App\Models\PostsModel;
+use Illuminate\Routing\Controller;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+
+use App\Models\Admin;
+use App\Models\Category;
+use App\Models\Posts;
 use Exception;
 
 
-class Posts extends BaseController
+class PostsController extends Controller
 {
     public function index()
     {
-        $postsModel = new PostsModel();
+        $postsModel = new Posts();
         $posts = $postsModel->paginate(10);
 
         $datas['posts'] = $posts;
@@ -79,7 +83,7 @@ class Posts extends BaseController
         $postsModel = new PostsModel();
         $posts = $postsModel->find($id);
         $datas['posts'] = $posts;
-        return view('Admin/Posts/edit',$datas);
+        return view('Admin.Post.edit',$datas);
 
     }
     public function update()
