@@ -1,7 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Services;
-use App\Http\Controllers\Admin\Home;
 use App\Http\Controllers\Admin\LoginController;
 // route user
 use App\Http\Controllers\HomeController;
@@ -12,7 +11,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
 // route admin
-
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Home;
 Route::group([], function () {
     Route::get('',  [HomeController::class, 'index']);
 
@@ -74,7 +74,7 @@ Route::group([], function () {
 // Route::prefix('dashboard')->middleware('Admin')->group(function () {
      Route::prefix('dashboard')->group(function () {
 
-    Route::get('', 'HomeController@index');
+    Route::get('/',[App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'Admin\AdminController@index');

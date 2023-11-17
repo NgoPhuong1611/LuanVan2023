@@ -1,3 +1,4 @@
+
 <nav class="navbar header-navbar pcoded-header">
     <div class="navbar-wrapper">
 
@@ -24,7 +25,7 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a>
+                                <a href="#">
                                     <i class="feather icon-user"></i> Thông tin
                                 </a>
                             </li>
