@@ -2,11 +2,13 @@
 
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
+
+use Illuminate\Routing\Controller;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
