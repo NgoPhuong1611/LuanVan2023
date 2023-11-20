@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Bài test Toeic</title>
@@ -10,6 +9,7 @@
     <script src="{{ asset('resources/js/client/baiTestReading.js') }}"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 </head>
+
 
 <style>
     .paragraph {
@@ -266,8 +266,8 @@
             <br>
             <div style="display: block;">
                 <p>
-                <a href="{{ url('user') }}" id="backhome">
-                                            Home
+                    <a href="<?= url('user') ?>" id="backhome">
+                        Home
                     </a>
                     <span>Bài Thi</span>
                 </p>
@@ -372,8 +372,9 @@
                                 </div>
                                 <div class="audio-container">
                                     <audio class="audio-player1" id="audio-player<?= $index ?>">
-                                    <source src="<?= url('uploads/audios/part1.mp3') ?>" type="audio/mpeg">
-                                 </audio>
+                                    <source src="{{ asset('uploads/audios/part1.mp3') }}" type="audio/mpeg">
+                                        <source src="<?= asset('uploads/audios/part1.mp3')?>" type="audio/wav">
+                                    </audio>
                                 </div>
                             </div>
                             <?php $count = 0; ?>
@@ -384,7 +385,7 @@
                                         <?php if ($value['audio_id'] == $au['id']) {  ?>
                                 <div class="audio-container">
                                     <audio class="audio-player1" id="audio-player<?= $index ?>">
-                                        <source src="{{ asset('uploads/audios/' . $au['audio_name']) }}" type="audio/wav">
+                                        <source src="<?= asset('uploads/audios/' . $au['audio_name'])?>" type="audio/wav">
                                     </audio>
                                 </div>
                             <?php } ?>
@@ -393,7 +394,8 @@
                         <div class="question_image">
                             <?php foreach ($question_image as $image) : ?>
                                 <?php if ($image['question_id'] == $value['id']) { ?>
-                                    <img width="500px" height="300px" src="{{ asset('uploads/images/' . $image['image_name']) }}" alt="Mô tả ảnh">                                <?php } ?>
+                                    <img width="500px" height="300px" src="<?= asset('uploads/images/' .  $image['image_name']) ?>" alt="Mô tả ảnh">
+                                <?php } ?>
                             <?php endforeach ?>
                         </div>
                         <!-- end img  -->
@@ -423,8 +425,8 @@
                         </div>
                         <div class="audio-container">
                             <audio class="audio-player1" id="audio-player<?= $index ?>">
-                            <source src="{{ asset('uploads/audios/part2.mp3') }}" type="audio/mpeg">
-                        </audio>
+                                <source src="<?= asset('uploads/audios/part2.mp3')?>"ass type="audio/wav">
+                            </audio>
                         </div>
                     </div>
                     <?php $count = 6; ?>
@@ -437,7 +439,7 @@
                                 <?php if ($value['audio_id'] == $au['id']) {  ?>
                         <div class="audio-container">
                             <audio class="audio-player1" id="audio-player<?= $index ?>">
-                            <source src="{{ asset('uploads/audios/' . $au['audio_name']) }}" type="audio/wav">
+                                <source src="<?= asset('uploads/audios/' . $au['audio_name']) ?>" type="audio/wav">
                             </audio>
                         </div>
                     <?php } ?>
@@ -462,7 +464,7 @@
                 </div>
                 <div class="audio-container">
                     <audio class="audio-player1" id="audio-player<?= $index ?>">
-                    <source src="{{ asset('uploads/audios/part3.mp3') }}" type="audio/mpeg">
+                        <source src="<?= asset('uploads/audios/part3.mp3')?>"a type="audio/wav">
                     </audio>
                 </div>
             </div>
@@ -476,8 +478,8 @@
                         <?php if ($value['audio_id'] == $au['id']) {  ?>
                 <div class="audio-container">
                     <audio class="audio-player1" id="audio-player<?= $index ?>">
-                    <source src="{{ asset('uploads/audios/' . $au['audio_name']) }}" type="audio/wav">
-                 </audio>
+                        <source src="<?= asset('uploads/audios/' . $au['audio_name']) ?>" type="audio/wav">
+                    </audio>
                 </div>
             <?php } ?>
         <?php } ?>
@@ -498,8 +500,8 @@
         </div>
         <div class="audio-container">
             <audio class="audio-player1" id="audio-player<?= $index ?>">
-            <source src="{{ asset('uploads/audios/part4.mp3') }}" type="audio/mpeg">
-        </audio>
+                <source src="<?= asset('uploads/audios/part4.mp3')?>" type="audio/wav">
+            </audio>
         </div>
     </div>
     <?php $count = 70; ?>
@@ -512,8 +514,8 @@
                 <?php if ($value['audio_id'] == $au['id']) {  ?>
         <div class="audio-container">
             <audio class="audio-player1" id="audio-player<?= $index ?>">
-            <source src="{{ asset('uploads/audios/' . $au['audio_name']) }}" type="audio/wav">
-         </audio>
+                <source src="<?= asset('uploads/audios/' .  $au['audio_name']) ?>" type="audio/wav">
+            </audio>
         </div>
     <?php } ?>
 <?php } ?>
@@ -638,8 +640,8 @@
         </div>
 
     </div>
-    <form id="my-form" action="{{ base_url('Exam/InsertWrongAnswer') }}" method="post">
-                <input type="hidden" id="question_id" name="question_id">
+    <form id="my-form" action="<?= url('Exam/InsertWrongAnswer') ?>" method="post">
+        <input type="hidden" id="question_id" name="question_id">
         <input type="hidden" id="selected_answer" name="selected_answer">
         <button type="submit">Submit</button>
     </form>
@@ -703,7 +705,7 @@
 
                         // đưa dữa liệu vào InsertWrongAnswer
                         $.ajax({
-                            url: '<?= base_url('Exam/InsertWrongAnswer') ?>',
+                            url: '<?= url('Exam/InsertWrongAnswer') ?>',
                             type: 'POST',
                             data: {
                                 question_id: <?= $value['id'] ?>,

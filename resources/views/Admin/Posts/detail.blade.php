@@ -1,5 +1,5 @@
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
+@extends('Admin.layout')
+@section('content')
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -58,7 +58,8 @@
                                             <div class="edit-info">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <form action="<?= base_url('dashboard/posts/save') ?>" method="post">
+                                                        <form action="<?= url('dashboard/posts/save') ?>" method="post">
+                                                        @csrf
                                                             <input type="hidden" name="id" value="">
                                                             <div class="general-info">
                                                                 <div class="row">
@@ -124,7 +125,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-12 text-right">
                                                                     <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
-                                                                    <a href="<?= base_url('dashboard/posts/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
+                                                                    <a href="<?= url('dashboard/posts/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
                                                                 </div>
                                                             </div>
                                                     </div>
@@ -152,9 +153,8 @@
     <!-- Main body end -->
 </div>
 </div>
-<?= $this->endSection() ?>
-
-<?= $this->section('js') ?>
+@endsection
+@section('js')
 
 <script>
     CKEDITOR.replace('editor');
@@ -199,4 +199,3 @@
     }
 </script>
 
-<?= $this->endSection() ?>

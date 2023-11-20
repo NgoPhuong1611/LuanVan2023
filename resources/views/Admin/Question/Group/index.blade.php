@@ -1,5 +1,6 @@
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
+@extends('Admin.layout')
+
+@section('content')
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -30,7 +31,8 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Tiêu đề</th>
+                                                <th style="width: 10%;">Phần</th>
+                                                <th >Tiêu đề</th>
                                                 <th style="width: 10%;">Quản lý</th>
                                             </tr>
                                         </thead>
@@ -38,10 +40,11 @@
                                             <?php if (isset($questionGroups) || !empty($questionGroups)) : ?>
                                                 <?php foreach ($questionGroups as $item) : ?>
                                                     <tr>
+                                                        <td style="width: 10%;"><?= $item['exam_part_id'] ?></td>
                                                         <td><?= $item['title'] ?></td>
                                                         <td>
                                                             <div class="btn-group btn-group-sm">
-                                                                <a href="<?= base_url('dashboard/question-group/detail') . '/' . $item['id'] ?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                                <a href="<?= url('dashboard/question-group/detail' . '/' . $item['id'] )?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                                     <span class="icofont icofont-ui-edit"></span>
                                                                 </a>
                                                                 <a onclick="delete_question_group(<?= $item['id'] ?>)" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
@@ -53,7 +56,7 @@
                                                 <?php endforeach ?>
                                             <?php else : ?>
                                                 <tr>
-                                                    <td colspan="3" class="text-center">Hiện không có nhóm câu hỏi nào. <a href="<?= base_url('dashboard/question-group/detail') ?>">Bấm vào đây để thêm mới.</a></td>
+                                                    <td colspan="3" class="text-center">Hiện không có nhóm câu hỏi nào. <a href="<?= url('dashboard/question-group/detail') ?>">Bấm vào đây để thêm mới.</a></td>
                                                 </tr>
                                             <?php endif ?>
                                         </tbody>
@@ -70,9 +73,10 @@
 </div>
 
 
-<?= $this->endSection() ?>
 
-<?= $this->section('js') ?>
+@endsection
+
+@yield('js')
 <script>
     function delete_question_group(id) {
         const is_confirm = confirm(`Bạn muốn câu hỏi này?`);
@@ -88,7 +92,8 @@
             redirect: 'follow'
         };
 
-        fetch('<?= base_url('dashboard/question-group/delete') ?>', requestOptions)
+        fetch('<?=
+            url('dashboard/question-group/delete') ?>', requestOptions)
             .then(response => response.json())
             .then(result => {
                 msgbox_success(result.message)
@@ -98,4 +103,4 @@
     }
 </script>
 
-<?= $this->endSection() ?>
+

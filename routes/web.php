@@ -11,6 +11,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
 // route admin
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\PartExamController;
+use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\QuestionGroupController;
+// use App\Http\Controllers\Admin\UserController;
 
 Route::group([], function () {
     Route::get('',  [HomeController::class, 'index']);
@@ -103,14 +112,14 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'exam'], function () {
-        Route::get('/', 'Admin\ExamController@index');
-        Route::get('detail', 'Admin\ExamController@detail');
-        Route::post('save', 'Admin\ExamController@save');
-        Route::post('update/{id}', 'Admin\ExamController@update');
-        Route::get('edit/{id}', 'Admin\ExamController@edit');
-        Route::get('delete/{id}', 'Admin\ExamController@delete');
-        Route::get('part-exam', 'Admin\PartExamController@index');
-        Route::get('part-exam/detail', 'Admin\PartExamController@detail');
+        Route::get('/', [ExamController::class, 'index']);
+        Route::get('detail',  [ExamController::class, 'detail']);
+        Route::post('save',  [ExamController::class, 'save']);
+        Route::post('update/{id}',  [ExamController::class, 'update']);
+        Route::get('edit/{id}', [ExamController::class, 'edit']);
+        Route::get('delete/{id}',  [ExamController::class, 'delete']);
+        Route::get('part-exam', [PartExamController::class, 'index']);
+        Route::get('part-exam/detail', [PartExamController::class, 'detail']);
     });
 
     Route::group(['prefix' => 'exam-part'], function () {

@@ -1,5 +1,6 @@
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
+@extends('Admin.layout')
+
+@section('content')
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -30,20 +31,22 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <th style="width: 20px;">Loại câu hỏi</th>
-                                                <th>Câu hỏi</th>
-                                                <th style="width: 70px;">Quản lý</th>
+                                            <th style="width: 10%;">Phần</th>
+                                            <th style="width: 40%;">Câu hỏi</th>
+                                            <th style="width: 25%;">Ngày tạo</th>
+                                            <th style="width: 10%;">Quản lý</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php if (isset($questions) && !empty($questions)) :  ?>
                                                 <?php foreach ($questions as $question) : ?>
                                                     <tr>
-                                                        <td><?= QUESTION_TYPE[$question['type']] ?></td>
-                                                        <td><?= $question['question'] ?></td>
-                                                        <td>
+                                                    <td style="width: 10%;"><?= $question['exam_part_id'] ?></td>
+                                                    <td style="width: 40%;"><?= $question['question'] ?></td>
+                                                    <td style="width: 25%;"><?= $question['created_at'] ?></td>
+                                                    <td style="width: 10%;">
                                                             <div class="btn-group btn-group-sm">
-                                                                <a style="margin: 4px;" href="<?= base_url('dashboard/question/detail') . '/' . $question['id'] ?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                                <a style="margin: 4px;" href="<?= url('dashboard/question/detail') . '/' . $question['id'] ?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                                     <span class="icofont icofont-ui-edit"></span>
                                                                 </a>
                                                                 <a style="margin: 4px;" onclick="delete_question(<?= $question['id'] ?>)" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
@@ -72,9 +75,9 @@
 </div>
 
 
-<?= $this->endSection() ?>
+@endsection
 
-<?= $this->section('js') ?>
+@yield('js')
 <script>
     function delete_account(id, name) {
         const is_confirm = confirm(`Bạn muốn xóa tài khoản "${name}" ?`);
@@ -90,7 +93,7 @@
             redirect: 'follow'
         };
 
-        fetch('<?= base_url('dashboard/admin/delete') ?>', requestOptions)
+        fetch('<?= url('dashboard/admin/delete') ?>', requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
@@ -110,4 +113,4 @@
     }
 </script>
 
-<?= $this->endSection() ?>
+

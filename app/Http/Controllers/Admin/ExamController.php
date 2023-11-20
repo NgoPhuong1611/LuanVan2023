@@ -136,18 +136,17 @@ class ExamController extends Controller
         return redirect()->to('dashboard/exam');
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $exam_id = $this->request->getUri()->getSegment(4);
+        ExamQuestionSingle::where('exam_id', $id)->delete();
+        ExamToExamPart::where('exam_id', $id)->delete();
+        ExamQuestionGroup::where('exam_id', $id)->delete();
 
-        $ExamQuestionSingle = new ExamQuestionSingle();
-        $ExamQuestionSingle::where('exam_id', $exam_id)->delete();
-        $ExamToExamPartModel = new ExamToExamPartModel();
-        $ExamToExamPartModel::where('exam_id', $exam_id)->delete();
-        $ExamQuestionGroup = new ExamQuestionGroup();
-        $ExamQuestionGroup::where('exam_id', $exam_id)->delete();
-        $ExamModel = new ExamModel();
-        $ExamModel->delete($exam_id);
+        $exam = Exam::find($id);
+
+        if ($exam) {
+            $exam->delete();
+        }
 
         return redirect()->to('dashboard/exam');
     }
