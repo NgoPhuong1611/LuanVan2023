@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Admin;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Admin;
 class LoginController extends Controller{
@@ -21,7 +22,8 @@ class LoginController extends Controller{
         $validation = $this->validate($inputs, [
             'username' => 'required',
             'password' => 'required|min:3'
-        ], customValidationErrorMessage());
+        ]);
+    // ], customValidationErrorMessage());
 
         // If validation fails, redirect to login page with error message
         if ($validation->fails()) {
@@ -33,13 +35,13 @@ class LoginController extends Controller{
         $adminModel = new AdminModel();
         $user = $adminModel->where('username', $username)->first();
         if (!$user) {
-            return redirect()->route('admin-login')->with('error', WRONG_LOGIN_INFO_MESSAGE);
+            return redirect()->route('admin-login')->with('error', 'WRONG_LOGIN_INFO_MESSAGE');
         }
 
         $pass = $user->password;
-        $authPassword = Hash::check($password, $pass);
+        $authPassword = md5((string)$password) === $user->password;
         if (!$authPassword) {
-            return redirect()->route('admin-login')->with('error', WRONG_LOGIN_INFO_MESSAGE);
+            return redirect()->route('admin-login')->with('error', 'WRONG_LOGIN_INFO_MESSAGE');
         }
 
         $sessionData = [
@@ -51,7 +53,7 @@ class LoginController extends Controller{
 
         $is_update = $adminModel->where('id', $user->id)->update(['last_login_at' => now()]);
         if (!$is_update) {
-            return redirect()->route('admin-login')->with('error', UNEXPECTED_ERROR_MESSAGE);
+            return redirect()->route('admin-login')->with('error', 'UNEXPECTED_ERROR_MESSAGE');
         }
 
         // Create new session and start working
