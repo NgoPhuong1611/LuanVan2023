@@ -11,14 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
 // route admin
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\Home;
-use App\Http\Controllers\Admin\PostsController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ExamController;
-use App\Http\Controllers\Admin\PartExamController;
-use App\Http\Controllers\Admin\QuestionController;
-use App\Http\Controllers\Admin\QuestionGroupController;
+
 Route::group([], function () {
     Route::get('',  [HomeController::class, 'index']);
 
@@ -72,9 +65,9 @@ Route::group([], function () {
 // Route::post('getWebhook', 'Hook::index');
 
 // Route::get('/', [Home::class, 'index']);
-// Route::get('/', 'Home::index');
+// // Route::get('/', 'Home::index');
 // Route::get('admin-login',  [LoginController::class, 'index'])->name('admin-login');
-// Route::post('admin-login', [oginController::class,'authLogin'])->name('admin-authLogin');
+// Route::post('admin-login', [loginController::class,'authLogin'])->name('admin-authLogin');
 // Route::get('logout', [LoginController::class,'logout'])->name('admin-logout');
 // Route::get('/', [Home::class, 'index'])->name('Home');
 // Route::prefix('dashboard')->middleware('Admin')->group(function () {
@@ -110,14 +103,14 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'exam'], function () {
-        Route::get('/', [ExamController::class, 'index']);
-        Route::get('detail', [ExamController::class, 'detail']);
-        Route::post('save', [ExamController::class, 'save']);
-        Route::post('update/{id}', [ExamController::class, 'update']);
-        Route::get('edit/{id}', [ExamController::class, 'edit']);
-        Route::get('delete/{id}', [ExamController::class, 'delete']);
-
-
+        Route::get('/', 'Admin\ExamController@index');
+        Route::get('detail', 'Admin\ExamController@detail');
+        Route::post('save', 'Admin\ExamController@save');
+        Route::post('update/{id}', 'Admin\ExamController@update');
+        Route::get('edit/{id}', 'Admin\ExamController@edit');
+        Route::get('delete/{id}', 'Admin\ExamController@delete');
+        Route::get('part-exam', 'Admin\PartExamController@index');
+        Route::get('part-exam/detail', 'Admin\PartExamController@detail');
     });
 
     Route::group(['prefix' => 'exam-part'], function () {

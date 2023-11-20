@@ -52,7 +52,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $inputs = [
+        $user = [
             'username' => $username,
             'password' => $password
         ];
@@ -60,21 +60,21 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:3'
-        ], customValidationErrorMessage());
+        ]);
 
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return redirect()->route('User/Login')->with('error', 'Wrong login info');
-        }
+            return redirect()->to('User/Login')->with('error', 'Wrong login info');
+        }   
 
         $authPassword = md5((string)$password) === $user->password;
 
         if (!$authPassword) {
-            return redirect()->route('User/Login')->with('error', 'Wrong login info');
+            return redirect()->to('User/Login')->with('error', 'Wrong login info');
         }
 
-        $user->last_login_at = now();
+        $user->updated_at = now();
         $user->save();
 
         $sessionData = [
@@ -86,7 +86,7 @@ class UserController extends Controller
             'isUserLogin' => true,
         ];
 
-        $user->update(['last_login_at' => now()]);
+        $user->update(['updated_at' => now()]);
 
         session($sessionData);
 
