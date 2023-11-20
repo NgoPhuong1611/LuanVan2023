@@ -27,7 +27,7 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $inputs = [
+        $user = [
             'username' => $username,
             'password' => $password
         ];
@@ -36,7 +36,7 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:3'
-        ], customValidationErrorMessage());
+        ]);
 
         // Get user info
         $user = User::where('username', $username)->first();

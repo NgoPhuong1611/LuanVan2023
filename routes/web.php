@@ -70,9 +70,9 @@ Route::group([], function () {
 // Route::post('getWebhook', 'Hook::index');
 
 // Route::get('/', [Home::class, 'index']);
-// Route::get('/', 'Home::index');
+// // Route::get('/', 'Home::index');
 // Route::get('admin-login',  [LoginController::class, 'index'])->name('admin-login');
-// Route::post('admin-login', [oginController::class,'authLogin'])->name('admin-authLogin');
+// Route::post('admin-login', [loginController::class,'authLogin'])->name('admin-authLogin');
 // Route::get('logout', [LoginController::class,'logout'])->name('admin-logout');
 // Route::get('/', [Home::class, 'index'])->name('Home');
 // Route::prefix('dashboard')->middleware('Admin')->group(function () {
