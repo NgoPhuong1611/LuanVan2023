@@ -43,7 +43,7 @@ class QuestionController extends Controller
         $questionAnswer = $questionAnswerModel->where('question_id', $questionID)->get();
 
         $questionImageModel = new QuestionImage();
-        $questionAudioModel = new QuestionAudion();
+        $questionAudioModel = new QuestionAudio();
 
         $data['image'] = $questionImageModel->where('question_id', $question->id)->first();
         $data['audio'] = $questionAudioModel->find($question->audio_id);

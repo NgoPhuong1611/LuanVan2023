@@ -1,5 +1,4 @@
 @extends('Admin.layout')
-
 @section('content')
 
 <div class="pcoded-content">
@@ -13,9 +12,7 @@
                         <div class="col-lg-12">
                             <div class="page-header-title">
                                 <div class="d-inline">
-
-                                    <h4>Thêm tài khoản</h4>
-
+                                    <h4>Chỉnh sửa Admin</h4>
                                 </div>
                             </div>
                         </div>
@@ -56,28 +53,26 @@
                                                     </div>
                                                 </div>
                                             </div> -->
-
                                         </div>
-
                                         <div class="card-block">
                                             <div class="edit-info">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <form action="<?= url('dashboard/admin/save') ?>" method="post">
+                                                        <form action="<?= url('dashboard/admin/update/'.$admin['id']) ?>" method="post">
                                                         @csrf
-                                                            <input type="hidden" name="id" value="">
+                                                        <input type="hidden" name="id" value="">
                                                             <div class="general-info">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <label for="username">Tên tài khoản</label>
                                                                         <div class="input-group">
-                                                                            <input type="text" class="form-control" value="" name="username" placeholder="Tên ..." required autofocus>
+                                                                            <input type="text" class="form-control" value="<?= $admin['username'] ?>" name="username" placeholder="Tên ..." required autofocus>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <label for="password">Password</label>
                                                                         <div class="input-group">
-                                                                            <input type="password" name="password" class="form-control" placeholder="" required>
+                                                                            <input type="password" name="password"value="<?= $admin['password'] ?>" class="form-control" placeholder="" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
@@ -89,12 +84,15 @@
 
                                                                                     --Chọn cấp bậc--
                                                                                 </option>
-                                                                                <option value="0">
-                                                                                    Admin
-                                                                                </option>
-                                                                                <option value="1">
-                                                                                    Moderator
-                                                                                </option>
+                                                                                <?php  if($admin['status'] == 1): ?>
+                                                                                    <option value="1" checked selected >Moderator</option>
+                                                                                    <option value="0">Admin</option>
+                                                                                <?php endif ?>
+                                                                                <?php  if($admin['status'] == 0): ?>
+                                                                                    <option value="1"  >Moderator</option>
+                                                                                    <option value="0" checked selected>Admin</option>
+                                                                                <?php endif ?>
+
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -133,4 +131,62 @@
         <!-- Main body end -->
     </div>
 </div>
-@endsection()
+
+@endsection
+
+@yield('js')
+@section('js')
+
+<script>
+    CKEDITOR.replace('editor');
+    CKEDITOR.replace('editor3');
+
+
+
+    // var cleave = new Cleave('.cleave1', {
+    //     numeral: true,
+    //     numeralThousandsGroupStyle: 'thousand'
+    // });
+
+    // var cleave2 = new Cleave('.cleave2', {
+    //     numeral: true,
+    //     numeralThousandsGroupStyle: 'thousand'
+    // });
+
+    function slug(str) {
+
+        str = str.replace(/^\s+|\s+$/g, "");
+        str = str.toLowerCase();
+
+        var from = "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ·/_,:;";
+        var to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyd------";
+        for (var i = 0; i < from.length; i++) {
+            str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+        }
+
+        str = str.replace(/[^a-z0-9 -]/g, '')
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-")
+
+        return str
+    }
+
+    // $('#name').on('input', function() {
+    //     $('#slug').val(slug($(this).val()))
+    // })
+
+    document.getElementById('name').oninput = function() {
+        document.getElementById('slug').value = (slug(document.getElementById('name').value))
+    }
+</script>
+
+@endsection
+@if ($errors->any())
+       <div class="alert alert-danger">
+           <ul>
+               @foreach ($errors->all() as $error)
+                   <li>{{ $error }}</li>
+               @endforeach
+           </ul>
+       </div>
+   @endif

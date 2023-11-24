@@ -167,15 +167,15 @@ $menu = [
     [
         'url' => '',
         'name' => 'Quản lý Xu',
-        'active' => 'dashboard/category',
+        'active' => 'dashboard/',
         'icon' => '<i class="fa fa-bars"></i>',
         'sub_menu' => [
             [
-                'url' => url('dashboard/category'),
+                'url' => url('dashboard/'),
                 'name' => 'Danh sách',
             ],
             [
-                'url' => url('dashboard/category/detail'),
+                'url' => url('dashboard/'),
                 'name' => 'Thêm mới',
             ],
         ]
@@ -183,15 +183,15 @@ $menu = [
     [
         'url' => '',
         'name' => 'Quản lý Nhiệm vụ',
-        'active' => 'dashboard/category',
+        'active' => 'dashboard/',
         'icon' => '<i class="fa fa-bars"></i>',
         'sub_menu' => [
             [
-                'url' => url('dashboard/category'),
+                'url' => url('dashboard/'),
                 'name' => 'Danh sách',
             ],
             [
-                'url' => url('dashboard/category/detail'),
+                'url' => url('dashboard/'),
                 'name' => 'Thêm mới',
             ],
         ]

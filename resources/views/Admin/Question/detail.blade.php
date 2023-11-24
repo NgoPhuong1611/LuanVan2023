@@ -161,9 +161,11 @@
                                                                                     <div class="jFiler-item-inner">
                                                                                         <div class="jFiler-item-icon pull-left"><i class="icon-jfi-file-o jfi-file-type-image jfi-file-ext-png"></i></div>
                                                                                         <div class="jFiler-item-info pull-left">
-                                                                                            <div class="jFiler-item-title" title="<?= $image['image_name'] ?>"><a href="<?= base_url('uploads/product/' . $image['image_name']) ?>" target="_blank" rel="noopener noreferrer"><?= $image['image_name'] ?></a></div>
-                                                                                            <div class="jFiler-item-others"><span>type: <?= @getimagesize(IMAGE_PATH . $image['image_name'])['mime'] ?? 'unknow' ?></span><span class="jFiler-item-status"></span></div>
-                                                                                        </div>
+                                                                                            <div class="jFiler-item-title" title="<?= $image['image_name'] ?>"><a href="{{ asset('uploads/product/' . $image['image_name']) }}" target="_blank" rel="noopener noreferrer"><?= $image['image_name'] ?></a></div>
+                                                                                            <div class="jFiler-item-others">
+    <span>type: {{ @getimagesize(asset('uploads/product/' . $image['image_name']))['mime'] ?? 'unknown' }}</span>
+    <span class="jFiler-item-status"></span>
+</div>                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </li>

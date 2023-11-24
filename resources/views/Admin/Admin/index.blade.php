@@ -1,5 +1,6 @@
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
+@extends('Admin.layout')
+
+@section('content')
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -33,41 +34,37 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Tên</th>
-                                                <th>Email</th>
-                                                <th>Quyền truy cập</th>
-                                                <th style="width: 30px;">Trạng thái</th>
+                                                <th>Username</th>
+                                                <th>Password</th>
+                                                <th>Level</th>
+                                                <th style="width: 30px;">Last_login_at</th>
                                                 <th style="width: 70px;">Quản lý</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php if (isset($admin) || !empty($admin)) : ?>
+                                            <?php foreach ($admin as $item) : ?>
                                             <tr>
-                                                <td>Admin</td>
-                                                <td>ad@gmail.com</td>
-                                                <td>Admin</td>
+
+                                                <td><?= $item['username'] ?></td>
+                                                <td><?= $item['password'] ?></td>
+                                                <td><?= $item['level'] ?></td>
+                                                <td><?= $item['last_login_at'] ?></td>
+
                                                 <td>
-                                                    <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
-                                                        <label>
-                                                            <input type="checkbox" id="checkbox2" name="status" value="">
-                                                            <span class="cr">
-                                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                            </span>   
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group btn-group-sm">
-                                                        <a style="margin: 4px;" href="<?php base_url('dashboard/admin/detail') ?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                    <div style="width: 90px;" class="btn-group btn-group-sm">
+                                                        <a href ="<?= url('dashboard/admin/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                             <span class="icofont icofont-ui-edit"></span>
                                                         </a>
-                                                        <a style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                        <a href ="<?= url('dashboard/admin/delete/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
                                                             <span class="icofont icofont-ui-delete"></span>
                                                         </a>
                                                     </div>
                                                 </td>
                                             </tr>
-                                       </tbody>
-
+                                            <?php endforeach ?>
+                                            <?php endif ?>
+                                        </tbody>
                                     </table>
 
                                 </div>
@@ -81,10 +78,9 @@
     </div>
 </div>
 
+@endsection()
 
-<?= $this->endSection() ?>
-
-<?= $this->section('js') ?>
+@yield('js')
 <script>
     function delete_account(id, name) {
         const is_confirm = confirm(`Bạn muốn xóa tài khoản "${name}" ?`);
@@ -100,7 +96,7 @@
             redirect: 'follow'
         };
 
-        fetch('<?= base_url('dashboard/admin/delete') ?>', requestOptions)
+        fetch('<?= url('dashboard/admin/delete') ?>', requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
@@ -120,4 +116,3 @@
     }
 </script>
 
-<?= $this->endSection() ?>

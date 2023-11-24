@@ -73,54 +73,45 @@ class PostsController extends Controller
         $post->delete();
         return redirect()->to('dashboard/posts');
     }
-    public function edit()
+    public function edit(Request $request, $id)
     {
-        $id = $this->request->getUri()->getSegment(4);
-        // $a = current_url(true);
-        // $uri = new \CodeIgniter\HTTP\URI($a);
-        // $id = $uri->getSegment(4);
+        $category = Category::paginate(10);
+        $posts = Post::find($id);
 
-        $categoryModel = new CategoryModel();
-        $category = $categoryModel->paginate(10);
-        $datas['category'] = $category;
-
-
-        $postsModel = new PostsModel();
-        $posts = $postsModel->find($id);
-        $datas['posts'] = $posts;
-        return view('Admin.Post.edit',$datas);
-
-    }
-    public function update()
-    {
-        $id = $this->request->getUri()->getSegment(4);
-        // $a = current_url(true);
-        // $uri = new \CodeIgniter\HTTP\URI($a);
-        // $id = $uri->getSegment(4);
-
-        $postsModel = new PostsModel();
-        $postsModel->find($id);
-
-        $category_id=$this->request->getPost('category');
-        $author = session()->get('id');
-        $title = $this->request->getPost('title');
-        $slug = $this->request->getPost('slug');
-        $description = $this->request->getPost('description');
-        $content = $this->request->getPost('content');
-        $status=$this->request->getPost('status');
-        date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $updated_at = date('Y-m-d H:i:s');
-        $datas = [
-            'category_id'=>$category_id,
-            'author' => $author,
-            'title' => $title,
-            'slug' => $slug,
-            'description' => $description,
-            'content' => $content,
-            'status'=>$status,
-            'updated_at' => $updated_at
+        $data = [
+            'category' => $category,
+            'posts' => $posts,
         ];
-        $postsModel->update($id, $datas);
-        return redirect()->to('dashboard/posts');
+
+        return View('Admin.Posts.edit', $data);
     }
+
+public function update(Request $request, $id)
+{
+    $post = Post::find($id);
+
+    $category_id = $request->input('category');
+    //$author = session()->get('id');
+    $author=1;
+    $title = $request->input('title');
+    $slug = $request->input('slug');
+    $description = $request->input('description');
+    $content = $request->input('content');
+    $status = $request->input('status');
+
+
+    $data = [
+        'category_id' => $category_id,
+        'author' => $author,
+        'title' => $title,
+        'slug' => $slug,
+        'description' => $description,
+        'content' => $content,
+        'status' => $status,
+    ];
+
+    $post->update($data);
+
+    return redirect()->to('dashboard/posts');
+}
 }

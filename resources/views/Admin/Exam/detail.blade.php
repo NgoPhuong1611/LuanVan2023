@@ -1,6 +1,5 @@
 @extends('Admin/layout')
 @section('content')
-
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <!-- Main-body start -->
@@ -104,7 +103,66 @@
                                                                     </div>
 
                                                                 </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                    <label for="part">Chọn Part</label>
+                                                                    <div class="input-group">
+                                                                    <select id="part" class="form-control" onchange="showTable()">
+                                                                        <option value="1">Part 1</option>
+                                                                        <option value="2">Part 2</option>
+                                                                        <option value="3">Part 3</option>
+                                                                        <option value="4">Part 4</option>
+                                                                        <option value="5">Part 5</option>
+                                                                        <option value="6">Part 6</option>
+                                                                        <option value="7">Part 7</option>
+                                                                        <!-- Các option khác -->
+                                                                    </select>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!------  danh sach cau hoi----->
+                                                                <div class="row">
+                                                                                <table id="simpletable" class="table table-striped table-bordered nowrap">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                        <th style="width: 10%;">Phần</th>
+                                                                                        <th style="width: 40%;">Câu hỏi</th>
+                                                                                        <th style="width: 25%;">Ngày tạo</th>
+                                                                                        <th style="width: 10%;">Quản lý</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <?php if (isset($questions) && !empty($questions)) :  ?>
+                                                                                            <?php foreach ($questions as $question) : ?>
 
+                                                                                                <tr>
+                                                                                                <td style="width: 10%;"><?= $question['exam_part_id'] ?></td>
+                                                                                                <td style="width: 40%;"><?= $question['question'] ?></td>
+                                                                                                <td style="width: 25%;"><?= $question['created_at'] ?></td>
+                                                                                                <td style="width: 10%;">
+
+                                                                                                    <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
+                                                                                                        <label>
+                                                                                                            <input type="checkbox" id="checkbox2" name="status" value="" >
+                                                                                                            <span class="cr">
+                                                                                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                                                                                            </span>
+                                                                                                        </label>
+                                                                                                    </div>
+
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            <?php endforeach ?>
+                                                                                        <?php else : ?>
+                                                                                            <tr>
+                                                                                                <td colspan="3">Không có câu hỏi nào</td>
+                                                                                            </tr>
+                                                                                        <?php endif ?>
+                                                                                    </tbody>
+                                                                                </table>
+
+                                                                </div>
+                                                                <!------   end danh sach cau hoi ----->
                                                                 <div class="row">
                                                                     <p></p>
                                                                     <p></p>
@@ -144,14 +202,11 @@
     <!-- Main body end -->
 </div>
 </div>
-@endsection();
-@yield('js');
+@endsection()
+@yield('js')
 <script>
     CKEDITOR.replace('editor');
     CKEDITOR.replace('editor3');
-
-
-
     // var cleave = new Cleave('.cleave1', {
     //     numeral: true,
     //     numeralThousandsGroupStyle: 'thousand'
@@ -189,3 +244,50 @@
     }
 </script>
 
+<script>
+// Tạo các mảng chứa danh sách câu hỏi cho từng phần
+var partQuestions = {
+    1: <?= json_encode($questions1) ?>,
+    2: <?= json_encode($questions2) ?>,
+    3: <?= json_encode($questions3) ?>,
+    4: <?= json_encode($questions4) ?>,
+    5: <?= json_encode($questions5) ?>,
+    6: <?= json_encode($questions6) ?>,
+    7: <?= json_encode($questions7) ?>,
+};
+
+function showTable() {
+    var selectedPart = document.getElementById("part").value;
+    var questions = partQuestions[selectedPart]; // Lấy danh sách câu hỏi tương ứng với phần đã chọn
+
+    var tableBody = document.getElementById("simpletable").getElementsByTagName("tbody")[0];
+    tableBody.innerHTML = ''; // Xóa dữ liệu cũ trong bảng
+
+    if (questions && questions.length > 0) {
+        questions.forEach(function(question) {
+            var row = tableBody.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+
+            cell1.innerHTML = question.exam_part_id;
+            cell2.innerHTML = question.question;
+            cell3.innerHTML = question.created_at;
+            cell4.innerHTML = '<div class="checkbox-fade fade-in-primary d-flex justify-content-center">' +
+    '<label>' +
+    '<input type="checkbox" id="checkbox2" name="status" value="" >' +
+    '<span class="cr">' +
+    '<i class="cr-icon icofont icofont-ui-check txt-primary"></i>' +
+    '</span>' +
+    '</label>' +
+    '</div>';
+        });
+    } else {
+        var row = tableBody.insertRow(0);
+        var cell = row.insertCell(0);
+        cell.colSpan = 4;
+        cell.innerHTML = "Không có câu hỏi nào";
+    }
+}
+</script>

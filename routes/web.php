@@ -12,6 +12,7 @@ use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
 // route admin
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExamController;
@@ -85,13 +86,23 @@ Route::group([], function () {
     Route::get('/',[App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('/', 'Admin\AdminController@index');
-        Route::get('detail', 'Admin\AdminController@detail');
+        Route::get('/',  [AdminController::class, 'index']);
+        Route::get('detail',  [AdminController::class, 'detail']);
+        Route::post('save', [AdminController::class, 'save']);
+
+        Route::get('edit/{id}', [AdminController::class, 'edit']);
+        Route::post('update/{id}', [AdminController::class, 'update']);
+        Route::get('delete/{id}', [AdminController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/', 'Admin\UserController@index');
-        Route::get('detail', 'Admin\UserController@detail');
+        Route::get('/',  [UserAdminController::class, 'index']);
+        Route::get('detail',  [UserAdminController::class, 'detail']);
+        Route::post('save', [UserAdminController::class, 'save']);
+
+        Route::get('edit/{id}', [UserAdminController::class, 'edit']);
+        Route::post('update/{id}', [UserAdminController::class, 'update']);
+        Route::get('delete/{id}', [UserAdminController::class, 'delete']);
     });
 
 
@@ -120,6 +131,9 @@ Route::group([], function () {
         Route::get('delete/{id}',  [ExamController::class, 'delete']);
         Route::get('part-exam', [PartExamController::class, 'index']);
         Route::get('part-exam/detail', [PartExamController::class, 'detail']);
+
+
+        Route::get('/questions/{part}',  [PartExamController::class, 'getQuestionsByPart']);
     });
 
     Route::group(['prefix' => 'exam-part'], function () {
