@@ -11,12 +11,17 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
 // route admin
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\Home;
-use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\PartExamController;
+use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\QuestionGroupController;
+// use App\Http\Controllers\Admin\UserController;
+
 Route::group([], function () {
     Route::get('',  [HomeController::class, 'index']);
 
@@ -81,57 +86,63 @@ Route::group([], function () {
     Route::get('/',[App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('/', 'Admin\AdminController@index');
-        Route::get('detail', 'Admin\AdminController@detail');
+        Route::get('/',  [AdminController::class, 'index']);
+        Route::get('detail',  [AdminController::class, 'detail']);
+        Route::post('save', [AdminController::class, 'save']);
+
+        Route::get('edit/{id}', [AdminController::class, 'edit']);
+        Route::post('update/{id}', [AdminController::class, 'update']);
+        Route::get('delete/{id}', [AdminController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/', 'Admin\UserController@index');
-        Route::get('detail', 'Admin\UserController@detail');
+        Route::get('/',  [UserAdminController::class, 'index']);
+        Route::get('detail',  [UserAdminController::class, 'detail']);
+        Route::post('save', [UserAdminController::class, 'save']);
+
+        Route::get('edit/{id}', [UserAdminController::class, 'edit']);
+        Route::post('update/{id}', [UserAdminController::class, 'update']);
+        Route::get('delete/{id}', [UserAdminController::class, 'delete']);
     });
 
 
 
     Route::group(['prefix' => 'question'], function () {
-        Route::get('/', 'Admin\QuestionController@index');
-        Route::get('detail', 'Admin\QuestionController@detail');
-        Route::get('detail/{id}', 'Admin\QuestionController@detail');
-        Route::get('upload-excel', 'Admin\QuestionController@uploadExcel');
-
-        Route::post('upload-excels', 'Admin\QuestionController@uploadExcelSave');
-
-        Route::post('detail/{id}', 'Admin\QuestionController@detail');
-        Route::post('save', 'Admin\QuestionController@save');
+        Route::get('/',  [QuestionController::class, 'index']);
+        Route::get('detail',  [QuestionController::class, 'detail']);
+        Route::get('detail/{id}', [QuestionController::class, 'detail']);
+        Route::post('save', [QuestionController::class, 'save']);
     });
 
     Route::group(['prefix' => 'question-group'], function () {
-        Route::get('/', 'Admin\QuestionGroupController@index');
-        Route::get('detail', 'Admin\QuestionGroupController@detail');
-        Route::get('detail/{id}', 'Admin\QuestionGroupController@detail');
+        Route::get('/', [QuestionGroupController::class, 'index'])->name('dashboard.question-group.index');
+        Route::get('detail/{id}', [QuestionGroupController::class, 'detail']);
 
-        Route::post('save', 'Admin\QuestionGroupController@save');
-        Route::post('delete', 'Admin\QuestionGroupController@delete');
+        Route::post('save',[QuestionGroupController::class, 'save']);
+        Route::post('delete', [QuestionGroupController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'exam'], function () {
         Route::get('/', [ExamController::class, 'index']);
-        Route::get('detail', [ExamController::class, 'detail']);
-        Route::post('save', [ExamController::class, 'save']);
-        Route::post('update/{id}', [ExamController::class, 'update']);
+        Route::get('detail',  [ExamController::class, 'detail']);
+        Route::post('save',  [ExamController::class, 'save']);
+        Route::post('update/{id}',  [ExamController::class, 'update']);
         Route::get('edit/{id}', [ExamController::class, 'edit']);
-        Route::get('delete/{id}', [ExamController::class, 'delete']);
-        
-        Route::get('part-exam',[PartExamController::class, 'index']);
+        Route::get('delete/{id}',  [ExamController::class, 'delete']);
+        Route::get('part-exam', [PartExamController::class, 'index']);
         Route::get('part-exam/detail', [PartExamController::class, 'detail']);
+
+
+        Route::get('/questions/{part}',  [PartExamController::class, 'getQuestionsByPart']);
     });
 
     Route::group(['prefix' => 'exam-part'], function () {
-        Route::get('/', 'Admin\PartExamController@index');
-        Route::get('detail', 'Admin\PartExamController@detail');
-        Route::post('save', 'Admin\PartExamController@save');
-        Route::get('edit/{id}', 'Admin\PartExamController@edit');
-        Route::post('update/{id}', 'Admin\PartExamController@update');
-        Route::get('delete/{id}', 'Admin\PartExamController@delete');
+        Route::get('/',[PartExamController::class, 'index']);
+        Route::get('detail', [PartExamController::class, 'detail']);
+        Route::post('save', [PartExamController::class, 'save']);
+        Route::get('edit/{id}', [PartExamController::class, 'edit']);
+        Route::post('update/{id}', [PartExamController::class, 'update']);
+        Route::get('delete/{id}', [PartExamController::class, 'delete']);
     });
     Route::group(['prefix' => 'category'], function () {
         Route::get('/', [CategoryController::class, 'index']);

@@ -1,14 +1,14 @@
-<?= $this->section('css') ?>
+@extends('Admin.layout')
 
-<link rel="stylesheet" href="<?= base_url() ?>\templates\libraries\bower_components\select2\css\select2.min.css">
+@section('css')
+    <link rel="stylesheet" href="{{ asset('templates/libraries/bower_components/select2/css/select2.min.css') }}">
+@endsection
 
-<script>
-	var index = 0
-</script>
-
-<?= $this->endSection() ?>
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
+@section('content')
+    <script>
+        var index = 0;
+    </script>
+    <!-- Your content goes here -->
 
 <div class="pcoded-content">
 	<div class="pcoded-inner-content">
@@ -43,11 +43,11 @@
 									<div class="card">
 										<div class="card-header">
 
-											<?php if (session()->getFlashdata('error')) : ?>
+											<?php if (session()->get('error')) : ?>
 												<div class="alert alert-danger">
 													<div class="row">
 														<div class="col-10">
-															<p><?= session()->getFlashdata('error') ?></p>
+                                                            <p>{{ session()->get('error') }}</p>
 														</div>
 														<div class="col-1">
 															<span aria-hidden="true" id="remove-alert">&times;</span>
@@ -71,7 +71,7 @@
 											<div class="edit-info">
 												<div class="row">
 													<div class="col-lg-12">
-														<form action="<?= base_url('dashboard/question-group/save') ?>" method="post">
+														<form action="<?= url('dashboard/question-group/save') ?>" method="post">
 															<input type="hidden" name="question_group_id" value="<?= isset($questionGroup) && !empty($questionGroup) ? $questionGroup['id'] : '' ?>">
 															<div class="general-info">
 																<div class="row">
@@ -226,7 +226,7 @@
 																</div>
 																<div id="newque">
 																	<?php $i = 1 ?>
-																	<?php foreach (array_slice($questions, 1) as $question) : ?>
+                                                                    <?php foreach ($questions->slice(1)->toArray() as $question) : ?>
 																		<div id="row">
 																			<div class="border border-secondary rounded mb-3 repeater">
 																				<div class="m-3">
@@ -290,7 +290,7 @@
 													<div class="row">
 														<div class="col-md-12 text-right">
 															<button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
-															<a href="<?= base_url('dashboard/question-group') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
+															<a href="<?= url('dashboard/question-group') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
 														</div>
 													</div>
 												</div>
@@ -317,11 +317,10 @@
 <!-- Main body end -->
 </div>
 </div>
-<?= $this->endSection() ?>
+@endsection
+@section('js')
 
-<?= $this->section('js') ?>
-
-<script type="text/javascript" src="<?= base_url() ?>\templates\libraries\bower_components\select2\js\select2.full.min.js"></script>
+<script type="text/javascript" src="<?= asset('templates\libraries\bower_components\select2\js\select2.full.min.js')?>"></script>
 
 <script>
 	CKEDITOR.replace('editor1');
@@ -385,7 +384,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="col-md-12">
 										<label for="username">Đáp án đúng</label>
 										<div class="input-group">
@@ -454,4 +453,4 @@
 	$('.field').bind('keypress', testInput);
 </script>
 
-<?= $this->endSection() ?>
+@endsection

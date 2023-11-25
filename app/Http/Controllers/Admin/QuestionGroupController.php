@@ -1,201 +1,205 @@
 <?php
 
-namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
-use App\Models\ExamPartModel;
-use App\Models\QuestionAnswerModel;
-use App\Models\QuestionAudioModel;
-use App\Models\QuestionGroupModel;
-use App\Models\QuestionModel;
-use CodeIgniter\API\ResponseTrait;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
+use App\Models\ExamPart;
+use App\Models\QuestionAnswer;
+use App\Models\QuestionAudio;
+use App\Models\QuestionGroup;
+use App\Models\Question;
 use Exception;
 
-class QuestionGroup extends BaseController
+class QuestionGroupController extends Controller
 {
-    use ResponseTrait;
     public function index()
-    {
-        $questionGroupModel = new QuestionGroupModel();
-        $questionGroups = $questionGroupModel->findAll();
+{
+    $questionGroupModel = new QuestionGroup();
+    $questionGroups = $questionGroupModel->get();
 
-        $datas['questionGroups'] = $questionGroups;
-        return view('Admin/Question/Group/index', $datas);
+    $datas['questionGroups'] = $questionGroups;
+    return view('Admin.Question.Group.index', $datas);
+}
+
+public function detail(Request $request)
+{
+    $questionGroupID = $request->segment(4);
+
+    $questionGroup = QuestionGroup::find($questionGroupID);
+
+    if (!$questionGroup) {
+        return redirect()->route('dashboard.question-group.index');
     }
 
-    public function detail()
-    {
-        $questionGroupModel = new QuestionGroupModel();
-        $examPartModel      = new ExamPartModel();
+    $data['examPart'] = ExamPart::all();
 
-        $questionGroupID = $this->request->getUri()->getSegment(4);
+    $questions = Question::where('question_group_id', $questionGroupID)->get();
 
-        $questionGroup = $questionGroupModel->where('id', $questionGroupID)->first();
-        if ($questionGroupID && !$questionGroup) {
-            return redirect()->to('/dashboard/question-group/');
-        }
-        $data['examPart'] = $examPartModel->findAll();
+    $data['questions'] = $questions->map(function ($question) {
+        $question['options'] = QuestionAnswer::where('question_id', $question['id'])->get();
+        return $question;
+    });
 
-        if (!$questionGroup) {
-            return view('Admin/Question/Group/detail', $data);
-        }
-
-        $questionModel       = new QuestionModel();
-        $questionAnswerModel = new QuestionAnswerModel();
-        $questionAudioModel  = new QuestionAudioModel();
-
-        $questions = $questionModel->where('question_group_id', $questionGroupID)->findAll();
-
-        foreach ($questions as $key => $question) {
-            $questions[$key]['options'] = $questionAnswerModel->where('question_id', $question['id'])->findAll();;
-        }
-
-        $data['questions'] = $questions;
-
-        if (isset($questions[0]['audio_id'])) {
-            $audio = $questionAudioModel->where('id', $questions[0]['audio_id'])->first();
-            $data['audio'] = $audio;
-        }
-
-        $data['questionGroup'] = $questionGroup;
-        return view('Admin/Question/Group/detail', $data);
+    if (isset($questions[0]['audio_id'])) {
+        $data['audio'] = QuestionAudio::find($questions[0]['audio_id']);
     }
 
-    public function save()
-    {
-        $questionGroupIDPost = $this->request->getPost('question_group_id');
-        $title               = $this->request->getPost('title');
-        $partID              = $this->request->getPost('part_id');
-        $paragraph           = $this->request->getPost('paragraph');
-        $questionGroupAudio  = $this->request->getFile('question_group_audio');
-        $questions           = $this->request->getPost('questions');
-        $oldQuestions        = $this->request->getPost('old_questions');
-        $rightOption         = $this->request->getPost('right_option');
-        $oldOptions          = $this->request->getPost('old_options');
-        $options             = $this->request->getPost('options');
-        $type                = $this->request->getPost('type');
+    $data['questionGroup'] = $questionGroup;
+
+    return view('Admin.Question.Group.detail', $data);
+}
+
+public function save()
+{
+    $questionGroupIDPost = $this->request->input('question_group_id');
+    $title = $this->request->input('title');
+    $partID = $this->request->input('part_id');
+    $paragraph = $this->request->input('paragraph');
+    $questionGroupAudio = $this->request->file('question_group_audio');
+    $questions = $this->request->input('questions');
+    $oldQuestions = $this->request->input('old_questions');
+    $rightOption = $this->request->input('right_option');
+    $oldOptions = $this->request->input('old_options');
+    $options = $this->request->input('options');
+    $type = $this->request->input('type');
+
+    $data = [
+        'exam_part_id' =>  $partID,
+        'title'        =>  $title,
+        'paragraph'    =>  $paragraph,
+    ];
+
+    $questionGroupModel = new QuestionGroup();
+
+    if ($questionGroupModel->where('title', $title)->first() && !$questionGroupIDPost) {
+        return redirect()->route('dashboard.question-group.detail')->withInput()->with('error', 'Title nhóm câu hỏi đã tồn tại!');
+    }
+
+    if ($questionGroupIDPost) {
+        $data['id'] = $questionGroupIDPost;
+    }
+
+    $isInsert = $questionGroupModel->updateOrCreate(['id' => $data['id']], $data);
+
+    if (!$isInsert) {
+        throw new Exception(UNEXPECTED_ERROR_MESSAGE);
+    }
+
+    $questionGroupID = $questionGroupModel->id;
+
+    $audioID = $this->saveAudio($questionGroupAudio);
+
+    $questionModel = new Question();
+    $questionAnswerModel = new QuestionAnswer();
+
+    $optionType = 0;
+
+    if ($questionGroupAudio) {
+        $optionType = $audioID == 0 ? 1 : 2;
+    }
+
+    foreach ($questions as $key => $question) {
+        if ($questionModel->where('question', $question)->first()) {
+            return redirect()->route('dashboard.question-group.detail')->withInput()->with('error', 'Câu hỏi đã tồn tại!');
+        }
+
         $data = [
-            'exam_part_id' =>  $partID,
-            'title'        =>  $title,
-            'paragraph'    =>  $paragraph,
+            'exam_part_id'      => $partID,
+            'question_group_id' => $questionGroupID,
+            'audio_id'          => $audioID != 0 ? $audioID : null,
+            'right_option'      => $rightOption[$key],
+            'question'          => $question,
+            'explain'           => 'No explain',
+            'type'              => $type
         ];
 
-        //Khởi tạo model
-        $questionGroupModel = new QuestionGroupModel();
-
-        if ($questionGroupModel->where('title', $title)->first() && !$questionGroupIDPost)
-        {
-            return redirect()->withInput()->with('error', 'Title nhóm câu hỏi đã tồn tại!')->to('dashboard/question-group/detail');
+        if (isset($oldQuestions[$key])) {
+            $data['id'] = $oldQuestions[$key];
         }
 
-        //Lưu dữ liệu
-        if ($questionGroupIDPost) {
-            $data['id'] = $questionGroupIDPost;
-        }
-        $isInsert = $questionGroupModel->save($data);
+        $isInsert = $questionModel->updateOrCreate(['id' => $data['id']], $data);
+
         if (!$isInsert) {
             throw new Exception(UNEXPECTED_ERROR_MESSAGE);
         }
 
-        $questionGroupID = $questionGroupModel->getInsertID();
-        if ($questionGroupIDPost) {
-            $questionGroupID = $questionGroupIDPost;
+        $questionID = $questionModel->id;
+
+        if (isset($oldQuestions[$key])) {
+            $questionID = $oldQuestions[$key];
         }
 
-        //Còn bug
-        $audioID = $this->saveAudio($questionGroupAudio);
-
-        $questionModel = new QuestionModel();
-        $questionAnswerModel = new QuestionAnswerModel();
-        //0 text, 1 image, 2 audio
-        $optionType = 0;
-        if ($questionGroupAudio) {
-            $optionType = $audioID == 0 ? 1 : 2;
-        }
-        foreach ($questions as $key => $question) {
-            if ($questionModel->where('question', $question)->first())
-            {
-                return redirect()->withInput()->with('error', 'Câu hỏi đã tồn tại!')->to('dashboard/question-group/detail');
-            }
+        foreach ($options[$key] as $subKey => $option) {
             $data = [
-                'exam_part_id'      => $partID,
-                'question_group_id' => $questionGroupID,
-                'audio_id'          => $audioID != 0 ? $audioID : null,
-                'right_option'      => $rightOption[$key],
-                'question'          => $question,
-                'explain'           => 'No explain',
-                'type'              => $type
+                'question_id' => $questionID,
+                'type' => $optionType,
+                'text' => $option
             ];
-            if (isset($oldQuestions[$key])) {
-                $data['id'] = $oldQuestions[$key];
+
+            if (isset($oldOptions[$key][$subKey])) {
+                $data['id'] = $oldOptions[$key][$subKey];
             }
 
-            $isInsert = $questionModel->save($data);
+            $isInsert = $questionAnswerModel->updateOrCreate(['id' => $data['id']], $data);
+
             if (!$isInsert) {
                 throw new Exception(UNEXPECTED_ERROR_MESSAGE);
             }
-
-            $questionID = $questionModel->getInsertID();
-            if (isset($oldQuestions[$key])) {
-                $questionID = $oldQuestions[$key];
-            }
-
-            foreach ($options[$key] as $subKey => $option) {
-                $data = [
-                    'question_id' => $questionID,
-                    'type' => $optionType,
-                    'text' => $option
-                ];
-                if (isset($oldOptions[$key][$subKey])) {
-                    $data['id'] = $oldOptions[$key][$subKey];
-                }
-                $isInsert = $questionAnswerModel->save($data);
-                if (!$isInsert) {
-                    throw new Exception(UNEXPECTED_ERROR_MESSAGE);
-                }
-            }
         }
-
-        //Sau khi thêm thì chuyển hướng về trang index.
-        return redirect()->to('dashboard/question-group');
     }
 
-    private function saveAudio($file)
-    {
-        if (!$file) {
-            return 0;
-        }
-        $file->move(AUDIO_PATH);
-        $data = [
-            'audio_name' => $file->getName()
-        ];
-        $questionAudioModel = new QuestionAudioModel();
-        $isInsert = $questionAudioModel->insert($data);
-        if (!$isInsert) {
-            throw new Exception(UNEXPECTED_ERROR_MESSAGE);
-        }
-        return $questionAudioModel->getInsertID();
-    }
-
-    public function delete()
-    {
-        $id = $this->request->getPost('id');
-        $questionModel       = new QuestionModel();
-        $questionAnswerModel = new QuestionAnswerModel();
-        $questionAudioModel  = new QuestionAudioModel();
-
-        $questions = $questionModel->where('question_group_id', $id)->findAll();
-        foreach ($questions as $question) {
-            $questionAnswerModel->where('question_id', $question['id'])->delete();
-        }
-        $questionAudioModel->where('id', $questions[0]['audio_id'])->delete();
-        $questionModel->where('question_group_id', $id)->delete();
-        $questionGroupModel = new QuestionGroupModel();
-        $questionGroupModel->delete($id);
-
-        return $this->respond([
-            'success' => true,
-            'message' => 'Thành công'
-        ], 200);
-    }
+    return redirect()->route('dashboard.question-group.index');
 }
+
+private function saveAudio($file)
+{
+    if (!$file) {
+        return 0;
+    }
+
+    $path = $file->storeAs(AUDIO_PATH, $file->getClientOriginalName());
+
+    $data = [
+        'audio_name' => $file->getClientOriginalName()
+    ];
+
+    $questionAudioModel = new QuestionAudio();
+    $isInsert = $questionAudioModel->updateOrCreate(['audio_name' => $data['audio_name']], $data);
+
+    if (!$isInsert) {
+        throw new Exception(UNEXPECTED_ERROR_MESSAGE);
+    }
+
+    return $questionAudioModel->id;
+}
+
+public function delete()
+{
+    $id = $this->request->input('id');
+    $questionModel = new Question();
+    $questionAnswerModel = new QuestionAnswer();
+    $questionAudioModel = new QuestionAudio();
+
+    $questions = $questionModel->where('question_group_id', $id)->get();
+
+    foreach ($questions as $question) {
+        $questionAnswerModel->where('question_id', $question->id)->delete();
+    }
+
+    $questionAudioModel->where('id', $questions[0]->audio_id)->delete();
+    $questionModel->where('question_group_id', $id)->delete();
+
+    $questionGroupModel = new QuestionGroup();
+    $questionGroupModel->destroy($id);
+
+    return $this->respond([
+        'success' => true,
+        'message' => 'Thành công'
+    ], 200);
+}
+}
+

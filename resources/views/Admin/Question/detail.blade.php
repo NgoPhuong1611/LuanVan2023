@@ -1,12 +1,11 @@
-<?= $this->section('css') ?>
+@section('css')
+    <link rel="stylesheet" href="{{ asset('templates/libraries/bower_components/select2/css/select2.min.css') }}">
+@endsection
 
-<link rel="stylesheet" href="<?= base_url() ?>\templates\libraries\bower_components\select2\css\select2.min.css">
+@extends('Admin.layout')
 
-<?= $this->endSection() ?>
-
-<?= $this->extend('Admin/layout') ?>
-<?= $this->section('content') ?>
-
+@section('content')
+    <!-- Nội dung của bạn ở đây -->
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <!-- Main-body start -->
@@ -40,18 +39,18 @@
                                     <div class="card">
                                         <div class="card-header">
 
-                                            <?php if (session()->getFlashdata('error')) : ?>
-                                                <div class="alert alert-danger">
-                                                    <div class="row">
-                                                        <div class="col-10">
-                                                            <p><?= session()->getFlashdata('error') ?></p>
-                                                        </div>
-                                                        <div class="col-1">
-                                                            <span aria-hidden="true" id="remove-alert">&times;</span>
-                                                        </div>
+                                        @if(session()->has('error'))
+                                            <div class="alert alert-danger">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                        <p>{{ session()->get('error') }}</p>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <span aria-hidden="true" id="remove-alert">&times;</span>
                                                     </div>
                                                 </div>
-                                            <?php endif ?>
+                                            </div>
+                                        @endif
 
                                             <!-- <div class="alert alert-danger mb-1">
                                                 <div class="row">
@@ -70,14 +69,14 @@
                                             <div class="edit-info">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <form action="<?= base_url('dashboard/question/save') ?>" method="POST" enctype="multipart/form-data">
+                                                        <form action="<?= url('dashboard/question/save') ?>" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="id" value="<?= isset($question) && !empty($question) ? $question['id'] : '' ?>">
                                                             <div class="general-info">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <label for="question">Câu hỏi</label>
                                                                         <div class="input-group">
-                                                                            <textarea type="text" class="form-control field" name="question" placeholder="Câu hỏi ..." rows="5" autofocus><?= isset($question) && !empty($question) ? $question['question'] : set_value('question') ?></textarea>
+                                                                            <textarea type="text" class="form-control field" name="question" placeholder="Câu hỏi ..." rows="5" autofocus><?= isset($question) && !empty($question) ? $question['question'] : old('question') ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
@@ -137,7 +136,7 @@
                                                                         <div class="col-md-12">
                                                                             <label for="result">Câu trả lời</label>
                                                                             <div class="input-group">
-                                                                                <input style="height: 40px;" class="form-control field" name="options[]" value="<?= set_value('options')[0] ?? null ?>" placeholder="Vd: Some thing big..." required>
+                                                                                <input style="height: 40px;" class="form-control field" name="options[]" value="<?= old('options')[0] ?? null ?>" placeholder="Vd: Some thing big..." required>
                                                                             </div>
                                                                         </div>
                                                                     <?php endif ?>
@@ -162,9 +161,11 @@
                                                                                     <div class="jFiler-item-inner">
                                                                                         <div class="jFiler-item-icon pull-left"><i class="icon-jfi-file-o jfi-file-type-image jfi-file-ext-png"></i></div>
                                                                                         <div class="jFiler-item-info pull-left">
-                                                                                            <div class="jFiler-item-title" title="<?= $image['image_name'] ?>"><a href="<?= base_url('uploads/product/' . $image['image_name']) ?>" target="_blank" rel="noopener noreferrer"><?= $image['image_name'] ?></a></div>
-                                                                                            <div class="jFiler-item-others"><span>type: <?= @getimagesize(IMAGE_PATH . $image['image_name'])['mime'] ?? 'unknow' ?></span><span class="jFiler-item-status"></span></div>
-                                                                                        </div>
+                                                                                            <div class="jFiler-item-title" title="<?= $image['image_name'] ?>"><a href="{{ asset('uploads/product/' . $image['image_name']) }}" target="_blank" rel="noopener noreferrer"><?= $image['image_name'] ?></a></div>
+                                                                                            <div class="jFiler-item-others">
+    <span>type: {{ @getimagesize(asset('uploads/product/' . $image['image_name']))['mime'] ?? 'unknown' }}</span>
+    <span class="jFiler-item-status"></span>
+</div>                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </li>
@@ -182,7 +183,7 @@
                                                                                     <div class="jFiler-item-inner">
                                                                                         <div class="jFiler-item-icon pull-left"><i class="icon-jfi-file-o jfi-file-type-image jfi-file-ext-png"></i></div>
                                                                                         <div class="jFiler-item-info pull-left">
-                                                                                            <div class="jFiler-item-title" title="<?= $audio['audio_name'] ?>"><a href="<?= base_url('uploads/audios/' . $audio['audio_name']) ?>" target="_blank" rel="noopener noreferrer"><?= $audio['audio_name'] ?></a></div>
+                                                                                            <div class="jFiler-item-title" title="<?= $audio['audio_name'] ?>"><a href="<?= url('uploads/audios/' . $audio['audio_name']) ?>" target="_blank" rel="noopener noreferrer"><?= $audio['audio_name'] ?></a></div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -195,7 +196,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-12 text-right">
                                                                     <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
-                                                                    <a href="<?= base_url('dashboard/question') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
+                                                                    <a href="<?= url('dashboard/question') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -223,11 +224,12 @@
     <!-- Main body end -->
 </div>
 </div>
-<?= $this->endSection() ?>
-<?= $this->section('js') ?>
+@endsection
+
+@yield('js')
 
 <!-- Select 2 js -->
-<script type="text/javascript" src="<?= base_url() ?>\templates\libraries\bower_components\select2\js\select2.full.min.js"></script>
+<script type="text/javascript" src="<?= asset('emplates\libraries\bower_components\select2\js\select2.full.min.js') ?>"></script>
 <!-- ajax hidden upload file -->
 <script type="text/javascript">
     $(document).ready(function() {
@@ -297,4 +299,3 @@
 
     $('.field').bind('keypress', testInput);
 </script>
-<?= $this->endSection() ?>

@@ -12,7 +12,7 @@
                         <div class="col-lg-12">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>Thêm bài viết</h4>
+                                    <h4>Chỉnh sửa Admin</h4>
                                 </div>
                             </div>
                         </div>
@@ -58,102 +58,83 @@
                                             <div class="edit-info">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <form action="<?= url('dashboard/posts/save') ?>" method="post">
+                                                        <form action="<?= url('dashboard/admin/update/'.$admin['id']) ?>" method="post">
                                                         @csrf
-                                                            <input type="hidden" name="id" value="">
+                                                        <input type="hidden" name="id" value="">
                                                             <div class="general-info">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        <label for="status">Trạng thái</label>
+                                                                        <label for="username">Tên tài khoản</label>
                                                                         <div class="input-group">
-                                                                            <select name="status" class="form-control" required>
-                                                                                <option value="" disabled selected>
-                                                                                    --Chọn trạng thái--
-                                                                                </option>
-                                                                                <option value="1">Hiển thị</option>
-                                                                                <option value="0">Ẩn</option>
-                                                                            </select>
+                                                                            <input type="text" class="form-control" value="<?= $admin['username'] ?>" name="username" placeholder="Tên ..." required autofocus>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <label for="partnumber">Danh mục bài viết</label>
-                                                                        <div style="height: 1px;" class="input-group">
-                                                                            <select name="category" class="form-control js-example-basic-single">
+                                                                        <label for="password">Password</label>
+                                                                        <div class="input-group">
+                                                                            <input type="password" name="password"value="<?= $admin['password'] ?>" class="form-control" placeholder="" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="level">Cấp bậc</label>
+                                                                        <div class="input-group">
+
+                                                                            <select name="level" class="form-control" required>
                                                                                 <option value="" disabled selected>
-                                                                                    --Chọn danh mục--
+
+                                                                                    --Chọn cấp bậc--
                                                                                 </option>
-                                                                                <?php if (isset($category) || !empty($category)) : ?>
-                                                                                        <?php foreach ($category as $item) : ?>
-                                                                                            <option value="<?= $item['id'] ?>"> <?= $item['name'] ?></option>
-                                                                                        <?php endforeach ?>
+                                                                                <?php  if($admin['status'] == 1): ?>
+                                                                                    <option value="1" checked selected >Moderator</option>
+                                                                                    <option value="0">Admin</option>
                                                                                 <?php endif ?>
+                                                                                <?php  if($admin['status'] == 0): ?>
+                                                                                    <option value="1"  >Moderator</option>
+                                                                                    <option value="0" checked selected>Admin</option>
+                                                                                <?php endif ?>
+
                                                                             </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <label for="title">Tiêu đề</label>
-                                                                        <div class="input-group">
-                                                                            <input type="text" class="form-control" value="" id="title" name="title" placeholder="Tiêu đề ..." required autofocus>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <label for="username">Slug</label>
-                                                                        <div class="input-group">
-                                                                            <input type="text" class="form-control" id="slug" value="" name="slug" placeholder="Slug ..." required>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12 mb-3">
-                                                                        <label for="description">Mô tả</label>
+                                                                    <div class="col-md-12 text-right">
 
-                                                                        <textarea class="form-control" id="editor" name="description" required></textarea>
-                                                                    </div>
-                                                                    <div class="col-md-12 mb-3">
-                                                                        <label for="content">Nội dung bài viêt</label>
-                                                                        <textarea class="form-control" id="editor3" name="content" required></textarea>
+                                                                        <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
+                                                                        <a href="<?= url('dashboard/admin/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
 
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-
-                                                            </div>
-                                                            <!-- end of row -->
-                                                            <div class="row">
-                                                                <div class="col-md-12 text-right">
-                                                                    <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
-                                                                    <a href="<?= url('dashboard/posts/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
-                                                                </div>
-                                                            </div>
+                                                            <!-- end of edit info -->
+                                                        </form>
                                                     </div>
-                                                    <!-- end of edit info -->
-                                                    </form>
+                                                    <!-- end of col-lg-12 -->
                                                 </div>
-                                                <!-- end of col-lg-12 -->
+                                                <!-- end of row -->
                                             </div>
-                                            <!-- end of row -->
                                         </div>
+                                        <!-- end of card-block -->
                                     </div>
-                                    <!-- end of card-block -->
+                                    <!-- personal card end-->
                                 </div>
-                                <!-- personal card end-->
-                            </div>
 
+                            </div>
+                            <!-- tab content end -->
                         </div>
-                        <!-- tab content end -->
                     </div>
                 </div>
+                <!-- Page-body end -->
             </div>
-            <!-- Page-body end -->
         </div>
+        <!-- Main body end -->
     </div>
-    <!-- Main body end -->
 </div>
-</div>
+
 @endsection
+
+@yield('js')
 @section('js')
 
 <script>
@@ -194,8 +175,18 @@
     //     $('#slug').val(slug($(this).val()))
     // })
 
-    document.getElementById('title').oninput = function() {
-        document.getElementById('slug').value = (slug(document.getElementById('title').value))
+    document.getElementById('name').oninput = function() {
+        document.getElementById('slug').value = (slug(document.getElementById('name').value))
     }
 </script>
 
+@endsection
+@if ($errors->any())
+       <div class="alert alert-danger">
+           <ul>
+               @foreach ($errors->all() as $error)
+                   <li>{{ $error }}</li>
+               @endforeach
+           </ul>
+       </div>
+   @endif

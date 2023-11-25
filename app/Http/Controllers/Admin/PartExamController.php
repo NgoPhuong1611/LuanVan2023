@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
-use App\Controllers\BaseController;
-use App\Models\ExamPartModel;
-use Exception;
+use App\Models\ExamPart;
 
-class PartExam extends BaseController
+
+class PartExamController extends Controller
 {
     public function index()
     {
-        $examPartModel = new ExamPartModel;
+        $examPartModel = new ExamPart;
         $examParts = $examPartModel->paginate(10);
 
         $datas['examParts'] = $examParts;
@@ -20,62 +23,59 @@ class PartExam extends BaseController
     {
         return view('Admin/Exam/Part/detail');
     }
-    public function save()
+    public function save(Request $request)
     {
-        $title = $this->request->getPost('title');
-        // $slug = $this->request->getPost('status');
-        $direction = $this->request->getPost('paragraph');
-        $part_number = $this->request->getPost('part_number');
-        $datas = [
+        $title = $request->input('title');
+        $direction = $request->input('paragraph');
+        $part_number = $request->input('part_number');
+
+        $data = [
             'part_number' => $part_number,
-            'title'        =>  $title,
-            // 'slug'       =>  $slug,
-            'direction'    =>  $direction,
+            'title' => $title,
+            'direction' => $direction,
         ];
-        //Khởi tạo model
-        $examPartModel = new ExamPartModel;
-        // //Thêm dữ liệu
-        $isInsert = $examPartModel->insert($datas);
-        if (!$isInsert) {
-            throw new Exception(UNEXPECTED_ERROR_MESSAGE);
+        $examPart = ExamPart::create($data);
+        return redirect()->to('dashboard/exam-part');
+    }
+    public function delete($id)
+    {
+        $examPart = ExamPart::find($id);
+
+        if (!$examPart) {
+            // Handle case where the record is not found
+            // You might want to return a response or redirect with an error message
         }
+
+        $examPart->delete();
         return redirect()->to('dashboard/exam-part');
     }
-    public function delete()
+    public function edit($id)
     {
-        $id = $this->request->getUri()->getSegment(4);
+        $examPart = ExamPart::find($id);
 
-        $examPartModel = new ExamPartModel();
-        $examPartModel->delete($id);
-        return redirect()->to('dashboard/exam-part');
-    }
-    public function edit()
-    {
-        // $a = current_url(true);
-        // $uri = new \CodeIgniter\HTTP\URI($a);
-        $id = $this->request->getUri()->getSegment(4);
+        if (!$examPart) {
+            // Handle case where the record is not found
+            // You might want to return a response or redirect with an error message
+        }
 
-        $examPartModel = new ExamPartModel();
-        $examPart = $examPartModel->where('id',$id)->first();
-        $data['examPart'] = $examPart;
+        $data = ['examPart' => $examPart];
         return view('Admin/Exam/Part/edit', $data);
     }
-    public function update()
+    public function update(Request $request, $id)
     {
-        $id = $this->request->getUri()->getSegment(4);
-        $examPartModel = new ExamPartModel();
-        
-        $title = $this->request->getPost('title');
+        $examPart = ExamPart::find($id);
 
-        $direction = $this->request->getPost('paragraph');
-        $part_number = $this->request->getPost('part_number');
+        $title =  $request->input('title');
+
+        $direction =  $request->input('paragraph');
+        $part_number =  $request->input('part_number');
         $datas = [
             'part_number' => $part_number,
             'title'        =>  $title,
 
             'direction'    =>  $direction,
         ];
-        $examPartModel->update($id, $datas);
+        $examPart->update($datas);
         return redirect()->to('dashboard/exam-part');
     }
 }

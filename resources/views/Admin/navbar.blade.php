@@ -82,10 +82,7 @@ $menu = [
                         'url' => url('dashboard/question/detail'),
                         'name' => 'Thêm mới câu hỏi',
                     ],
-                    [
-                        'url' => url('dashboard/question/upload-excel'),
-                        'name' => 'Thêm câu hỏi Excel',
-                    ],
+
                 ]
             ],
         ]
@@ -114,14 +111,14 @@ $menu = [
             [
                 'url' => '',
                 'name' => 'Phần đề thi',
-                'active' => 'dashboard/part-exam',
+                'active' => 'dashboard/exam-part',
                 'sub_menu' => [
                     [
-                        'url' => url('dashboard/exam/part-exam/'),
+                        'url' => url('dashboard/exam-part/'),
                         'name' => 'Danh sách',
                     ],
                     [
-                        'url' => url('dashboard/exam/part-exam/detail'),
+                        'url' => url('dashboard/exam-part/detail'),
                         'name' => 'Thêm mới',
                     ],
                 ]
@@ -163,6 +160,39 @@ $menu = [
                         'name' => 'Thêm mới',
                     ],
                 ]
+            ],
+        ]
+    ],
+
+    [
+        'url' => '',
+        'name' => 'Quản lý Xu',
+        'active' => 'dashboard/',
+        'icon' => '<i class="fa fa-bars"></i>',
+        'sub_menu' => [
+            [
+                'url' => url('dashboard/'),
+                'name' => 'Danh sách',
+            ],
+            [
+                'url' => url('dashboard/'),
+                'name' => 'Thêm mới',
+            ],
+        ]
+    ],
+    [
+        'url' => '',
+        'name' => 'Quản lý Nhiệm vụ',
+        'active' => 'dashboard/',
+        'icon' => '<i class="fa fa-bars"></i>',
+        'sub_menu' => [
+            [
+                'url' => url('dashboard/'),
+                'name' => 'Danh sách',
+            ],
+            [
+                'url' => url('dashboard/'),
+                'name' => 'Thêm mới',
             ],
         ]
     ],
