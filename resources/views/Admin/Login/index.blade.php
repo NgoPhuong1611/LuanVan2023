@@ -34,6 +34,7 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <form class="md-float-material form-material" method="POST" action="{{ route('admin-authLogin') }}">
+                       @csrf
                         <div class="text-center">
                             <img src="{{ asset('templates/libraries/assets/images/logo.png') }}" alt="logo.png">
                         </div>
@@ -42,33 +43,59 @@
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
                                         <h3 class="text-center">Đăng nhập</h3>
+<<<<<<< HEAD
+                                    </div>  
+                                    {{-- <div class="col-12">
+=======
                                     </div>
+                                    @csrf
                                     <div class="col-12">
 
+>>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518
                                         @if (!empty($errors))
                                             @if (!is_array($errors))
                                                 <div class="alert alert-danger mb-1">
-                                                    {{ $errors }}
+                                                   {{ $errors }}
                                                 </div>
                                             @else
                                                 @foreach ($errors as $error)
                                                     <div class="alert alert-danger mb-1">
-                                                        {{ $error }}
+                                                        {{ $error }} 
                                                     </div>
                                                 @endforeach
                                             @endif
                                         @endif
+                                    </div>   --}}
+                                    <div class="col-12">
+                                       
+                                        <?php if (!empty($errors)) : ?>
+                                            <?php if (!is_array($errors)) : ?>
+                                                <div class="alert alert-danger mb-1">
+                                                    <?= $errors ?>
+                                                </div>
+                                            <?php else : ?>
+                                                <?php foreach ($errors as $error) : ?>
+                                                    <div class="alert alert-danger mb-1">
+                                                        <?= $errors ?>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            <?php endif ?>
+                                        <?php endif ?>
                                     </div>
-                                </div>
-                                <div class="form-group form-primary">
-                                    <input type="text" name="username" value="" class="form-control" placeholder="Tài khoản">
-                                    <span class="form-bar"></span>
-                                </div>
-                                <div class="form-group form-primary">
-                                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
-                                    <span class="form-bar"></span>
-                                </div>
 
+                                    
+         
+                                </div>
+                            
+                                <div class="form-group form-primary">
+                                    <input type="text" name="username" value="" class="form-control" placeholder="Tài khoản" required>
+                                    <span class="form-bar"></span>
+                                </div>
+                                <div class="form-group form-primary">
+                                   
+                                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
+                                    <span class="form-bar"></span>
+                                </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>

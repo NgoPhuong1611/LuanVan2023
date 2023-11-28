@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Services;
@@ -74,14 +75,15 @@ Route::group([], function () {
 
 // Route::post('getWebhook', 'Hook::index');
 
-// Route::get('/', [Home::class, 'index']);
-// // Route::get('/', 'Home::index');
-// Route::get('admin-login',  [LoginController::class, 'index'])->name('admin-login');
-// Route::post('admin-login', [loginController::class,'authLogin'])->name('admin-authLogin');
-// Route::get('logout', [LoginController::class,'logout'])->name('admin-logout');
-// Route::get('/', [Home::class, 'index'])->name('Home');
-// Route::prefix('dashboard')->middleware('Admin')->group(function () {
-     Route::prefix('dashboard')->group(function () {
+Route::get('/dashboard', [Home::class, 'index']);
+// Route::get('/dashboard', 'Home::index');
+Route::get('admin-login',  [LoginController::class, 'index'])->name('admin-login');
+Route::post('admin-login', [loginController::class,'authLogin'])->name('admin-authLogin');
+Route::get('logout', [LoginController::class,'logout'])->name('admin-logout');
+Route::get('dashboard', [Home::class, 'index'])->name('Home');
+//1 trong 2 dòng dòng 2 trường hợp chức năng đăng nhập admin
+Route::prefix('dashboard')->middleware('Admin')->group(function () {
+    //  Route::prefix('dashboard')->group(function () {
 
     Route::get('/',[App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
@@ -178,3 +180,5 @@ Route::group([], function () {
  * needing to reload it.
  */
 
+=======
+>>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518

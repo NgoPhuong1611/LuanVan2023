@@ -47,8 +47,7 @@ if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) {
                     return 'Object(' . get_class($value) . ')';
 
                 case is_array($value):
-                    return count($value) ? '[...]' : '[]';
-
+                    return count($value) ? '[...]' : '';
                 case $value === null:
                     return 'null'; // return the lowercased version
 
@@ -57,6 +56,7 @@ if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) {
             }
         }, array_values($error['args'] ?? [])));
 
+         
         $function .= '(' . $args . ')';
 
         CLI::write($function);
