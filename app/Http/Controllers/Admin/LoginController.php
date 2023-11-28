@@ -61,7 +61,7 @@ class LoginController extends Controller
             return redirect()->route('admin-login')->with('error', 'Tài khoản không đúng');
         }
 
-        $pass = $user->password;
+        $user->password;
         $authPassword = md5((string)$password) === $user->password;
         if (!$authPassword) {
             return redirect()->route('admin-login')->with('error', 'Mật khẩu chưa đúng');
