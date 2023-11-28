@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Services;
@@ -179,6 +178,3 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
  * You will have access to the $route object within that file without
  * needing to reload it.
  */
-
-=======
->>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518
