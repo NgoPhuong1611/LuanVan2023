@@ -43,8 +43,15 @@
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
                                         <h3 class="text-center">Đăng nhập</h3>
+<<<<<<< HEAD
                                     </div>  
                                     {{-- <div class="col-12">
+=======
+                                    </div>
+                                    @csrf
+                                    <div class="col-12">
+
+>>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518
                                         @if (!empty($errors))
                                             @if (!is_array($errors))
                                                 <div class="alert alert-danger mb-1">

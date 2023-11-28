@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+<<<<<<< HEAD
 
+=======
+use Illuminate\Http\Request;
+>>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518
 use Illuminate\Routing\Controller;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
@@ -29,8 +33,13 @@ class LoginController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:3'
+<<<<<<< HEAD
             // ], customValidationErrorMessage());
         ]);
+=======
+        ]);
+    // ], customValidationErrorMessage());
+>>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518
 
         // If validation fails, redirect to login page with error message
         if (!$admin) {
@@ -39,6 +48,7 @@ class LoginController extends Controller
         }
 
         // Get user information
+<<<<<<< HEAD
         $adminModel = new Admin();
         $admin = $adminModel->where('username', $username)->first();
         if (!$admin) {
@@ -56,6 +66,19 @@ class LoginController extends Controller
         if (!$adminPassword) {
             return redirect()->route('admin-login')->with('errors', "Mật khẩu đăng nhập chưa đúng!!!");
         } 
+=======
+        $adminModel = new AdminModel();
+        $user = $adminModel->where('username', $username)->first();
+        if (!$user) {
+            return redirect()->route('admin-login')->with('error', 'WRONG_LOGIN_INFO_MESSAGE');
+        }
+
+        $pass = $user->password;
+        $authPassword = md5((string)$password) === $user->password;
+        if (!$authPassword) {
+            return redirect()->route('admin-login')->with('error', 'WRONG_LOGIN_INFO_MESSAGE');
+        }
+>>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518
 
         $sessionData = [
             'id' => $admin->id,
@@ -67,7 +90,11 @@ class LoginController extends Controller
 
         $is_update = $adminModel->where('id', $admin->id)->update(['last_login_at' => now()]);
         if (!$is_update) {
+<<<<<<< HEAD
             return redirect()->route('admin-login')->with('error', "UNEXPECTED_ERROR_MESSAGE");
+=======
+            return redirect()->route('admin-login')->with('error', 'UNEXPECTED_ERROR_MESSAGE');
+>>>>>>> 49653c2feab2b8dd4182015a38831dee1d4d4518
         }
 
         // Create new session and start working
