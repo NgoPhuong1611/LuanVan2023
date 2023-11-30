@@ -45,10 +45,10 @@
 <body>
     <!--HEADER ROW-->
     <div class='margin'>
-        @include("User.header")
+        @include("User.Teacher.header")
     </div>
     @yield('content')
-    @include("User.footer")
+    @include("User.Teacher.footer")
 </body>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="{{ asset('resources/js/jquery-1.js') }}"></script>

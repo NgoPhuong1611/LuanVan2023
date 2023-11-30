@@ -8,6 +8,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ListExamController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
 // route admin
@@ -68,6 +69,28 @@ Route::group([], function () {
         Route::post('save',[UserController::class, 'save']);
         Route::get('Logout', [UserController::class, 'logout']);
     });
+    Route::group(['prefix' => 'teacher'], function () {
+        Route::get('Infor',[TeacherController::class, 'showInforTeacher'] );
+        Route::get('terms',[TeacherController::class, 'terms'] );
+        Route::get('detail',[TeacherController::class, 'detail'] );
+        Route::get('mission',[TeacherController::class, 'mission'] );
+        Route::get('coin',[TeacherController::class, 'coin'] );
+        Route::get('transaction',[TeacherController::class, 'transaction'] );
+
+
+
+        // Route::get('Login', [UserController::class, 'index']);
+        // Route::post('userlogin', [UserController::class, 'userLogin']);
+        // Route::post('updateProfile', [UserController::class, 'updateProfile']);
+        // Route::get('EditPassWord', [UserController::class, 'editPassword']);
+        // Route::post('changePassword',[UserController::class, 'changePassword']);
+        // Route::get('Result', [UserController::class, 'result']);
+        // Route::get('Register', [UserController::class, 'register']);
+        // Route::post('save',[UserController::class, 'save']);
+        // Route::get('Logout', [UserController::class, 'logout']);
+    });
+
+
 });
 
 
@@ -154,13 +177,13 @@ Route::group([], function () {
         Route::get('delete/{id}', [CategoryController::class, 'delete']);
     });
     Route::group(['prefix' => 'posts'], function () {
-        Route::get('/', [PostsController::class, 'index']);
-        Route::get('detail',[PostsController::class, 'detail'] );
-        Route::post('save', [PostsController::class, 'save']);
+        Route::get('/', [PostsController::class, 'index']);//index():
+        Route::get('detail',[PostsController::class, 'detail'] );// create()
+        Route::post('save', [PostsController::class, 'save']);//store()
 
-        Route::get('edit/{id}', [PostsController::class, 'edit']);
-        Route::post('update/{id}',[PostsController::class, 'update']);
-        Route::get('delete/{id}',[PostsController::class, 'delete']);
+        Route::get('edit/{id}', [PostsController::class, 'edit']);//edit()
+        Route::post('update/{id}',[PostsController::class, 'update']);//update()
+        Route::get('delete/{id}',[PostsController::class, 'delete']);//destroy()
     });
 });
 

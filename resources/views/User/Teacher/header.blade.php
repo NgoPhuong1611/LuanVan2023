@@ -33,7 +33,7 @@
                 <a class="brand" href="{{ url('/') }}"><img src="{{ asset('resources/file/images/logotest.png') }}" /></a>				</div>
 				<!-- /LOGO -->
 				<!-- MAIN NAVIGATION -->
-                @include("User.navbar")
+                @include("User.Teacher.navbar")
 				<!-- MAIN NAVIGATION -->
 			</div>
 		</div>
