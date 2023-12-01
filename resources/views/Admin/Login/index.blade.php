@@ -45,44 +45,28 @@
                                         <h3 class="text-center">Đăng nhập</h3>
 
                                     </div>  
-                                    {{-- <div class="col-12">
-                                    </div>
-                                    @csrf
+                                  
                                     <div class="col-12">
-
                                         @if (!empty($errors))
-                                            @if (!is_array($errors))
+                                        @if (is_string($errors))
+                                            <!-- Nếu $errors là chuỗi, hiển thị thông báo lỗi -->
+                                            <div class="alert alert-danger mb-1">
+                                                {{ $errors }}
+                                            </div>
+                                        @else
+                                            <!-- Nếu $errors là một đối tượng MessageBag, kiểm tra và hiển thị từng thông báo lỗi -->
+                                            @foreach ($errors->all() as $error)
                                                 <div class="alert alert-danger mb-1">
-                                                   {{ $errors }}
+                                                    {{ $error }}
                                                 </div>
-                                            @else
-                                                @foreach ($errors as $error)
-                                                    <div class="alert alert-danger mb-1">
-                                                        {{ $error }} 
-                                                    </div>
-                                                @endforeach
-                                            @endif
+                                            @endforeach
                                         @endif
-                                    </div>   --}}
-                                    <div class="col-12">
-                                       
-                                        <?php if (!empty($errors)) : ?>
-                                            <?php if (!is_array($errors)) : ?>
-                                                <div class="alert alert-danger mb-1">
-                                                    <?= $errors ?>
-                                                </div>
-                                            <?php else : ?>
-                                                <?php foreach ($errors as $error) : ?>
-                                                    <div class="alert alert-danger mb-1">
-                                                        <?= $errors ?>
-                                                    </div>
-                                                <?php endforeach ?>
-                                            <?php endif ?>
-                                        <?php endif ?>
-                                    </div>
-
+                                    @else
+                                        <!-- Nếu không có lỗi, ẩn thông báo -->
+                                        <p></p>
+                                    @endif
                                     
-         
+                                    </div>
                                 </div>
                             
                                 <div class="form-group form-primary">
