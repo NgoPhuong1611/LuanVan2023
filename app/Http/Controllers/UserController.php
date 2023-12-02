@@ -13,6 +13,7 @@ class UserController extends Controller
     {
         return view('User.inforUser.Login');
     }
+ 
 
     public function showInforUser()
     {
@@ -66,7 +67,7 @@ class UserController extends Controller
 
         if (!$user) {
             return redirect()->to('User/Login')->with('error', 'Wrong login info');
-        }   
+        }
 
         $authPassword = md5((string)$password) === $user->password;
 
