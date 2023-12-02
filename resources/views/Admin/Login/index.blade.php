@@ -34,6 +34,7 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <form class="md-float-material form-material" method="POST" action="{{ route('admin-authLogin') }}">
+                       @csrf
                         <div class="text-center">
                             <img src="{{ asset('templates/libraries/assets/images/logo.png') }}" alt="logo.png">
                         </div>
@@ -42,33 +43,41 @@
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
                                         <h3 class="text-center">Đăng nhập</h3>
-                                    </div>
+
+                                    </div>  
+                                  
                                     <div class="col-12">
-
                                         @if (!empty($errors))
-                                            @if (!is_array($errors))
+                                        @if (is_string($errors))
+                                            <!-- Nếu $errors là chuỗi, hiển thị thông báo lỗi -->
+                                            <div class="alert alert-danger mb-1">
+                                                {{ $errors }}
+                                            </div>
+                                        @else
+                                            <!-- Nếu $errors là một đối tượng MessageBag, kiểm tra và hiển thị từng thông báo lỗi -->
+                                            @foreach ($errors->all() as $error)
                                                 <div class="alert alert-danger mb-1">
-                                                    {{ $errors }}
+                                                    {{ $error }}
                                                 </div>
-                                            @else
-                                                @foreach ($errors as $error)
-                                                    <div class="alert alert-danger mb-1">
-                                                        {{ $error }}
-                                                    </div>
-                                                @endforeach
-                                            @endif
+                                            @endforeach
                                         @endif
+                                    @else
+                                        <!-- Nếu không có lỗi, ẩn thông báo -->
+                                        <p></p>
+                                    @endif
+                                    
                                     </div>
                                 </div>
+                            
                                 <div class="form-group form-primary">
-                                    <input type="text" name="username" value="" class="form-control" placeholder="Tài khoản">
+                                    <input type="text" name="username" value="" class="form-control" placeholder="Tài khoản" required>
                                     <span class="form-bar"></span>
                                 </div>
                                 <div class="form-group form-primary">
-                                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
+                                   
+                                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
                                     <span class="form-bar"></span>
                                 </div>
-
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>

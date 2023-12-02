@@ -96,6 +96,7 @@ class UserController extends Controller
 
     public function register()
     {
+        
         return view('User.inforUser.Register');
     }
 
@@ -127,13 +128,14 @@ class UserController extends Controller
 
         User::create($data);
 
-        return redirect()->route('User/Login');
+        // return redirect()->route('User.inforUser.Login');
+        return view('User.inforUser.Login');
     }
 
     public function logout()
     {
         session()->flush();
-        return redirect()->route('User/Login');
+        return view('User.inforUser.Login');
     }
 
     public function changePassword(Request $request)

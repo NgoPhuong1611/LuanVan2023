@@ -16,6 +16,7 @@
             <i style="color: red">{{ session()->get('error') }}</i>
 
             <form class="form-profile" action="{{ url('User/save') }}" method="POST">
+                @csrf
                 <input type="hidden" name="id" value="">
                 <div>
                     <label for="first_name"><b>FirstName:</b></label>

@@ -38,7 +38,7 @@ class AdminController extends Controller
         $isInsert = Admin::create($data);
 
         if (!$isInsert) {
-            throw new Exception(UNEXPECTED_ERROR_MESSAGE);
+            // throw new Exception(UNEXPECTED_ERROR_MESSAGE);
         }
 
         return redirect()->to('dashboard/admin/detail');
