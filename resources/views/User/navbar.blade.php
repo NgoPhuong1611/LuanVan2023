@@ -16,8 +16,8 @@
                         <ul class="dropdown-menu">
                         <li><a href="{{ url('/Practice/PracticeListen') }}">Luyện bài nghe</a></li>
                         <li><a href="{{ url('/Practice/PracticeRead') }}">Luyện bài đọc</a></li>
-                        <li><a href="{{ url('/Practice/PracticeListen') }}">Luyện Speaking</a></li>
-                        <li><a href="{{ url('/Practice/PracticeRead') }}">Luyện Writing</a></li>
+                        <li><a href="{{ url('/Practice/PracticeSpeaking') }}">Luyện Speaking</a></li>
+                        <li><a href="{{ url('/Practice/PracticeWriting') }}">Luyện Writing</a></li>
                         </ul>
                     </li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Làm Bài Thi<b class="caret"></b></a>
