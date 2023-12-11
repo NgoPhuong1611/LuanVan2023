@@ -141,7 +141,14 @@ class FullTestController extends Controller
     {
         return view('User.Exam.fullTestReading');
     }
-
+    public function testSpeaking()
+    {
+        return view('User.Exam.fullTestSpeaking');
+    }
+    public function testWriting()
+    {
+        return view('User.Exam.fullTestWriting');
+    }
 
     public function insertWrongAnswer(Request $request)
     {
