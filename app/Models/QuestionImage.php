@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class QuestionImage extends Model
 {
-    protected $table = 'question_image'; // Table name in the database
+    protected $table = 'image'; // Table name in the database
 
     protected $primaryKey = 'id'; // Primary key of the table
 

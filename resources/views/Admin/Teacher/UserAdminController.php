@@ -27,7 +27,7 @@ class UserAdminController extends Controller
     }
     public function detailteacher()
     {
-        return view('Admin/Teacher/detail');
+        return view('Admin/User/detail');
     }
     public function save(Request $request)
     {
@@ -41,15 +41,12 @@ class UserAdminController extends Controller
         ]);
 
         $data = [
-            'type'=>0,
             'username' =>$request->input('username'),
             'password' => md5($request->input('password')),
             'email' =>$request->input('email'),
             'first_name' => $request->input('first_name'),
             'last_name' =>$request->input('last_name'),
             'status' => $request->input('status'),
-            'quantity_coin'=>0,
-
         ];
 
         $isInsert = User::create($data);
@@ -60,36 +57,6 @@ class UserAdminController extends Controller
 
         return redirect()->to('dashboard/user/detail');
     }
-    public function saveteacher(Request $request)
-    {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-            'email' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'status' => 'required',
-        ]);
-
-        $data = [
-            'type'=>1,
-            'username' =>$request->input('username'),
-            'password' => md5($request->input('password')),
-            'email' =>$request->input('email'),
-            'first_name' => $request->input('first_name'),
-            'last_name' =>$request->input('last_name'),
-            'status' => $request->input('status'),
-            'quantity_coin'=>0,
-        ];
-
-        $isInsert = User::create($data);
-
-        if (!$isInsert) {
-            throw new Exception(UNEXPECTED_ERROR_MESSAGE);
-        }
-
-        return redirect()->to('dashboard/user/detailteacher');
-    }
     public function delete($id)
     {
         // Delete related posts
@@ -99,26 +66,11 @@ class UserAdminController extends Controller
 
         return redirect()->to('dashboard/user/');
     }
-    public function deleteteacher($id)
-    {
-        // Delete related posts
-
-        // Delete category
-        User::destroy($id);
-
-        return redirect()->to('dashboard/user/indexteacher');
-    }
     public function edit($id)
     {
         $user = User::find($id);
 
         return view('Admin.User.edit', ['user' => $user]);
-    }
-    public function editteacher($id)
-    {
-        $user = User::find($id);
-
-        return view('Admin.User.editteacher', ['user' => $user]);
     }
 
     public function update(Request $request, $id)
@@ -147,31 +99,4 @@ class UserAdminController extends Controller
 
        return redirect()->to('dashboard/user');
     }
-    public function updateteacher(Request $request, $id)
-    {
-        //dd($request->all());
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-            'email' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'status' => 'required',
-        ]);
-
-        $data = [
-            'username' =>$request->input('username'),
-            'password' => md5($request->input('password')),
-            'email' =>$request->input('email'),
-            'first_name' => $request->input('first_name'),
-            'last_name' =>$request->input('last_name'),
-            'status' => $request->input('status'),
-        ];
-
-
-        User::find($id)->update($data);
-
-       return redirect()->to('dashboard/user/indexteacher');
-    }
-
 }
