@@ -86,7 +86,7 @@
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
 
-        @include('User.Chat.chat')
+       
 
             <!-- Sidebar inner chat end-->
             <div class="pcoded-main-container">

@@ -1,7 +1,7 @@
 <?php
 namespace App\Events;
 
-use App\Models\Message;
+use App\Models\Forum;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,10 +15,12 @@ class ChatEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $username;
 
-    public function __construct(Message $message)
+    public function __construct(Forum $message)
     {
         $this->message = $message;
+        $this->username = $username;
     }
 
     public function broadcastOn()
