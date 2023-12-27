@@ -56,4 +56,6 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="{{ asset('resources/js/client/home.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.10.0/dist/echo.js"></script>
+   <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 </html>

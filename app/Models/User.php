@@ -18,7 +18,17 @@ class User extends Model
     public static $rules = [
         // Validation rules
     ];
-
+    protected $fillable = [
+        'type',
+        'username',
+        'password',
+        'email',
+        'first_name',
+        'last_name',
+        'status',
+        'updated_at',
+        'quantity_coin',
+    ];
     // Validation messages
     public static $messages = [
         // Validation messages

@@ -26,6 +26,8 @@
                             <li><a href="{{ url('/listExam/examrandom') }}">Bài Thi Ngẫu Nhiên</a></li>
                         </ul>
                     </li>
+                    <li><a  href="{{ url('/chat') }}">Diễn Đàn</a></li>
+
                     <li class="dropdown">
                     @php
                         $session = session()->all();
@@ -41,6 +43,7 @@
                             <a href="{{ url('/User/Login') }}">Đăng nhập</a>
                         <?php endif ?>
                     </li>
+
                 </ul>
             </div>
         </div>

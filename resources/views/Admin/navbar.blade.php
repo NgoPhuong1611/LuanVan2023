@@ -9,16 +9,12 @@ $menu = [
         'name' => 'Dashboard',
         'icon' => '<i class="feather icon-home"></i>',
     ],
+
     [
         'url' => '',
         'active' => 'dashboard/admin',
-        'name' => 'Quản lý Tài khoản',
-        'icon' => '<i class="feather icon-user"></i>',
-        'sub_menu' => [
-            [
-                'url' => '',
-                'name' => 'Quản trị',
-                'active' => 'dashboard/admin',
+        'name' => 'Tài khoản quản trị',
+        'icon' => '<i class="fa fa-question-circle-o"></i>',
                 'sub_menu' => [
                     [
                         'url' => url('dashboard/admin'),
@@ -26,13 +22,23 @@ $menu = [
                     ],
                     [
                         'url' => url('dashboard/admin/detail'),
-                        'name' => 'Thêm mới',
+                        'name' => 'Thêm mới ',
                     ],
+
                 ]
-            ],
+
+
+    ],
+
+    [
+        'url' => '',
+        'active' => 'dashboard/user',
+        'name' => 'Tài khoản người dùng',
+        'icon' => '<i class="fa fa-question-circle-o"></i>',
+        'sub_menu' => [
             [
                 'url' => '',
-                'name' => 'Người dùng',
+                'name' => 'Người học',
                 'active' => 'dashboard/user',
                 'sub_menu' => [
                     [
@@ -45,9 +51,25 @@ $menu = [
                     ],
                 ]
             ],
+            [
+                'url' => '',
+                'name' => 'Người dạy',
+                'active' => 'dashboard/user',
+                'sub_menu' => [
+                    [
+                        'url' => url('dashboard/user/indexteacher/'),
+                        'name' => 'Danh sách',
+                    ],
+                    [
+                        'url' => url('dashboard/user/detailteacher/'),
+                        'name' => 'Thêm mới ',
+                    ],
+
+                ]
+            ],
+
         ]
     ],
-
     [
         'url' => '',
         'active' => 'dashboard/question',
@@ -166,12 +188,12 @@ $menu = [
 
     [
         'url' => '',
-        'name' => 'Quản lý Xu',
-        'active' => 'dashboard/',
+        'name' => 'Quản lý Giao dịch',
+        'active' => 'dashboard/trasaction',
         'icon' => '<i class="fa fa-bars"></i>',
         'sub_menu' => [
             [
-                'url' => url('dashboard/'),
+                'url' => url('dashboard/trasaction/'),
                 'name' => 'Danh sách',
             ],
             [
@@ -183,11 +205,43 @@ $menu = [
     [
         'url' => '',
         'name' => 'Quản lý Nhiệm vụ',
-        'active' => 'dashboard/',
+        'active' => 'dashboard/mission',
         'icon' => '<i class="fa fa-bars"></i>',
         'sub_menu' => [
             [
+                'url' => url('dashboard/mission/'),
+                'name' => 'Danh sách',
+            ],
+            [
                 'url' => url('dashboard/'),
+                'name' => 'Thêm mới',
+            ],
+        ]
+    ],
+    [
+        'url' => '',
+        'name' => 'Quản lý Diễn Đàn',
+        'active' => 'dashboard/forum',
+        'icon' => '<i class="fa fa-bars"></i>',
+        'sub_menu' => [
+            [
+                'url' => url('dashboard/forum/'),
+                'name' => 'Danh sách',
+            ],
+            [
+                'url' => url('dashboard/'),
+                'name' => 'Thêm mới',
+            ],
+        ]
+    ],
+    [
+        'url' => '',
+        'name' => 'Quản lý QUảng Cáo',
+        'active' => 'dashboard/banner',
+        'icon' => '<i class="fa fa-bars"></i>',
+        'sub_menu' => [
+            [
+                'url' => url('dashboard/banner/'),
                 'name' => 'Danh sách',
             ],
             [

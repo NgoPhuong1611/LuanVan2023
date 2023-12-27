@@ -273,7 +273,7 @@
             <div style="display: block;">
                 <p>
                 <a href="{{ url('user') }}" id="backhome" style="display: inline;">
-                                        Home</a> <span>Bài test Random</span>
+                                        Home</a> <span>Luyện tập</span>
                 </p>
             </div>
 
@@ -325,7 +325,19 @@
 
                             <input type="button" class="btn btn-primary" id="#bsw_popup" value="Chấm điểm" onclick="result()" /> <br><br>
                             <div id="listeing-result"></div>
+                            <!-- <div>
+                            <ul>
+                                @foreach($messages as $message)
+                                <li>
+                                <strong>{{ $message->user_id }}</strong>: {{ $message->content }}
+                                <span class="timestamp">{{ $message->created_at }}</span>
+                            </li>
+                                @endforeach
+                            </ul>
+                            </div> -->
                             <hr width="60%">
+                        </div>
+
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -489,6 +501,8 @@
 
         }
     </script>
+
+
 </body>
 
 </html>

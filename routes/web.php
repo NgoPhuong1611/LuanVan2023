@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\FullTestController;
 use App\Http\Controllers\ExamToeicRandom;
+use App\Http\Controllers\ToForumController;
 // route admin
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserAdminController;
@@ -21,6 +22,12 @@ use App\Http\Controllers\Admin\PartExamController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuestionGroupController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ExamHistoryController;
+use App\Http\Controllers\Admin\ForumController;
+use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\ChatController;
+
 // use App\Http\Controllers\Admin\UserController;
 
 Route::group([], function () {
@@ -39,7 +46,7 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'Exam'], function () {
-        Route::get('ExamToeic/{any}', [FullTestController::class, 'index']) ; 
+        Route::get('ExamToeic/{any}', [FullTestController::class, 'index']) ;
         Route::get('ExamListen', [FullTestController::class, 'testListen']);
         Route::get('ExamRead',[FullTestController::class, 'testRead'] );
         Route::get('ExamToeicRandom',[ExamToeicRandom::class, 'index']  );
@@ -65,7 +72,7 @@ Route::group([], function () {
 
     });
 
-    Route::group(['prefix' => 'User'], function () { 
+    Route::group(['prefix' => 'User'], function () {
         Route::get('Login', [UserController::class, 'index']);
         Route::post('userlogin', [UserController::class, 'userLogin']);
         Route::get('Infor',[UserController::class, 'showInforUser'] );
@@ -97,8 +104,15 @@ Route::group([], function () {
         // Route::post('save',[UserController::class, 'save']);
         // Route::get('Logout', [UserController::class, 'logout']);
     });
+    Route::group(['prefix' => 'ToForum'], function () {
+        Route::get('/',[ToForumController::class, 'index'] );
+    });
 
 
+
+
+    Route::get('/chat', [ChatController::class, 'index']);
+    Route::post('/send-message', [ChatController::class, 'sendMessage']);
 });
 
 
@@ -125,6 +139,10 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
         Route::get('edit/{id}', [AdminController::class, 'edit']);
         Route::post('update/{id}', [AdminController::class, 'update']);
         Route::get('delete/{id}', [AdminController::class, 'delete']);
+
+
+
+
     });
 
     Route::group(['prefix' => 'user'], function () {
@@ -135,7 +153,15 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
         Route::get('edit/{id}', [UserAdminController::class, 'edit']);
         Route::post('update/{id}', [UserAdminController::class, 'update']);
         Route::get('delete/{id}', [UserAdminController::class, 'delete']);
+
+        Route::get('indexteacher',  [UserAdminController::class, 'indexteacher']);
+        Route::get('detailteacher',  [UserAdminController::class, 'detailteacher']);
+        Route::post('saveteacher', [UserAdminController::class, 'saveteacher']);
+        Route::get('editteacher/{id}', [UserAdminController::class, 'editteacher']);
+        Route::post('updateteacher/{id}', [UserAdminController::class, 'updateteacher']);
+        Route::get('deleteteacher/{id}', [UserAdminController::class, 'deleteteacher']);
     });
+
 
 
 
@@ -194,6 +220,28 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
         Route::post('update/{id}',[PostsController::class, 'update']);//update()
         Route::get('delete/{id}',[PostsController::class, 'delete']);//destroy()
     });
+    Route::group(['prefix' => 'chat'], function () {
+        Route::get('/',[ChatController::class, 'index']);
+    });
+    Route::group(['prefix' => 'forum'], function () {
+        Route::get('/',[ForumController::class, 'index']);
+    });
+    Route::group(['prefix' => 'mission'], function () {
+        Route::get('/',[MissionController::class, 'index']);
+    });
+    Route::group(['prefix' => 'transaction'], function () {
+        Route::get('/',[TransactionController::class, 'index']);
+    });
+    Route::group(['prefix' => 'banner'], function () {
+        Route::get('/',[BannerController::class, 'index']);
+    });
+    Route::group(['prefix' => 'history'], function () {
+        Route::get('/',[ExamHistory::class, 'index']);
+    });
+
+
+
+
 });
 
 /*

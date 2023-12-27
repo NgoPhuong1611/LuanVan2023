@@ -13,7 +13,7 @@
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>Danh sách người dùng</h4>
+                                    <h4>Forum</h4>
                                 </div>
                             </div>
                         </div>
@@ -31,33 +31,27 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                            <th>Id</th>
-                                                <th>name</th>
-                                                <th>Email</th>
-                                                <th>Updated_at	</th>
-                                                <th style="width: 30px;">Status</th>
-                                                <th style="width: 70px;">Quản lý</th>
+                                                <th>Id</th>
+                                                <th>User</th>
+                                                <th>Admin</th>
+                                                <th>Level</th>
+                                                <th>title</th>
+                                                <th>detail</th>
+                                                <th>time_date</th>
+                                                <th >Quản lý</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if (isset($user) || !empty($user)) : ?>
-                                            <?php foreach ($user as $item) : ?>
+                                            <?php if (isset($forum) || !empty($forum)) : ?>
+                                            <?php foreach ($forum as $item) : ?>
                                             <tr>
-                                            <td><?= $item['id'] ?></td>
-
-                                                <td><?= $item['username'] ?></td>
-                                                <td><?= $item['email'] ?></td>
-                                                <td><?= $item['updated_at'] ?></td>
-                                                <td>
-                                                    <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
-                                                        <label>
-                                                            <input type="checkbox" id="checkbox2" name="status" value="" <?= $item['status'] == 1 ? 'checked' : '' ?>>
-                                                            <span class="cr">
-                                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </td>
+                                                <td><?= $item['id'] ?></td>
+                                                <td><?= $item['user_id'] ?></td>
+                                                <td><?= $item['admin_id'] ?></td>
+                                                <td><?= $item['level'] ?></td>
+                                                <td><?= $item['title'] ?></td>
+                                                <td><?= $item['detail'] ?></td>
+                                                <td><?= $item['time_date'] ?></td>
                                                 <td>
                                                     <div style="width: 90px;" class="btn-group btn-group-sm">
                                                         <a href ="<?= url('dashboard/user/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
