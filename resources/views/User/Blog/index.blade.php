@@ -102,7 +102,6 @@
                         <div class="span3">
                             <div class="card ">
                             <a href="{{ url('blog/detail', $item->id) }}">
-                                                                    <img src="../resources/file/images/baiNgheId=9.png" alt="" class="card-img-top">
                                     <div class="card-body" style="height: 200px;">
                                             <div class="col-4">
                                                 <p><b><h4 class="card-title"><?= $item['title']  ?></h4></b></p>
