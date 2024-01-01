@@ -56,7 +56,7 @@ Route::group([], function () {
 
     });
 
-    Route::group(['prefix' => 'Practice'], function () {
+    Route::group(['prefix' => 'Practice', 'as' => 'Practice.'], function () {
         // Route::prefix(['prefix' => 'Practice'])->middleware('User')->group(function () {
         Route::get('PracticeVocabulary', [PracticeController::class, 'PracticeVocabulary']);
         Route::get('PracticeGrammar', [PracticeController::class, 'PracticeGrammar']);
@@ -65,6 +65,13 @@ Route::group([], function () {
         Route::get('PracticeRead', [PracticeController::class, 'practiceRead']);
         Route::get('Listen/{any}', [PracticeController::class, 'listen']);
         Route::get('Read/{any}', [PracticeController::class, 'read']);
+        
+        Route::get('PracticeSpeaking', [PracticeController::class, 'practiceSpeaking']);
+        Route::get('PracticeWriting', [PracticeController::class, 'practiceWriting']);
+        Route::get('Speaking/{any}', [PracticeController::class, 'speaking']);
+        Route::get('Writing/{any}', [PracticeController::class, 'writing']);
+        Route::post('save', [PracticeController::class, 'save']);
+        Route::post('record-speaking', [PracticeController::class, 'recordSpeaking']);
 
     });
 
