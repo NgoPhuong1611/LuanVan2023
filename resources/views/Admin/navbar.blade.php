@@ -229,8 +229,8 @@ $menu = [
                 'name' => 'Danh sách',
             ],
             [
-                'url' => url('dashboard/'),
-                'name' => 'Thêm mới',
+                'url' => url('dashboard/forum/detail'),
+                'name' => 'Thông báo mới!',
             ],
         ]
     ],

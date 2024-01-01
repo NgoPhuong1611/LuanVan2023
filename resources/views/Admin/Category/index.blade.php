@@ -13,7 +13,7 @@
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>Danh sách danh mục</h4>
+                                    <h4></h4>
                                 </div>
                             </div>
                         </div>

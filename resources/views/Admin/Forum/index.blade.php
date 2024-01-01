@@ -34,30 +34,35 @@
                                                 <th>Id</th>
                                                 <th>User</th>
                                                 <th>Admin</th>
-                                                <th>Level</th>
-                                                <th>title</th>
-                                                <th>detail</th>
+                                                <th >detail</th>
                                                 <th>time_date</th>
                                                 <th >Quản lý</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if (isset($forum) || !empty($forum)) : ?>
-                                            <?php foreach ($forum as $item) : ?>
+                                            <?php if (isset($forums) || !empty($forums)) : ?>
+                                            <?php foreach ($forums as $item) : ?>
                                             <tr>
                                                 <td><?= $item['id'] ?></td>
-                                                <td><?= $item['user_id'] ?></td>
-                                                <td><?= $item['admin_id'] ?></td>
-                                                <td><?= $item['level'] ?></td>
-                                                <td><?= $item['title'] ?></td>
-                                                <td><?= $item['detail'] ?></td>
-                                                <td><?= $item['time_date'] ?></td>
-                                                <td>
+                                                <td><?= $item['username'] ?></td>
+                                                <td><?= $item['admin_username'] ?></td>
+                                                <td style=" width: 40%; max-width: 100px; overflow: hidden; text-overflow: ellipsis;">
+                                                    @if(!empty($item['title']))
+                                                        <?= $item['title'] ?>
+                                                    @else
+                                                        <?= $item['detail'] ?>
+                                                    @endif
+                                                </td>
+                                                    <td><?= $item['time_date'] ?></td>
+                                                    <td>
                                                     <div style="width: 90px;" class="btn-group btn-group-sm">
-                                                        <a href ="<?= url('dashboard/user/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                        <!-- <a href ="<?= url('dashboard/user/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                            <span class="icofont icofont-ui-edit"></span>
+                                                        </a> -->
+                                                         <a href ="<?= url('dashboard/forum') ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                             <span class="icofont icofont-ui-edit"></span>
                                                         </a>
-                                                        <a href ="<?= url('dashboard/user/delete/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                        <a href ="<?= url('dashboard/forum/destroy/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
                                                             <span class="icofont icofont-ui-delete"></span>
                                                         </a>
                                                     </div>

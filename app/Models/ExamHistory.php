@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Exam_history extends Model
+class ExamHistory extends Model
 {
     protected $table = 'exam_history'; // Tên bảng trong database
 

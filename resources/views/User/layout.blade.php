@@ -19,6 +19,7 @@
     <!-- ************ -->
     <!-- <link href="../resources/font/font.css" rel="stylesheet"> -->
     <style>
+   
         .radio-inline {
             display: inline-flex;
             padding-left: 35px;

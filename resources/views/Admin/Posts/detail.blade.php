@@ -1,6 +1,7 @@
 @extends('Admin.layout')
 @section('content')
-
+ <!-- ckeditor js -->
+ <script type="text/javascript" src="<?= asset('ckeditor\ckeditor.js')?>"></script>
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <!-- Main-body start -->
@@ -198,4 +199,5 @@
         document.getElementById('slug').value = (slug(document.getElementById('title').value))
     }
 </script>
+
 

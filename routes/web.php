@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\ExamHistoryController;
 use App\Http\Controllers\Admin\ForumController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\HistoryController;
 
 // use App\Http\Controllers\Admin\UserController;
 
@@ -50,7 +51,9 @@ Route::group([], function () {
         Route::get('ExamListen', [FullTestController::class, 'testListen']);
         Route::get('ExamRead',[FullTestController::class, 'testRead'] );
         Route::get('ExamToeicRandom',[ExamToeicRandom::class, 'index']  );
-        Route::post('InsertWrongAnswer', [FullTestController::class, 'insertWrongAnswer'] );
+        Route::POST('InsertWrongAnswer', [FullTestController::class, 'insertWrongAnswer'] );
+        Route::POST('Score', [FullTestController::class, 'score'] );
+
     });
 
     Route::group(['prefix' => 'Practice'], function () {
@@ -72,10 +75,16 @@ Route::group([], function () {
         Route::post('updateProfile', [UserController::class, 'updateProfile']);
         Route::get('EditPassWord', [UserController::class, 'editPassword']);
         Route::post('changePassword',[UserController::class, 'changePassword']);
-        Route::get('Result', [UserController::class, 'result']);
         Route::get('Register', [UserController::class, 'register']);
         Route::post('save',[UserController::class, 'save']);
         Route::get('Logout', [UserController::class, 'logout']);
+
+        Route::get('ExamHistory', [HistoryController::class, 'index']);
+        Route::get('indexExamHistory/{id}', [HistoryController::class, 'indexExamHistory']);
+        Route::get('deleteHistory/{id}',  [HistoryController::class, 'deleteHistory']);
+
+        // Route::get('Ratings', [HistoryController::class, 'ratings']);
+
     });
     Route::group(['prefix' => 'teacher'], function () {
         Route::get('Infor',[TeacherController::class, 'showInforTeacher'] );
@@ -218,6 +227,12 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
     });
     Route::group(['prefix' => 'forum'], function () {
         Route::get('/',[ForumController::class, 'index']);
+        Route::get('destroy/{id}',[ForumController::class, 'destroy']);
+        Route::get('detail',[ForumController::class, 'detail']);
+        Route::post('save', [ForumController::class, 'save']);
+
+
+
     });
     Route::group(['prefix' => 'mission'], function () {
         Route::get('/',[MissionController::class, 'index']);

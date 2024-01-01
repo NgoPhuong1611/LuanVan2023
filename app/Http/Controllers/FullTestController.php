@@ -14,37 +14,41 @@ use App\Models\QuestionGroup;
 use App\Models\QuestionImage;
 use App\Models\Question;
 use App\Models\WrongAnswerQuestion;
+use App\Models\ExamHistory;
+use App\Models\User;
+
 
 class FullTestController extends Controller
 {
     public function index(Request $request, $exam_id)
     {
+        $user_id =User::find(session()->get('id'))->id;
 
-         //Tao cac model
-         //$exam_id = $this->request->getUri()->getSegment(3);
-         $ExamModel = new Exam();
-         $Exam = $ExamModel->find($exam_id);
+        $data1 = [
+            'user_id' => $user_id,
+            'exam_id' => $exam_id,
+            ];
+        $examHistory = ExamHistory::create($data1);
+        $exam_history_id = $examHistory->id;
 
-         $ExamQuestionGroup = new ExamQuestionGroup();
-         $ExamGroup = $ExamQuestionGroup::where('exam_id', $exam_id)->get();
 
-         $ExamQuestionSingle = new ExamQuestionSingle();
-         $ExamSingle = $ExamQuestionSingle::where('exam_id', $exam_id)->get();
+         $Exam = Exam::find($exam_id);
 
-         $ExamToExamPartModel = new ExamToExamPart();
-         $ExamPart = $ExamToExamPartModel::where('exam_id', $exam_id)->get();
+
+         $ExamGroup = ExamQuestionGroup::where('exam_id', $exam_id)->get();
+         $ExamSingle = ExamQuestionSingle::where('exam_id', $exam_id)->get();
+         $ExamPart = ExamToExamPart::where('exam_id', $exam_id)->get();
 
          //lay part
-         $ExamPartModel = new ExamPart();
-         $exam_part = $ExamPartModel->get();
+         $exam_part = ExamPart::get();
 
-         $part1 = $ExamPartModel::where('id', $ExamPart[0]['exam_part_id'])->get();
-         $part2 = $ExamPartModel::where('id', $ExamPart[1]['exam_part_id'])->get();
-         $part3 = $ExamPartModel::where('id', $ExamPart[2]['exam_part_id'])->get();
-         $part4 = $ExamPartModel::where('id', $ExamPart[3]['exam_part_id'])->get();
-         $part5 = $ExamPartModel::where('id', $ExamPart[4]['exam_part_id'])->get();
-         $part6 = $ExamPartModel::where('id', $ExamPart[5]['exam_part_id'])->get();
-         $part7 = $ExamPartModel::where('id', $ExamPart[6]['exam_part_id'])->get();
+         $part1 = ExamPart::where('id', $ExamPart[0]['exam_part_id'])->get();
+         $part2 = ExamPart::where('id', $ExamPart[1]['exam_part_id'])->get();
+         $part3 = ExamPart::where('id', $ExamPart[2]['exam_part_id'])->get();
+         $part4 = ExamPart::where('id', $ExamPart[3]['exam_part_id'])->get();
+         $part5 = ExamPart::where('id', $ExamPart[4]['exam_part_id'])->get();
+         $part6 = ExamPart::where('id', $ExamPart[5]['exam_part_id'])->get();
+         $part7 = ExamPart::where('id', $ExamPart[6]['exam_part_id'])->get();
          $data['part1'] = $part1;
          $data['part2'] = $part2;
          $data['part3'] = $part3;
@@ -54,8 +58,7 @@ class FullTestController extends Controller
          $data['part7'] = $part7;
 
          //lay group 6,7
-         $QuestionGroupModel = new QuestionGroup();
-         $group = $QuestionGroupModel::where('exam_part_id', $part6[0]['id'])->get();
+         $group = QuestionGroup::where('exam_part_id', $part6[0]['id'])->get();
          $group6 = [];
          foreach ($ExamGroup as $a) {
              foreach ($group as $b) {
@@ -64,7 +67,7 @@ class FullTestController extends Controller
                  }
              }
          }
-         $group = $QuestionGroupModel::where('exam_part_id', $part7[0]['id'])->get();
+         $group = QuestionGroup::where('exam_part_id', $part7[0]['id'])->get();
          $group7 = [];
          foreach ($ExamGroup as $a) {
              foreach ($group as $b) {
@@ -77,15 +80,14 @@ class FullTestController extends Controller
          $data['group7'] = $group7;
 
          //lay question
-         $QuestionModel = new Question();
-         $question = $QuestionModel->get();
+         $question = Question::get();
          $question1 = [];
          $question2 = [];
          $question3 = [];
          $question4 = [];
          $question5 = [];
-         $question6 = $QuestionModel::where('exam_part_id', $part6[0]['id'])->get();
-         $question7 = $QuestionModel::where('exam_part_id', $part7[0]['id'])->get();
+         $question6 =Question::where('exam_part_id', $part6[0]['id'])->get();
+         $question7 = Question::where('exam_part_id', $part7[0]['id'])->get();
 
          foreach ($ExamSingle as $a) {
              foreach ($question as $b) {
@@ -117,19 +119,16 @@ class FullTestController extends Controller
          $data['question7'] = $question7;
 
          //lay audios
-         $QuestionAudioModel = new QuestionAudio();
-         $audios= $QuestionAudioModel->get();
+         $audios= QuestionAudio::get();
          $data['audios'] = $audios;
 
 
-         $QuestionAnswerModel = new QuestionAnswer();
-         $question_answer = $QuestionAnswerModel->get();
+         $question_answer =QuestionAnswer::get();
          $data['question_answer'] = $question_answer;
 
-         $QuestionImageModel = new QuestionImage();
-         $question_image = $QuestionImageModel->get();
+         $question_image = QuestionImage::get();
          $data['question_image'] =  $question_image;
-         return view('User.Exam.Exam', $data);
+         return view('User.Exam.Exam', $data,['exam_history_id' => $exam_history_id]);
     }
 
     public function testListen()
@@ -145,21 +144,41 @@ class FullTestController extends Controller
 
     public function insertWrongAnswer(Request $request)
     {
-        //goi id user
-        $user_id = session()->get('id');
+        // Lấy user_id từ session
+        $user_id =User::find(session()->get('id'))->id;
 
-        if ( ! $user_id)
-        {
-            return;
+
+        if (!$user_id) {
+            return response()->json(['error' => 'User not authenticated.'], 401);
         }
-        $question_id = $_POST['question_id'];
-        $selected_answer = $_POST['selected_answer'];
+
+        $question_id = $request->input('question_id');
+        $selected_answer = $request->input('selected_answer');
+        $exam_history_id = $request->input('exam_history_id');
+
+
         $data = [
             'user_id' => $user_id,
             'question_id' => $question_id,
             'selected_answer' => $selected_answer,
+            'exam_history_id'=>$exam_history_id,
         ];
-        $wrongAnswerQuestionModel = new WrongAnswerQuestion();
-        $wrongAnswerQuestionModel->insert($data);
+
+        try {
+            // Sử dụng Eloquent để tạo WrongAnswerQuestion
+            WrongAnswerQuestion::create($data);
+
+            return response()->json(['success' => 'Wrong answer recorded successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error recording wrong answer.'], 500);
+        }
+    }
+    public function score(Request $request){
+        $exam_history_id = $request->input('exam_history_id');
+        $score = $request->input('score');
+
+        $examHistory = ExamHistory::find($exam_history_id);
+            $examHistory->score = $score;
+            $examHistory->save(); // Lưu điểm thi mới vào cột score
     }
 }
