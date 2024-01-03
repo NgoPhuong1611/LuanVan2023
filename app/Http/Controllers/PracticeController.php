@@ -91,8 +91,7 @@ class PracticeController extends Controller
         $questionImageModel = new QuestionImage();
         $questionImage = $questionImageModel->get();
         $data['question_image'] = $questionImage;
-        $messages = Message::all();
-        $data['messages']=$messages;
+       
 
         return view('User.Practice.baiTapNghe', $data);
     }

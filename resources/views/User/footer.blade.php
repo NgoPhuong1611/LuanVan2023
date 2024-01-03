@@ -11,7 +11,7 @@
         </div>
 
 
-        <div class="span6">
+        <!-- <div class="span6">
             <div class="social pull-right">
                     <a href="#"><img src="{{ asset('resources/file/images/social/googleplus.png') }}" alt=""></a>
                     <a href="#"><img src="{{ asset('resources/file/images/social/dribbble.png') }}" alt=""></a>
@@ -19,7 +19,7 @@
                     <a href="#"><img src="{{ asset('resources/file/images/social/dribbble.png') }}" alt=""></a>
                     <a href="#"><img src="{{ asset('resources/file/images/social/rss.png') }}" alt=""></a>
             </div>
-        </div>
+        </div> -->
       </div>
     </div>
 </footer>

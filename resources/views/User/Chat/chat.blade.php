@@ -259,7 +259,23 @@
         overflow-x: auto
     }
 }
-    </style>
+</style>
+<!-- <style>
+    .people-list {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    overflow-y: auto;
+    background-color: #f2f2f2;
+}
+
+.chat {
+    margin-left: 31%; /* Khoảng cách giữa people-list và chat */
+    overflow-y: auto; /* Cho phép chat di chuyển theo thanh cuộn */
+    height: 100vh; /* Đảm bảo chat có thể cuộn đầy đủ trên màn hình */
+}
+</style> -->
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -267,40 +283,41 @@
 <div class="row clearfix">
     <div class="col-lg-12">
         <div class="card chat-app">
-            <div id="plist" class="people-list">
-                <!-- <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div> -->
-                <ul class="list-unstyled chat-list mt-2 mb-0">
-                    <li class="clearfix active">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Nguyễn Công Tính</div>
-                            <div class="status"> <i class="fa fa-circle online"></i> 990 </div>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Ngô Hồng Phương</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> 500 </div>
-                        </div>
-                    </li>
-                </ul>
+        <div class="people-list">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <!-- <span class="input-group-text"><i class="fa fa-search"></i></span> -->
+                </div>
+                <input type="text" class="form-control" placeholder="Search...">
             </div>
+            <ul class="list-unstyled chat-list mt-3">
+                <li class="list-header">BXH Score</li>
+                @if(count($ratings) > 0)
+                    @foreach($ratings as $rating)
+                    <li class="clearfix">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="rounded-circle">
+                        <div class="about">
+                            <div class="name">{{ $rating['username'] }}</div>
+                            <div class="status">
+                                <span class="online-dot"></span> Max Score: {{ $rating['max_score'] }}
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
+                @else
+                    <li class="text-center">No data available</li>
+                @endif
+            </ul>
+        </div>
             <div class="chat">
-                <div class="chat-header clearfix">
+                <!-- <div class="chat-header clearfix">
                     <div class="row">
                         <div class="col-lg-6">
                             <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
                                 <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
                             </a>
                             <div class="chat-about">
-                                <h6 class="m-b-0">{{$user_username}}</h6>
+                                <h6 class="m-b-0"></h6>
                                 <small>Last seen: 2 hours ago</small>
                             </div>
                         </div>
@@ -311,9 +328,21 @@
                             <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- hien chat -->
                 <div class="chat-history">
+                    <!-- gui -->
+                    <form id="messageForm">
+                    <div class="chat-message clearfix">
+                    <div class="input-prepend input-append">
+                        <span class="add-on"><i class="icon-envelope"></i></span>
+                        <input type="text" id="messageInput" class="span2" placeholder="Nhập tin nhắn của bạn">
+                        <button class="btn" type="submit">Gửi</button>
+                    </div>
+                    </div>
+                        <!-- Form để gửi tin nhắn -->
+                    </form>
+                  <!-- gui -->
                     <ul class="m-b-0">
                         <!-- <li class="clearfix">
                             <div class="message-data text-right">
@@ -329,29 +358,27 @@
                                 @if(isset($usernames[$message->user_id]))
                                     <li class="clearfix">
                                         <div class="message-data">
-                                            <h6 class="m-b-0">{{ $usernames[$message->user_id] }}</h6>
+                                                <h6 class="m-b-0">{{ $usernames[$message->user_id] }}</h6>
                                             <span class="message-data-time">{{ $message->time_date }}, {{ \Carbon\Carbon::parse($message->time_date)->format('l') }}</span>
                                         </div>
-                                        <div class="message my-message">{{ $message->detail }}</div>
+                                        <div class="message my-message"><?= $message->detail ?></div>
                                     </li>
-                                @endif
+                                 @elseif(isset($ad_usernames[$message->admin_id]))
+                                    <li class="clearfix"style="background-color: #CCCCFF; border-radius: 10px;padding-left: 10px">
+                                            <div class="message-data">
+                                                    <h6  class="m-b-0">Admin - <?=  $ad_usernames[$message->admin_id]?>:  <?=$message->title ?></h6>
+                                                <span class="message-data-time">{{ $message->time_date }}, {{ \Carbon\Carbon::parse($message->time_date)->format('l') }}</span>
+                                            </div>
+                                            <div class="message my-message"><?= $message->detail ?></div>
+                                    </li>
+                                 @endif
+
                             @endforeach
                         </ul>
                     </ul>
                 </div>
                 <!-- hien chat-->
-                <!-- gui -->
-                <form id="messageForm">
-                <div class="chat-message clearfix">
-                <div class="input-prepend input-append">
-                    <span class="add-on"><i class="icon-envelope"></i></span>
-                    <input type="text" id="messageInput" class="span2" placeholder="Nhập tin nhắn của bạn">
-                    <button class="btn" type="submit">Gửi</button>
-                </div>
-                </div>
-                    <!-- Form để gửi tin nhắn -->
-                </form>
-                  <!-- gui -->
+
 
             </div>
         </div>
@@ -371,16 +398,22 @@
     var channel = pusher.subscribe('chat-channel');
 
     channel.bind('new-message', function(data) {
-        var messagesList = document.getElementById('messageList');
-        var newMessage = document.createElement('li');
-        newMessage.innerHTML = `
-            <div class="message-data">
+    var messagesList = document.getElementById('messageList');
+    var newMessage = document.createElement('li');
+    newMessage.innerHTML = `
+        <div class="message-data">
             <h6 class="m-b-0">${data.username}</h6>
-                <span class="message-data-time">${moment(data.message.time_date).format('YYYY-MM-DD HH:mm:ss')}, ${moment(data.message.time_date).format('dddd')}</span>
-            </div>
-            <div class="message my-message">${data.message.detail}</div>
-        `;
+            <span class="message-data-time">${moment(data.message.time_date).format('YYYY-MM-DD HH:mm:ss')}, ${moment(data.message.time_date).format('dddd')}</span>
+        </div>
+        <div class="message my-message">${data.message.detail}</div>
+    `;
+
+    // Chèn tin nhắn mới vào đầu danh sách
+    if (messagesList.firstChild) {
+        messagesList.insertBefore(newMessage, messagesList.firstChild);
+    } else {
         messagesList.appendChild(newMessage);
+    }
     });
 
     $('#messageForm').submit(function(e) {

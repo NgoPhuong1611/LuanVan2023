@@ -325,16 +325,7 @@
 
                             <input type="button" class="btn btn-primary" id="#bsw_popup" value="Chấm điểm" onclick="result()" /> <br><br>
                             <div id="listeing-result"></div>
-                            <!-- <div>
-                            <ul>
-                                @foreach($messages as $message)
-                                <li>
-                                <strong>{{ $message->user_id }}</strong>: {{ $message->content }}
-                                <span class="timestamp">{{ $message->created_at }}</span>
-                            </li>
-                                @endforeach
-                            </ul>
-                            </div> -->
+                           
                             <hr width="60%">
                         </div>
 

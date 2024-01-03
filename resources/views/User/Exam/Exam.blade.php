@@ -649,7 +649,12 @@
 ==========================-->
 
     <!--/.Footer-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function highlightNumberCircle(questionId) {
             // Xóa tất cả các đối tượng có class "active"
@@ -708,8 +713,10 @@
                             url: '<?= url('Exam/InsertWrongAnswer') ?>',
                             type: 'POST',
                             data: {
+                                _token: '<?= csrf_token() ?>',
                                 question_id: <?= $value['id'] ?>,
-                                selected_answer: selected_answer
+                                selected_answer: selected_answer,
+                                exam_history_id: <?= $exam_history_id ?>,
                             },
                             success: function(response) {
                                 console.log(response);
@@ -749,10 +756,22 @@
             $("b:contains('READING 0/100 - Your score 0/495')").text("READING " + numberReading + "/100 => Your score " + scoreReading + "/495");
             $("h3:contains('Tổng điểm: ')").text("TOTAL SCORE:  " + scoreTotal);
             $("h2:contains('Kết quả bài thi toeic ')").text("Kết quả bài thi toeic:  " + scoreTotal);
+            // update diem thi vao lich su
+            $.ajax({
+                            url: '<?= url('Exam/Score') ?>',
+                            type: 'POST',
+                            data: {
+                                _token: '<?= csrf_token() ?>',
+                                exam_history_id: <?= $exam_history_id ?>,
+                                score: scoreTotal,
+                            },
+                            success: function(response) {
+                                console.log(response);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
+                });
 
         }
     </script>
-
-</body>
-
-</html>

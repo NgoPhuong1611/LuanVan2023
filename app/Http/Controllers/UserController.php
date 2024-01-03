@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -14,7 +15,7 @@ class UserController extends Controller
     {
         return view('User.inforUser.Login');
     }
-
+ 
     public function showInforUser()
     {
         
@@ -35,11 +36,6 @@ class UserController extends Controller
         $user->update($data);
 
         return redirect('/');
-    }
-
-    public function result()
-    {
-        return view('User.Results.readingResult');
     }
 
     public function editPassword()
@@ -96,7 +92,7 @@ class UserController extends Controller
 
     public function register()
     {
-        
+
         return view('User.inforUser.Register');
     }
 
@@ -165,4 +161,7 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+
+
 }
