@@ -7,4 +7,8 @@ class HomeController extends Controller
     {
         return view('User.Home.home');
     }
+    public function index2()
+    {
+        return view('User.Home.homeTeacher');
+    }
 }

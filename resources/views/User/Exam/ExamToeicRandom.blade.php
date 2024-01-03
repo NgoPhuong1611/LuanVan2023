@@ -266,7 +266,7 @@
             <br>
             <div style="display: block;">
                 <p>
-                    <a href="<?= url('user') ?>" id="backhome">
+                    <a href="<?= url('/') ?>" id="backhome">
                         Home
                     </a>
                     <span>Bài Thi</span>

@@ -1,5 +1,5 @@
-@extends('User/layout')
-@section('content')
+<?= $this->extend('User/layout') ?>
+<?= $this->section('content') ?>
 <input style="display:none;" id="baseUrl" value="" />
 
 <script>
@@ -32,7 +32,7 @@
 
         </div>
 
-        <form class="formDoiMatKhau" action="<?= url('User/changePassword') ?>" method="post" onsubmit="return validatePassword()">
+        <form class="formDoiMatKhau" action="<?= base_url('User/changePassword') ?>" method="post" onsubmit="return validatePassword()">
 
             <input type="hidden" id="iduser" name="iduser" value="<?= $user[0]['id'] ?>">
             <input type="hidden" id="name" name="name" value="<?= $user[0]['username'] ?>">
@@ -54,7 +54,7 @@
             <input class="btn btn-primary" type="submit" value="Xác nhận" />
         </form>
     </div>
-	<script src="<?= url("resources/js/client/profileClient.js") ?>"></script>
+    <script src="<?= base_url() ?>resources/js/client/profileClient.js"></script>
 </body>
 
-@endsection
+<?= $this->endSection() ?>

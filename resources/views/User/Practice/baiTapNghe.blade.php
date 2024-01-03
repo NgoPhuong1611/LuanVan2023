@@ -272,7 +272,7 @@
             <br>
             <div style="display: block;">
                 <p>
-                <a href="{{ url('user') }}" id="backhome" style="display: inline;">
+                <a href="{{ url('/') }}" id="backhome" style="display: inline;">
                                         Home</a> <span>Luyện tập</span>
                 </p>
             </div>
