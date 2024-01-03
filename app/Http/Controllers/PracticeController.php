@@ -10,6 +10,7 @@ use App\Models\QuestionImage;
 use App\Models\Question;
 use App\Models\Message;
 use App\Models\FileUser;
+use App\Models\User;
 use Psy\Readline\Hoa\Console;
 
 class PracticeController extends Controller
@@ -237,7 +238,7 @@ class PracticeController extends Controller
         $questionImage = $questionImageModel->get();
         $data['question_image'] = $questionImage;
 
-        return view('User.Practice.baiTapNoi', $data);
+        return view('User.Practice.baiTapNoi2', $data);
     }
     
     //lưu bài làm của người học
@@ -265,27 +266,49 @@ class PracticeController extends Controller
     }
      
     //ghi âm test
-    public function recordSpeaking(Request $request)
-{
-    // Lưu file ghi âm vào thư mục upload/audio_user
-    $userId = auth()->user()->id;
-    $questionId = $request->input('question_id');
+//     public function recordSpeaking(Request $request)
+// {
+//     $user=User::find(session()->get('id'));
+//     // Lưu file ghi âm vào thư mục upload/audio_user
+//     // $userId = auth()->user()->id;
+//     $questionId = $request->input('question_id');
 
-    if ($request->hasFile('audio')) {
-        $audio = $request->file('audio');
-        $fileName = $questionId . '_' . $userId . '.' . $audio->getClientOriginalExtension();
-        $audio->move(public_path('upload/audio_user'), $fileName);
+//     if ($request->hasFile('audio')) {
+//         $audio = $request->file('audio');
+//         $fileName = $questionId . '_' . $user . '.' . $audio->getClientOriginalExtension();
+//         $audio->move(public_path('upload/audio_user'), $fileName);
 
-        // Lưu thông tin file vào database
-        FileUser::create([
-            'user_id' => $userId,
-            'question_id' => $questionId,
-            'detail' => $fileName
-        ]);
+//         // Lưu thông tin file vào database
+//         FileUser::create([
+//             'user_id' => $user,
+//             'question_id' => $questionId,
+//             'detail' => $fileName
+//         ]);
 
-        return response()->json(['success' => true, 'message' => 'File ghi âm đã được lưu.']);
+//         return response()->json(['success' => true, 'message' => 'File ghi âm đã được lưu.']);
+//     }
+
+//     return response()->json(['success' => false, 'message' => 'Không có file ghi âm được gửi đến server.']);
+// }
+public function storeAudio(Request $request)
+    {
+        try {
+            if ($request->hasFile('audio')) {
+                $audioFile = $request->file('audio');
+                $audioPath = $audioFile->store('audio', 'public'); // Lưu file âm thanh vào thư mục 'storage/app/public/audio'
+    
+                $audio = new FileUser();
+                $audio->audio_data = $audioPath; // Lưu đường dẫn của file âm thanh vào cột 'audio_data'
+                $audio->save();
+    
+                return redirect('/');
+            } else {
+                return back()->with('error', 'No audio file uploaded');
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+       
     }
-
-    return response()->json(['success' => false, 'message' => 'Không có file ghi âm được gửi đến server.']);
-}
 }

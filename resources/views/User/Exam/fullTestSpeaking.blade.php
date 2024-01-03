@@ -99,7 +99,7 @@
             <br>
             <div style="display: block;">
                 <p>
-                    <a href="<?= base_url('user') ?>" id="backhome" style="display: inline;">
+                    <a href="<?= base_url('/') ?>" id="backhome" style="display: inline;">
                         Home</a> <span>Bài test Speaking</span>
                 </p>
             </div>

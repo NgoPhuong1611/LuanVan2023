@@ -1,4 +1,4 @@
-@extends('User.layout')
+@extends('User.Teacher.layout')
 
 @section('content')
 <input style="display:none;" id="baseUrl" value="" />
@@ -17,7 +17,6 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="information">
 					<form class="form-profile" action="<?= url('User/updateProfile') ?>" method="post">
-						@csrf
 						<input type="hidden" name="id" value="<?php echo $user['id']; ?>">
 						<div class="form-group">
 							<label style="font-weight: bold" for="staticEmail" class="col-sm-2 col-form-label">Email đăng ký</label>
@@ -39,17 +38,16 @@
 						<div class="form-group">
 							<label for="staticEmail" style="font-weight: bold" class="col-sm-2 col-form-label">Ho</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control-plaintext" value="<?php echo $user['first_name']; ?>" name="first_name" id="first_name" required="required">
+								<input type="text" readonly class="form-control-plaintext" value="<?php echo $user['first_name']; ?>" name="first_name" id="first_name" required="required">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="staticEmail" style="font-weight: bold" class="col-sm-2 col-form-label">Tên</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control-plaintext" value="<?php echo $user['last_name']; ?>" name="last_name" id="last_name" required="required">
+								<input type="text" readonly class="form-control-plaintext" value="<?php echo $user['last_name']; ?>" name="last_name" id="last_name" required="required">
 							</div>
 						</div>
-						<input class="btn btn-primary" id="btnSubmit" type="submit" value="Xác nhận" />
 					</form>
 				</div>
 			</div>

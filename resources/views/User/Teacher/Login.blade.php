@@ -11,7 +11,6 @@
         <ul class="nav nav-tabs" id="tabs">
             <li class="active"><a>Đăng Nhập</a></li>
             <li><a href="<?= url('User/Register') ?>">Đăng Ký</a></li>
-            <li><a href="<?= url('Teacher/Register') ?>">Đăng Ký (Người dạy)</a></li>
         </ul>
         <div class="tab-content">
         <form class="form-login" action="<?= url('User/userlogin') ?>" method="post">

@@ -5,6 +5,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -13,10 +15,10 @@ class UserController extends Controller
     {
         return view('User.inforUser.Login');
     }
-
-
+ 
     public function showInforUser()
     {
+        
         $user = User::find(session()->get('id'));
 
         return view('User.inforUser.profile', ['user' => $user]);
@@ -48,11 +50,6 @@ class UserController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = [
-            'username' => $username,
-            'password' => $password
-        ];
-
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:3'
@@ -61,17 +58,16 @@ class UserController extends Controller
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return redirect()->to('User/Login')->with('error', 'Wrong login info');
+            return redirect()->to('User/Login')->with('errors', 'Thông tin đăng nhập không đúng');
+            // return redirect()->route('userlogin')->with('errors', "Tên đăng nhập không tồn tại");
         }
 
         $authPassword = md5((string)$password) === $user->password;
 
         if (!$authPassword) {
-            return redirect()->to('User/Login')->with('error', 'Wrong login info');
+            return redirect()->to('User/Login')->with('errors', 'Mật khẩu đăng nhập không đúng');
+            // return redirect()->route('userlogin')->with('errors', "mat khau hk dung");
         }
-
-        $user->updated_at = now();
-        $user->save();
 
         $sessionData = [
             'id' => $user->id,
@@ -83,10 +79,15 @@ class UserController extends Controller
         ];
 
         $user->update(['updated_at' => now()]);
-
         session($sessionData);
 
-        return redirect('/');
+        if ($user->type === 0) {
+            return redirect('/'); // Đường dẫn giao diện cho người dùng
+        } elseif ($user->type === 1) {
+            return redirect('/Teacher'); // Đường dẫn giao diện cho giáo viên
+        } else {
+            return redirect()->to('User/Login')->with('error', 'Loại người dùng không hợp lệ');
+        }
     }
 
     public function register()
@@ -130,7 +131,8 @@ class UserController extends Controller
     public function logout()
     {
         session()->flush();
-        return view('User.inforUser.Login');
+        // return view('User.inforUser.Login');
+        return redirect()->to('User/Login');
     }
 
     public function changePassword(Request $request)

@@ -1,4 +1,4 @@
-@extends('User.layout')
+@extends('User.Teacher.layout')
 @section('content')
     {{-- Nội dung của trang --}}
 <input style="display:none;" id="baseUrl" value=""/>
@@ -92,35 +92,6 @@
   ==============================================-->
 
 
-    <div class="row feature-box">
-        <div class="span12 cnt-title">
-            <h1>Cung cấp các giao diện học và thi thân thiện.</h1>
-            <span>--- Học thử, Làm bài tập, Thi thử ---</span>
-        </div>
-
-        <div class="span4">
-            <img src="../resources/file/images/baiDocId=1.png">
-
-            <h2>Học từ vựng, ngữ pháp</h2>
-            <p>Các bài hướng dẫn đơn giản, dễ hiểu.</p>
-            <a href="#" id="modal1" class="openModalFunction">Chi tiết &rarr;</a>
-
-        </div>
-
-        <div class="span4">
-            <img src="../resources/file/images/baiDocId=21.png">
-            <h2>Bài tập phần nghe, đọc</h2>
-            <p>Sử dụng các dạng bài tập thường xuyên xuất hiện.</p>
-            <a href="#" id="modal2" class="openModalFunction">Chi tiết &rarr;</a>
-        </div>
-
-        <div class="span4">
-            <img src="../resources/file/images/baiDocId=21.png">
-            <h2>Đề thi thử</h2>
-            <p>Cập nhật, đổi mới liên tục, sát với đề thi thật nhất.</p>
-            <a href="#" class="doExam" id="doExam">Chi tiết &rarr;</a>
-        </div>
-    </div>
     <!-- /.Feature -->
 
     <div class="hr-divider"></div>
@@ -135,10 +106,8 @@
         <div class="span4">
             <!--   <img class="hidden-phone" src="Template/Frontend/img/icon4.png" alt="img not found"> -->
             <h1 align="center">Tin cậy - uy tín</h1>
-            <p align="justify">Mỗi năm, có hàng nghìn lượt học viên đã tham
-                dự các khóa học tiếng Anh tại CFL và đạt kết quả như ý muốn. Chúng
-                tôi tự hào là một trong những trung tâm ngoại ngữ được yêu thích,
-                là địa chỉ tin cậy của những ai có nhu cầu nâng cao kiến thức về tiếng Anh của mình</p>
+            <p align="justify">Để website có thể thành công như hiện tại, ngoài công sức của chúng tôi
+                thì nó cũng là công sức của các bạn những người truyền đạt kiến thức, chúc các bạn thành công ! </i></p>
 
         </div>
     </div>

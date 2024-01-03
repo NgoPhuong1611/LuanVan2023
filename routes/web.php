@@ -33,7 +33,7 @@ use App\Http\Controllers\HistoryController;
 
 Route::group([], function () {
     Route::get('',  [HomeController::class, 'index']);
-
+    Route::get('Teacher',  [HomeController::class, 'index2']);
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/',[BlogController::class, 'index']) ;
         Route::get('detail/{any}', [BlogController::class, 'detail']);
@@ -70,8 +70,9 @@ Route::group([], function () {
         Route::get('PracticeWriting', [PracticeController::class, 'practiceWriting']);
         Route::get('Speaking/{any}', [PracticeController::class, 'speaking']);
         Route::get('Writing/{any}', [PracticeController::class, 'writing']);
+       
+        Route::post('record', [PracticeController::class, 'storeAudio']);
         Route::post('save', [PracticeController::class, 'save']);
-        Route::post('record-speaking', [PracticeController::class, 'recordSpeaking']);
 
     });
 
@@ -93,14 +94,21 @@ Route::group([], function () {
         // Route::get('Ratings', [HistoryController::class, 'ratings']);
 
     });
-    Route::group(['prefix' => 'teacher'], function () {
+    Route::group(['prefix' => 'Teacher'], function () {
         Route::get('Infor',[TeacherController::class, 'showInforTeacher'] );
+        //
+        Route::get('Register', [TeacherController::class, 'registerTeacher']);
+        Route::post('save',[TeacherController::class, 'saveTeacher']);
+    
+        Route::post('updateProfile', [TeacherController::class, 'updateProfile']);
+        Route::get('EditPassWord', [TeacherController::class, 'editPassword']);
+        Route::post('changePassword',[TeacherController::class, 'changePassword']);
+        //
         Route::get('terms',[TeacherController::class, 'terms'] );
         Route::get('detail',[TeacherController::class, 'detail'] );
         Route::get('mission',[TeacherController::class, 'mission'] );
         Route::get('coin',[TeacherController::class, 'coin'] );
         Route::get('transaction',[TeacherController::class, 'transaction'] );
-
 
 
         // Route::get('Login', [UserController::class, 'index']);
