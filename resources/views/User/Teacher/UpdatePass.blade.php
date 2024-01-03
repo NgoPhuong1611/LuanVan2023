@@ -1,5 +1,5 @@
-<?= $this->extend('User/layout') ?>
-<?= $this->section('content') ?>
+@extends('User/Teacher/layout')
+@section('content')
 <input style="display:none;" id="baseUrl" value="" />
 
 <script>
@@ -23,16 +23,16 @@
 
 <body>
     <div class="container">
-        <h3 class="page-header">Thông tin cá nhân</h3>
+        <h3 class="page-header">Quản Lý Tài Khoản</h3>
         <ul class="nav nav-tabs" id="tabs">
-            <li><a href="Infor">Cập nhật thông tin</a></li>
+            <li><a href="Infor">Thông tin cá nhân</a></li>
             <li class="active"><a href="">Đổi mật khẩu</a></li>
         </ul>
         <div class="tab-pane" id="changePass">
 
         </div>
 
-        <form class="formDoiMatKhau" action="<?= base_url('User/changePassword') ?>" method="post" onsubmit="return validatePassword()">
+        <form class="formDoiMatKhau" action="<?= url('User/changePassword') ?>" method="post" onsubmit="return validatePassword()">
 
             <input type="hidden" id="iduser" name="iduser" value="<?= $user[0]['id'] ?>">
             <input type="hidden" id="name" name="name" value="<?= $user[0]['username'] ?>">
@@ -54,7 +54,7 @@
             <input class="btn btn-primary" type="submit" value="Xác nhận" />
         </form>
     </div>
-    <script src="<?= base_url() ?>resources/js/client/profileClient.js"></script>
+    <script src="<?= url("resources/js/client/profileClient.js") ?>"></script>
 </body>
 
-<?= $this->endSection() ?>
+@endSection()

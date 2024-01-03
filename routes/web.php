@@ -38,6 +38,10 @@ Route::group([], function () {
         Route::get('/',[BlogController::class, 'index']) ;
         Route::get('detail/{any}', [BlogController::class, 'detail']);
     });
+    Route::group(['prefix' => 'blogTeacher'], function () {
+        Route::get('/',[BlogController::class, 'indexTeacher']) ;
+        Route::get('detail/{any}', [BlogController::class, 'detailTeacher']);
+    });
 
     Route::group(['prefix' => 'listExam'], function () {
         Route::get('listtoeic',[ListExamController::class, 'index'] );
@@ -47,6 +51,7 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'Exam'], function () {
+        // Route::prefix('Exam')->middleware('User')->group(function () {
         Route::get('ExamToeic/{any}', [FullTestController::class, 'index']) ;
         Route::get('ExamListen', [FullTestController::class, 'testListen']);
         Route::get('ExamRead',[FullTestController::class, 'testRead'] );
@@ -55,9 +60,8 @@ Route::group([], function () {
         Route::POST('Score', [FullTestController::class, 'score'] );
 
     });
-
+    // Route::prefix('Practice')->middleware('User')->group(function () {
     Route::group(['prefix' => 'Practice', 'as' => 'Practice.'], function () {
-        // Route::prefix(['prefix' => 'Practice'])->middleware('User')->group(function () {
         Route::get('PracticeVocabulary', [PracticeController::class, 'PracticeVocabulary']);
         Route::get('PracticeGrammar', [PracticeController::class, 'PracticeGrammar']);
 
