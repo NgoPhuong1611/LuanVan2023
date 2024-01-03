@@ -22,7 +22,7 @@ class TeacherController extends Controller
               
         $user = User::find(session()->get('id'));
 
-        return view('User.Teacher.profile2', ['user' => $user]);
+        return view('User.Teacher.profile', ['user' => $user]);
     }
     public function terms(){
         return view('User.Teacher.terms');
@@ -44,30 +44,6 @@ class TeacherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
-
-    public function showInforUser()
-    {
-        
-        $user = User::find(session()->get('id'));
-
-        return view('User.Teacher.profile2', ['user' => $user]);
-    }
-
-    public function updateProfile(Request $request)
-    {
-        $user = User::find(session()->get('id'));
-
-        $data = [
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name')
-        ];
-
-        $user->update($data);
-
-        return redirect('/');
-    }
-
     public function result()
     {
         return view('User.Results.readingResult');
@@ -77,7 +53,7 @@ class TeacherController extends Controller
     {
         $user = User::where('id', session()->get('id'))->get();
 
-        return view('User.inforUser.UpdatePass', ['user' => $user]);
+        return view('User.Teacher.UpdatePass', ['user' => $user]);
     }
 
     public function userLogin(Request $request)
