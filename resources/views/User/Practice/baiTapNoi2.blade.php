@@ -233,16 +233,7 @@
 
 
 <body>
-    <div id='bsw_popup'>
-        <div class='bsw_popup_'>
-            <h2>kết quả bài thi toeic </h2>
-            <p><b>LISTEING 0/100 => Your score 0/495</b></p>
-            <p><b>READING 0/100 => Your score 0/495</b></p>
-            <h3>TOTAL SCORE: </h3>
-            <a class="close" href="{{ url('') }}" title="Close"><i aria-hidden="true" class="fa fa-check"></i>
-                Thoát bài thi</a>
-        </div>
-    </div>
+   
     <!--Header
 ==========================-->
     <div class="testReading" id="testReading">
@@ -272,7 +263,7 @@
 
         <div id="content" class="container-fluid fill">
             {{-- <form action="record-speaking" method="post" id="submitForm" name="submitForm"> --}}
-            <form action="Record" method="POST" id="submitForm" name="submitForm">
+            <form action="Practice/record" method="POST" id="submitForm" name="submitForm">
                 @csrf
                 <div class="row">
                     <div id="navigation" class="col-md-4 ">
@@ -310,6 +301,7 @@
                             <?php if ($part[0]['part_number'] == 8) { ?>
                             <div class="panel panel-primary">
                                 <div class="panel-body">
+                                    <input type="hidden" name="examPart" value=8>
                                     <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
                                     <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
                                 </div>
@@ -346,9 +338,9 @@
 
 
                             {{-- nếu là part 9 --}}
-                            <?php } elseif ($part[0]['part_number'] == 9) { ?><!--- part 14,15--->
-                            <div class="panel panel-primary">
+                            <?php } elseif ($part[0]['part_number'] == 9) { ?>
                                 <div class="panel-body">
+                                    <input type="hidden" name="examPart" value=9>
                                     <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
                                     <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
                                 </div>
@@ -380,6 +372,7 @@
                             <?php } elseif ($part[0]['part_number'] == 10) { ?>
                             <div class="panel panel-primary">
                                 <div class="panel-body">
+                                    <input type="hidden" name="examPart" value=10>
                                     <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
                                     <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
                                 </div>
@@ -407,9 +400,10 @@
                             <?php endforeach ?>
 
                             {{-- load trường hợp part 11 --}}
-                            <?php } elseif ($part[0]['part_number'] == 11) { ?><!--- part 14,15--->
+                            <?php } elseif ($part[0]['part_number'] == 11) { ?>
                             <div class="panel panel-primary">
                                 <div class="panel-body">
+                                    <input type="hidden" name="examPart" value=11>
                                     <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
                                     <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
                                 </div>
@@ -437,9 +431,10 @@
                             <?php endforeach ?>
 
                             {{-- load trường hợp part 12 --}}
-                            <?php } elseif ($part[0]['part_number'] == 12) { ?><!--- part 14,15--->
+                            <?php } elseif ($part[0]['part_number'] == 12) { ?>
                             <div class="panel panel-primary">
                                 <div class="panel-body">
+                                    <input type="hidden" name="examPart" value=12>
                                     <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
                                     <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
                                 </div>
@@ -474,19 +469,7 @@
                 </div>
             </form>
         </div>
-        <div>
-            <section class="main-controls">
-                <canvas class="visualizer" height="60px" width="860"></canvas>
-                <div id="buttons">
-                    <button class="record">Record</button>
-                    <button class="stop" disabled="">Stop</button>
-                </div>
-            </section>
 
-            <section class="sound-clips">
-
-            </section>
-        </div>
     </div>
     {{-- @if (auth()->check()) --}}
     <script src="node_modules\lamejs\lame.min.js"></script>

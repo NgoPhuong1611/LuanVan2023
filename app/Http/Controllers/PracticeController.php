@@ -244,25 +244,21 @@ class PracticeController extends Controller
     //lưu bài làm của người học
     public function save(Request $request)
     {
-        $userId = auth()->user()->id; // Lấy ID của người dùng hiện tại
+        $user_id=User::find(session()->get('id'))->id;// Lấy ID của người dùng hiện tại
         $questionId = $request->input('question_id'); // ID của câu hỏi
-        // $examPart = $request->input('exam_part_id');
+        $examPart = $request->input('examPart');
         $detail = $request->input('answer'); // Giả sử tên trường là 'answer'
-
-        if (!empty($userId) && !empty($questionId) && !empty($detail)) {
-            $fileUser = new FileUser();
-            $fileUser->user_id = $userId;
-            // $fileUser->user_id=auth()->user()->id;
-            $fileUser->question_id = $questionId;
-            // $fileUser->exam_part_id = $examPart;
-            $fileUser->detail = $detail;
-            $fileUser->save();
+       
+        $data = [
+            'user_id'=>$user_id,
+            'question_id'=> $questionId,
+            'part_number' => $examPart,
+            'type' => 1,
+            'detail' => $detail,
+        ];
     
-            return redirect()->back()->with('success', 'Dữ liệu đã được lưu thành công.');
-        } else {
-            return redirect()->back()->with('error', 'Đã xảy ra lỗi khi lưu dữ liệu.');
-        }
-        
+        FileUser::create($data);
+        return view('User.History.index');
     }
      
     //ghi âm test
@@ -292,23 +288,52 @@ class PracticeController extends Controller
 // }
 public function storeAudio(Request $request)
     {
-        try {
+        // try {
+        //     if ($request->hasFile('audio')) {
+        //         $audioFile = $request->file('audio');
+        //         $audioPath = $audioFile->store('audio', 'public'); // Lưu file âm thanh vào thư mục 'storage/app/public/audio'    
+        //         $audio = new FileUser();
+        //         $audio->audio_data = $audioPath; // Lưu đường dẫn của file âm thanh vào cột 'audio_data'
+        //         $audio->save();
+    
+        //         return redirect('/');
+        //     } else {
+        //         return back()->with('error', 'No audio file uploaded');
+        //     }
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        //     dd($th);
+        // }
+        $user=User::find(session()->get('id'));
+            // Lưu file ghi âm vào thư mục upload/audio_user
+            // $userId = auth()->user()->id;
+            $user_id=User::find(session()->get('id'))->id;// Lấy ID của người dùng hiện tại
+            $questionId = $request->input('question_id'); // ID của câu hỏi
+            $examPart = $request->input('examPart');
+            $detail = $request->input('answer'); // Giả sử tên trường là 'answer'
+        
             if ($request->hasFile('audio')) {
-                $audioFile = $request->file('audio');
-                $audioPath = $audioFile->store('audio', 'public'); // Lưu file âm thanh vào thư mục 'storage/app/public/audio'
-    
-                $audio = new FileUser();
-                $audio->audio_data = $audioPath; // Lưu đường dẫn của file âm thanh vào cột 'audio_data'
-                $audio->save();
-    
-                return redirect('/');
-            } else {
-                return back()->with('error', 'No audio file uploaded');
+                $audio = $request->file('audio');
+                $fileName = $questionId . '_' . $user . '.' . $audio->getClientOriginalExtension();
+                $audio->move(public_path('upload/audio_user'), $fileName);
+        
+                // Lưu thông tin file vào database
+          
+                $data = [
+                        'user_id'=>$user_id,
+                        'question_id'=> $questionId,
+                        'part_number' => $examPart,
+                        'type' => 1,
+                        'detail' => $detail,
+                    ];
+        
+             FileUser::create($data);
+                return response()->json(['success' => true, 'message' => 'File ghi âm đã được lưu.']);
             }
-        } catch (\Throwable $th) {
-            //throw $th;
-            dd($th);
-        }
-       
+        
+            
+           
+            
+            return view('User.History.index');
     }
 }

@@ -133,7 +133,9 @@ Route::group([], function () {
 
 
     Route::get('/chat', [ChatController::class, 'index']);
+    Route::get('/chatTeacher', [ChatController::class, 'indexTeacher']);
     Route::post('/send-message', [ChatController::class, 'sendMessage']);
+
 });
 
 
