@@ -233,7 +233,7 @@
 
 
 <body>
-   
+
     <!--Header
 ==========================-->
     <div class="testReading" id="testReading">
@@ -263,7 +263,7 @@
 
         <div id="content" class="container-fluid fill">
             {{-- <form action="record-speaking" method="post" id="submitForm" name="submitForm"> --}}
-            <form action="Practice/record" method="POST" id="submitForm" name="submitForm">
+            <form action="{{ url('Practice/record') }}" method="POST" id="submitForm" name="submitForm">
                 @csrf
                 <div class="row">
                     <div id="navigation" class="col-md-4 ">
@@ -318,6 +318,7 @@
                             </div>
                             {{-- form nhập text trả lời --}}
                             <?php foreach ($question as $value) : ?>
+                            <input type="hidden" name="question_id" value="<?= $value['id'] ?>">
                             <p><b>Question:</b> <?= $value['question'] ?></p>
                             <section class="main-controls">
                                 <canvas class="visualizer" height="60px"
@@ -339,170 +340,163 @@
 
                             {{-- nếu là part 9 --}}
                             <?php } elseif ($part[0]['part_number'] == 9) { ?>
-                                <div class="panel-body">
-                                    <input type="hidden" name="examPart" value=9>
-                                    <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
-                                </div>
+                            <div class="panel-body">
+                                <input type="hidden" name="examPart" value=9>
+                                <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
+                                <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
                             </div>
-                            {{-- form nhập text trả lời --}}
-                            <?php foreach ($question as $value) : ?>
-                            <p><b>Question:</b> <?= $value['question'] ?></p>
-                            {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
-                            {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
-                            <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
-                            <section class="main-controls">
-                                <canvas class="visualizer" height="60px"
-                                    style="width: 50%; border-radius: 10px"></canvas>
-                                <div id="buttons">
-                                    <button class="record">Record</button>
-                                    <button class="stop" disabled="">Stop</button>
-                                </div>
-                            </section>
-
-                            <section class="sound-clips">
-
-
-                            </section>
-
-                            <?php endforeach ?>
-
-
-                            {{-- load trường hợp part 10 --}}
-                            <?php } elseif ($part[0]['part_number'] == 10) { ?>
-                            <div class="panel panel-primary">
-                                <div class="panel-body">
-                                    <input type="hidden" name="examPart" value=10>
-                                    <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
-                                </div>
-                            </div>
-                            {{-- form nhập text trả lời --}}
-                            <?php foreach ($question as $value) : ?>
-                            <p><b>Question:</b> <?= $value['question'] ?></p>
-                            {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
-                            {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
-                                <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
-                            <section class="main-controls">
-                                <canvas class="visualizer" height="60px"
-                                    style="width: 50%; border-radius: 10px"></canvas>
-                                <div id="buttons">
-                                    <button class="record">Record</button>
-                                    <button class="stop" disabled="">Stop</button>
-                                </div>
-                            </section>
-
-                            <section class="sound-clips">
-
-
-                            </section>
-
-                            <?php endforeach ?>
-
-                            {{-- load trường hợp part 11 --}}
-                            <?php } elseif ($part[0]['part_number'] == 11) { ?>
-                            <div class="panel panel-primary">
-                                <div class="panel-body">
-                                    <input type="hidden" name="examPart" value=11>
-                                    <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
-                                </div>
-                            </div>
-                            {{-- form nhập text trả lời --}}
-                            <?php foreach ($question as $value) : ?>
-                            <p><b>Question:</b> <?= $value['question'] ?></p>
-                            {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
-                            {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
-                                    <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
-                            <section class="main-controls">
-                                <canvas class="visualizer" height="60px"
-                                    style="width: 50%; border-radius: 10px"></canvas>
-                                <div id="buttons">
-                                    <button class="record">Record</button>
-                                    <button class="stop" disabled="">Stop</button>
-                                </div>
-                            </section>
-
-                            <section class="sound-clips">
-
-
-                            </section>
-
-                            <?php endforeach ?>
-
-                            {{-- load trường hợp part 12 --}}
-                            <?php } elseif ($part[0]['part_number'] == 12) { ?>
-                            <div class="panel panel-primary">
-                                <div class="panel-body">
-                                    <input type="hidden" name="examPart" value=12>
-                                    <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
-                                </div>
-                            </div>
-                            {{-- form nhập text trả lời --}}
-                            <?php foreach ($question as $value) : ?>
-                            <p><b>Question:</b> <?= $value['question'] ?></p>
-                            {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
-                            {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
-                                        <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
-                            <section class="main-controls">
-                                <canvas class="visualizer" height="60px"
-                                    style="width: 50%; border-radius: 10px"></canvas>
-                                <div id="buttons">
-                                    <button class="record">Record</button>
-                                    <button class="stop" disabled="">Stop</button>
-                                </div>
-                            </section>
-
-                            <section class="sound-clips">
-
-
-                            </section>
-
-                            <?php endforeach ?>
-
-                            <?php } ?>
-
-                            <hr>
                         </div>
+                        {{-- form nhập text trả lời --}}
+                        <?php foreach ($question as $value) : ?>
+                        <input type="hidden" name="question_id" value="<?= $value['id'] ?>">
+                        <p><b>Question:</b> <?= $value['question'] ?></p>
+                        {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
+                        {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
+                            <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
+                        <section class="main-controls">
+                            <canvas class="visualizer" height="60px" style="width: 50%; border-radius: 10px"></canvas>
+                            <div id="buttons">
+                                <button class="record">Record</button>
+                                <button class="stop" disabled="">Stop</button>
+                            </div>
+
+                        </section>
+
+                        <section class="sound-clips">
+
+
+                        </section>
+
+                        <?php endforeach ?>
+
+
+                        {{-- load trường hợp part 10 --}}
+                        <?php } elseif ($part[0]['part_number'] == 10) { ?>
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <input type="hidden" name="examPart" value=10>
+                                <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
+                                <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
+                            </div>
+                        </div>
+                        {{-- form nhập text trả lời --}}
+                        <?php foreach ($question as $value) : ?>
+                        <input type="hidden" name="question_id" value="<?= $value['id'] ?>">
+                        <p><b>Question:</b> <?= $value['question'] ?></p>
+                        {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
+                        {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
+                                <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
+                        <section class="main-controls">
+                            <canvas class="visualizer" height="60px" style="width: 50%; border-radius: 10px"></canvas>
+                            <div id="buttons">
+                                <button class="record">Record</button>
+                                <button class="stop" disabled="">Stop</button>
+                            </div>
+                        </section>
+
+                        <section class="sound-clips">
+
+
+                        </section>
+
+                        <?php endforeach ?>
+
+                        {{-- load trường hợp part 11 --}}
+                        <?php } elseif ($part[0]['part_number'] == 11) { ?>
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <input type="hidden" name="examPart" value=11>
+                                <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
+                                <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
+                            </div>
+                        </div>
+                        {{-- form nhập text trả lời --}}
+                        <?php foreach ($question as $value) : ?>
+                        <input type="hidden" name="question_id" value="<?= $value['id'] ?>">
+                        <p><b>Question:</b> <?= $value['question'] ?></p>
+                        {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
+                        {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
+                                    <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
+                        <section class="main-controls">
+                            <canvas class="visualizer" height="60px"
+                                style="width: 50%; border-radius: 10px"></canvas>
+                            <div id="buttons">
+                                <button class="record">Record</button>
+                                <button class="stop" disabled="">Stop</button>
+                            </div>
+                        </section>
+
+                        <section class="sound-clips">
+
+
+                        </section>
+
+                        <?php endforeach ?>
+
+                        {{-- load trường hợp part 12 --}}
+                        <?php } elseif ($part[0]['part_number'] == 12) { ?>
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <input type="hidden" name="examPart" value=12>
+                                <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
+                                <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
+                            </div>
+                        </div>
+                        {{-- form nhập text trả lời --}}
+                        <?php foreach ($question as $value) : ?>
+                        <input type="hidden" name="question_id" value="<?= $value['id'] ?>">
+                        <p><b>Question:</b> <?= $value['question'] ?></p>
+                        {{-- <button onclick="startRecording({{ $question->id }})">Bắt đầu ghi âm</button> --}}
+                        {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
+                                        <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
+                        <section class="main-controls">
+                            <canvas class="visualizer" height="60px"
+                                style="width: 50%; border-radius: 10px"></canvas>
+                            <div id="buttons">
+                                <button class="record">Record</button>
+                                <button class="stop" disabled="">Stop</button>
+                            </div>
+                        </section>
+
+                        <section class="sound-clips">
+
+                        </section>
+
+                        <?php endforeach ?>
+
+                        <?php } ?>
+
+                        <hr>
                     </div>
                 </div>
-            </form>
         </div>
+        </form>
+    </div>
 
     </div>
     {{-- @if (auth()->check()) --}}
-    <script src="node_modules\lamejs\lame.min.js"></script>
+    {{-- <script src="node_modules\lamejs\lame.min.js"></script> --}}
     {{-- // test chức năng ghi âm speaking --}}
     <script>
         // test chức năng ghi âm speaking
-        // set up basic variables for app
+
 
         const record = document.querySelector('.record');
         const stop = document.querySelector('.stop');
         const soundClips = document.querySelector('.sound-clips');
         const canvas = document.querySelector('.visualizer');
         const mainSection = document.querySelector('.main-controls');
-        //
-
-        // disable stop button while not recording
 
         stop.disabled = true;
 
-        // visualiser setup - create web audio api context and canvas
-
         let audioCtx;
         const canvasCtx = canvas.getContext("2d");
-
-        //main block for doing the audio recording
+        let chunks = [];
 
         if (navigator.mediaDevices.getUserMedia) {
-            console.log('getUserMedia supported.');
-
             const constraints = {
                 audio: true
             };
-            let chunks = [];
 
             let onSuccess = function(stream) {
                 const mediaRecorder = new MediaRecorder(stream);
@@ -518,7 +512,7 @@
                     stop.disabled = false;
                     record.disabled = true;
                 }
-                //
+
                 stop.onclick = function() {
                     mediaRecorder.stop();
                     console.log(mediaRecorder.state);
@@ -527,117 +521,57 @@
                     record.style.color = "";
                     stop.disabled = true;
                     record.disabled = false;
-
-                    mediaRecorder.ondataavailable = function(e) {
-                        chunks.push(e.data);
-                    }
-
-                    mediaRecorder.onstop = function(e) {
-                        console.log("data available after MediaRecorder.stop() called.");
-
-                        const clipName = prompt('Enter a name for your sound clip?', 'My unnamed clip');
-
-                        const clipContainer = document.createElement('article');
-                        const clipLabel = document.createElement('p');
-                        const audio = document.createElement('audio');
-                        const deleteButton = document.createElement('button');
-
-                        clipContainer.classList.add('clip');
-                        audio.setAttribute('controls', '');
-                        deleteButton.textContent = 'Delete';
-                        deleteButton.className = 'delete';
-
-                        if (clipName === null) {
-                            clipLabel.textContent = 'My unnamed clip';
-                        } else {
-                            clipLabel.textContent = clipName;
-                        }
-
-                        clipContainer.appendChild(audio);
-                        clipContainer.appendChild(clipLabel);
-                        clipContainer.appendChild(deleteButton);
-                        soundClips.appendChild(clipContainer);
-
-                        audio.controls = true;
-                        const blob = new Blob(chunks, {
-                            'type': 'audio/ogg; codecs=opus'
-                        });
-                        chunks = [];
-                        const audioURL = window.URL.createObjectURL(blob);
-                        audio.src = audioURL;
-                        const reader = new FileReader();
-                        reader.readAsDataURL(blob);
-
-                        console.log("recorder stopped");
-
-                        deleteButton.onclick = function(e) {
-                            e.target.closest(".clip").remove();
-                        }
-
-                        reader.onloadend = function() {
-                            const base64data = reader.result;
-                            const formData = new FormData();
-
-                            formData.append('audio');
-                            formData.append('user_id',
-                                getUserId()); // Thay thế hàm này bằng cách để lấy user_id thực tế
-                            formData.append('question_id',
-                                getQuestionId()); // Thay thế hàm này bằng cách để lấy question_id thực tế
-
-                            // Gửi dữ liệu MP3 lên server
-                            fetch('/save-audio-mp3', {
-                                    method: 'POST',
-                                    body: formData
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    // Xử lý phản hồi từ server
-                                    console.log(data);
-                                })
-                                .catch(error => {
-                                    console.error('Lỗi:', error);
-                                });
-                        }
-                        //
-                        function getUserId() {
-                            // Giả sử có một trường input có id là 'user-id'
-                            const userIdInput = document.getElementById('user-id');
-                            if (userIdInput) {
-                                return userIdInput.value; // Trả về giá trị của trường input
-                            }
-                            // Nếu không tìm thấy trường input, xử lý hoặc trả về giá trị phù hợp
-                            return null;
-                        }
-                        //
-                        function getQuestionId() {
-                            // Giả sử có một trường input có id là 'question-id'
-                            const questionIdInput = document.getElementById('question-id');
-                            if (questionIdInput) {
-                                return questionIdInput.value; // Trả về giá trị của trường input
-                            }
-                            // Nếu không tìm thấy trường input, xử lý hoặc trả về giá trị phù hợp
-                            return null;
-                        }
-                    }
-
-
-
-                    clipLabel.onclick = function() {
-                        const existingName = clipLabel.textContent;
-                        const newClipName = prompt('Enter a new name for your sound clip?');
-                        if (newClipName === null) {
-                            clipLabel.textContent = existingName;
-                        } else {
-                            clipLabel.textContent = newClipName;
-                        }
-                    }
                 }
 
                 mediaRecorder.ondataavailable = function(e) {
                     chunks.push(e.data);
+                    console.log(chunks.length);
                 }
-            }
 
+                mediaRecorder.onstop = function(e) {
+                    const clipName = prompt('Enter a name for your sound clip?', 'My unnamed clip');
+
+                    const clipContainer = document.createElement('article');
+                    const clipLabel = document.createElement('p');
+                    const audio = document.createElement('audio');
+                    const deleteButton = document.createElement('button');
+                    const audioInput = document.createElement('input');
+
+                    clipContainer.classList.add('clip');
+                    audio.setAttribute('controls', '');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.className = 'delete';
+
+                    if (clipName === null) {
+                        clipLabel.textContent = 'My unnamed clip';
+                    } else {
+                        clipLabel.textContent = clipName;
+                    }
+
+                    clipContainer.appendChild(audio);
+                    clipContainer.appendChild(clipLabel);
+                    clipContainer.appendChild(deleteButton);
+                    soundClips.appendChild(clipContainer);
+
+                    audio.controls = true;
+
+                    const blob = new Blob(chunks, {
+                        'type': 'audio/mp3'
+                    });
+                    chunks = [];
+                    const audioURL = window.URL.createObjectURL(blob);
+                    audio.src = audioURL;
+
+                    audioInput.type = 'hidden';
+                    audioInput.name = 'audio';
+                    audioInput.value = audioURL;
+
+                    deleteButton.onclick = function(e) {
+                        e.target.closest(".clip").remove();
+                    }
+                }
+
+            }
             let onError = function(err) {
                 console.log('The following error occured: ' + err);
             }
@@ -648,7 +582,9 @@
             console.log('getUserMedia not supported on your browser!');
         }
 
+
         function visualize(stream) {
+            // Visualizer code...
             if (!audioCtx) {
                 audioCtx = new AudioContext();
             }
@@ -710,6 +646,8 @@
         }
 
         window.onresize();
+        // set up basic variables for app
+
 
         //
     </script>

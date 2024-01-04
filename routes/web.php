@@ -75,7 +75,7 @@ Route::group([], function () {
         Route::get('Speaking/{any}', [PracticeController::class, 'speaking']);
         Route::get('Writing/{any}', [PracticeController::class, 'writing']);
        
-        Route::post('record', [PracticeController::class, 'storeAudio']);
+        Route::post('record', [PracticeController::class, 'uploadAudio']);
         Route::post('save', [PracticeController::class, 'save']);
 
     });
