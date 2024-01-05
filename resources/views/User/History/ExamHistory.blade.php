@@ -264,7 +264,7 @@
             <br>
             <div style="display: block;">
                 <p>
-                    <a href="<?= url('user') ?>" id="backhome">
+                    <a href="<?= url('') ?>" id="backhome">
                         Home
                     </a>
                     <span>Bài Thi</span>
@@ -652,46 +652,29 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function highlightNumberCircle(questionId) {
-            // Xóa tất cả các đối tượng có class "active"
-            let numberCircles = document.getElementsByClassName("numberCircle");
-            for (let i = 0; i < numberCircles.length; i++) {
-                numberCircles[i].classList.remove("active");
-            }
-
-            // Thêm class "active" vào đối tượng có id tương ứng với câu hỏi được chọn
-            let selectedNumberCircle = document.getElementById("answer" + questionId);
-            if (selectedNumberCircle) {
-                selectedNumberCircle.classList.add("active");
-            }
-        }
-
-        function markColor(id) {
-            //tách lấy id của câu hỏi
-            var fields = id.split('.');
-            var answerId = fields[1];
-            document.getElementById("answer" + answerId).style.backgroundColor = "rgb(167,162,162)";
-
-        }
-
         <?php foreach ($question as $value) : ?>
                 var answers = document.getElementsByName("<?= $value['id'] ?>");
-                var a;
+                var b = <?= $value['right_option'] ?>;
                 <?php foreach ($wrongAnswerQuestions as $wrongAnswerQuestion) : ?>
                     <?php if ($wrongAnswerQuestion['question_id'] == $value['id']) : ?>
                         a = <?= $wrongAnswerQuestion['selected_answer']?>;
+                        for (var i = 0; i < answers.length; i++) {
+                            if ( answers[i].value == a) {
+                                answers[i].checked=true;
+                                if(a==b){
+                                    answers[i].parentElement.classList.add("correct-answer");
+                                }else{
+                                    answers[i].parentElement.classList.add("wrong-answer");
+                                }
+                            }
+                            else{
+                                answers[i].disabled = true;
+                            }
+                        }
                         console.log(a);
-
                     <?php endif; ?>
                 <?php endforeach; ?>
-                var answerSelected = false; // kt chọn
-                for (var i = 0; i < answers.length; i++) {
-                    if ( answers[i].value == a) {
-                        answers[i].checked=true;
-                        answerSelected = true; // Đánh dấu
-                    }
-                }
+                let explain<?= $value['id'] ?> = document.getElementById("explain<?= $value['id'] ?>");
+                explain<?= $value['id'] ?>.innerHTML = '<div class="panel panel-primary"><div class="panel-body">' + '<?= $value['explain'] ?>' + '</div></div>';
          <?php endforeach ?>
-
-
     </script>

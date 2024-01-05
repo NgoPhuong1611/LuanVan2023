@@ -30,11 +30,17 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $user_id=User::find(session()->get('id'))->id;
-        $history = ExamHistory::select('exam_history.id','exam_history.exam_id','exam.title','exam_history.time_date','exam_history.score')
-        ->join('exam', 'exam_history.exam_id', '=', 'exam.id')
-        ->where('user_id', $user_id)
-        ->get();
+        $user = User::find(session()->get('id'));
+        if ($user) {
+            $user_id = $user->id;
+            $history = ExamHistory::select('exam_history.id','exam_history.exam_id','exam.title','exam_history.time_date','exam_history.score')
+            ->join('exam', 'exam_history.exam_id', '=', 'exam.id')
+            ->where('user_id', $user_id)
+            ->get();
+        } else {
+            return redirect()->to('');
+        }
+
         return view('User.History.index',  ['history' => $history]);
     }
     public function deleteHistory($id){

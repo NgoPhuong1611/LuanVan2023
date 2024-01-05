@@ -43,6 +43,7 @@ class ChatController extends Controller
     }
     public function sendMessage(Request $request)
     {
+        
         $user=User::find(session()->get('id'));
         $message = new Forum();
         $message->user_id =$user->id;
