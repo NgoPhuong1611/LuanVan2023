@@ -33,10 +33,14 @@ use App\Http\Controllers\HistoryController;
 
 Route::group([], function () {
     Route::get('',  [HomeController::class, 'index']);
-
+    Route::get('Teacher',  [HomeController::class, 'index2']);
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/',[BlogController::class, 'index']) ;
         Route::get('detail/{any}', [BlogController::class, 'detail']);
+    });
+    Route::group(['prefix' => 'blogTeacher'], function () {
+        Route::get('/',[BlogController::class, 'indexTeacher']) ;
+        Route::get('detail/{any}', [BlogController::class, 'detailTeacher']);
     });
 
     Route::group(['prefix' => 'listExam'], function () {
@@ -47,6 +51,7 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'Exam'], function () {
+        // Route::prefix('Exam')->middleware('User')->group(function () {
         Route::get('ExamToeic/{any}', [FullTestController::class, 'index']) ;
         Route::get('ExamListen', [FullTestController::class, 'testListen']);
         Route::get('ExamRead',[FullTestController::class, 'testRead'] );
@@ -55,9 +60,8 @@ Route::group([], function () {
         Route::POST('Score', [FullTestController::class, 'score'] );
 
     });
-
+    // Route::prefix('Practice')->middleware('User')->group(function () {
     Route::group(['prefix' => 'Practice', 'as' => 'Practice.'], function () {
-        // Route::prefix(['prefix' => 'Practice'])->middleware('User')->group(function () {
         Route::get('PracticeVocabulary', [PracticeController::class, 'PracticeVocabulary']);
         Route::get('PracticeGrammar', [PracticeController::class, 'PracticeGrammar']);
 
@@ -70,8 +74,9 @@ Route::group([], function () {
         Route::get('PracticeWriting', [PracticeController::class, 'practiceWriting']);
         Route::get('Speaking/{any}', [PracticeController::class, 'speaking']);
         Route::get('Writing/{any}', [PracticeController::class, 'writing']);
+       
+        Route::post('record', [PracticeController::class, 'uploadAudio']);
         Route::post('save', [PracticeController::class, 'save']);
-        Route::post('record-speaking', [PracticeController::class, 'recordSpeaking']);
 
     });
 
@@ -93,14 +98,21 @@ Route::group([], function () {
         // Route::get('Ratings', [HistoryController::class, 'ratings']);
 
     });
-    Route::group(['prefix' => 'teacher'], function () {
+    Route::group(['prefix' => 'Teacher'], function () {
         Route::get('Infor',[TeacherController::class, 'showInforTeacher'] );
+        //
+        Route::get('Register', [TeacherController::class, 'registerTeacher']);
+        Route::post('save',[TeacherController::class, 'saveTeacher']);
+    
+        Route::post('updateProfile', [TeacherController::class, 'updateProfile']);
+        Route::get('EditPassWord', [TeacherController::class, 'editPassword']);
+        Route::post('changePassword',[TeacherController::class, 'changePassword']);
+        //
         Route::get('terms',[TeacherController::class, 'terms'] );
         Route::get('detail',[TeacherController::class, 'detail'] );
         Route::get('mission',[TeacherController::class, 'mission'] );
         Route::get('coin',[TeacherController::class, 'coin'] );
         Route::get('transaction',[TeacherController::class, 'transaction'] );
-
 
 
         // Route::get('Login', [UserController::class, 'index']);
@@ -121,7 +133,9 @@ Route::group([], function () {
 
 
     Route::get('/chat', [ChatController::class, 'index']);
+    Route::get('/chatTeacher', [ChatController::class, 'indexTeacher']);
     Route::post('/send-message', [ChatController::class, 'sendMessage']);
+
 });
 
 

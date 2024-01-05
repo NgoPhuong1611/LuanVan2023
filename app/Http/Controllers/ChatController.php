@@ -41,6 +41,34 @@ class ChatController extends Controller
             'ratings' => $ratings, // Placed all variables inside a single array
         ]);
     }
+    public function indexTeacher()
+    {
+        $messages = Forum::orderBy('time_date', 'desc')->get();
+
+        // $user_username = User::find(session()->get('id'))->username;
+
+        $userIds = $messages->pluck('user_id')->unique()->toArray();
+        $usernames = User::whereIn('id', $userIds)->pluck('username', 'id');
+
+        //
+        $adminIds = $messages->pluck('admin_id')->unique()->toArray();
+        $ad_usernames = Admin::whereIn('id', $adminIds)->pluck('username', 'id');
+
+        // BXH điểm
+        $ratings = ExamHistory::select('users.username', DB::raw('MAX(score) as max_score'))
+        ->join('users', 'exam_history.user_id', '=', 'users.id')
+        ->groupBy('user_id')
+        ->get() // Use get() to retrieve the results as an array
+        ->toArray(); // Convert the collection to an array
+
+        return view('User.Teacher.Chat.chat', [
+            'messages' => $messages,
+            'usernames' => $usernames,
+            'ad_usernames'=>$ad_usernames,
+            // 'user_username' => $user_username,
+            'ratings' => $ratings, // Placed all variables inside a single array
+        ]);
+    }
     public function sendMessage(Request $request)
     {
         

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,6 +11,9 @@ use App\Models\QuestionImage;
 use App\Models\Question;
 use App\Models\Message;
 use App\Models\FileUser;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Psy\Readline\Hoa\Console;
 
 class PracticeController extends Controller
@@ -90,7 +94,7 @@ class PracticeController extends Controller
         $questionImageModel = new QuestionImage();
         $questionImage = $questionImageModel->get();
         $data['question_image'] = $questionImage;
-       
+
 
         return view('User.Practice.baiTapNghe', $data);
     }
@@ -134,7 +138,7 @@ class PracticeController extends Controller
         $part13 = $examPart->where('part_number', 13)->inRandomOrder()->get();
         $part14 = $examPart->where('part_number', 14)->inRandomOrder()->get();
         $part15 = $examPart->where('part_number', 15)->inRandomOrder()->get();
-    
+
         $data['part13'] = $part13;
         $data['part14'] = $part14;
         $data['part15'] = $part15;
@@ -158,7 +162,7 @@ class PracticeController extends Controller
     }
     public function writing(Request $request)
     {
-        
+
         $partId = $request->segment(3);
         $examPart = new ExamPart();
         $part = $examPart->where('id', $partId)->get();
@@ -210,9 +214,9 @@ class PracticeController extends Controller
             $question = $questionModel->where('exam_part_id', $partId)->inRandomOrder()->take(25)->get();
         } elseif ($part[0]['part_number'] == 10) {
             $question = $questionModel->where('exam_part_id', $partId)->inRandomOrder()->take(30)->get();
-        }elseif ($part[0]['part_number'] == 11) {
+        } elseif ($part[0]['part_number'] == 11) {
             $question = $questionModel->where('exam_part_id', $partId)->inRandomOrder()->take(30)->get();
-        }elseif ($part[0]['part_number'] == 12) {
+        } elseif ($part[0]['part_number'] == 12) {
             $question = $questionModel->where('exam_part_id', $partId)->inRandomOrder()->take(30)->get();
         }
         $data['question'] = $question;
@@ -237,55 +241,55 @@ class PracticeController extends Controller
         $questionImage = $questionImageModel->get();
         $data['question_image'] = $questionImage;
 
-        return view('User.Practice.baiTapNoi', $data);
+        return view('User.Practice.baiTapNoi2', $data);
     }
-    
+
     //lưu bài làm của người học
     public function save(Request $request)
     {
-        $userId = auth()->user()->id; // Lấy ID của người dùng hiện tại
+        $user_id = User::find(session()->get('id'))->id; // Lấy ID của người dùng hiện tại
         $questionId = $request->input('question_id'); // ID của câu hỏi
-        // $examPart = $request->input('exam_part_id');
+        $examPart = $request->input('examPart');
         $detail = $request->input('answer'); // Giả sử tên trường là 'answer'
 
-        if (!empty($userId) && !empty($questionId) && !empty($detail)) {
-            $fileUser = new FileUser();
-            $fileUser->user_id = $userId;
-            // $fileUser->user_id=auth()->user()->id;
-            $fileUser->question_id = $questionId;
-            // $fileUser->exam_part_id = $examPart;
-            $fileUser->detail = $detail;
-            $fileUser->save();
-    
-            return redirect()->back()->with('success', 'Dữ liệu đã được lưu thành công.');
-        } else {
-            return redirect()->back()->with('error', 'Đã xảy ra lỗi khi lưu dữ liệu.');
-        }
-        
-    }
-     
-    //ghi âm test
-    public function recordSpeaking(Request $request)
-{
-    // Lưu file ghi âm vào thư mục upload/audio_user
-    $userId = auth()->user()->id;
-    $questionId = $request->input('question_id');
-
-    if ($request->hasFile('audio')) {
-        $audio = $request->file('audio');
-        $fileName = $questionId . '_' . $userId . '.' . $audio->getClientOriginalExtension();
-        $audio->move(public_path('upload/audio_user'), $fileName);
-
-        // Lưu thông tin file vào database
-        FileUser::create([
-            'user_id' => $userId,
+        $data = [
+            'user_id' => $user_id,
             'question_id' => $questionId,
-            'detail' => $fileName
-        ]);
-
-        return response()->json(['success' => true, 'message' => 'File ghi âm đã được lưu.']);
+            'part_number' => $examPart,
+            'type' => 1,
+            'detail' => $detail,
+        ];
+        FileUser::create($data);
+        return view('User.History.index');
     }
 
-    return response()->json(['success' => false, 'message' => 'Không có file ghi âm được gửi đến server.']);
-}
+
+    public function uploadAudio(Request $request)
+    {
+
+        $user_id = User::find(session()->get('id'))->id;
+        $questionId = $request->input('question_id');
+        $examPart = $request->input('examPart');
+        $audioString = $request->input('audio');
+
+        $audioBinary  = base64_decode($audioString);
+        $fileName = $user_id . '_'.$questionId.'_' . date('Ymd_His') . '.mp3';
+        $path = public_path('uploads/audios/audio_user') . '/' . $fileName;
+        file_put_contents($path, $audioBinary );
+
+        // Lưu thông tin vào table file_user
+        $data = [
+            'user_id' => $user_id,
+            'question_id' => $questionId,
+            'part_number' => $examPart,
+            'type' => 0,
+            'detail' => $fileName,
+        ];
+
+        FileUser::create($data);
+
+        // Chuyển hướng người dùng sau khi xử lý thành công
+        return view('User.History.index');
+    }
+
 }

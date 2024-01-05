@@ -245,7 +245,7 @@
             <br>
             <div style="display: block;">
                 <p>
-                <a href="{{ url('user') }}" id="backhome" style="display: inline;">
+                <a href="{{ url('/') }}" id="backhome" style="display: inline;">
                                         Home</a> <span>Bài test Random</span>
                 </p>
             </div>
@@ -449,85 +449,7 @@
 
     <!--/.Footer-->
     <script>
-        function highlightNumberCircle(questionId) {
-            // Xóa tất cả các đối tượng có class "active"
-            let numberCircles = document.getElementsByClassName("numberCircle");
-            for (let i = 0; i < numberCircles.length; i++) {
-                numberCircles[i].classList.remove("active");
-            }
-
-            // Thêm class "active" vào đối tượng có id tương ứng với câu hỏi được chọn
-            let selectedNumberCircle = document.getElementById("answer" + questionId);
-            if (selectedNumberCircle) {
-                selectedNumberCircle.classList.add("active");
-            }
-        }
-
-        function markColor(id) {
-            //tách lấy id của câu hỏi
-            var fields = id.split('.');
-            var answerId = fields[1];
-            document.getElementById("answer" + answerId).style.backgroundColor = "rgb(167,162,162)";
-
-        }
-
-        function result() {
-
-            var numberListeing = 0;
-            var numberReading = 0;
-
-            var scoreListeing = 0;
-            var scoreReading = 0;
-            var scoreTotal = 0;
-            //part1
-            <?php foreach ($question as $value) : ?>
-                var answers = document.getElementsByName("<?= $value['id'] ?>");
-                var a = <?= $value['right_option'] ?>;
-                var answerSelected = false; // Thêm biến này để kiểm tra xem đã có answer nào được chọn hay chưa
-                for (var i = 0; i < answers.length; i++) {
-                    if (answers[i].checked && answers[i].value == a) {
-                        answers[i].parentElement.classList.add("correct-answer");
-                        numberReading++;
-                        answerSelected = true; // Đánh dấu đã có answer được chọn
-                    } else if (answers[i].checked && answers[i].value != a) {
-                        answers[i].parentElement.classList.add("wrong-answer");
-                        answerSelected = true; // Đánh dấu đã có answer được chọn
-                    }
-                    if (answerSelected) { // Nếu đã có answer được chọn, disabled các answers còn lại
-                        let explain = document.getElementById("explain<?= $value['id'] ?>");
-                        explain.innerHTML = '<div class="panel panel-primary"><div class="panel-body">' + '<?= $value['explain'] ?>' + '</div></div>';
-                        for (var j = 0; j < answers.length; j++) {
-                            answers[j].disabled = true;
-                        }
-
-                    }
-                }
-            <?php endforeach ?>
-            var readingResultDiv = document.getElementById("reading-result");
-            readingResultDiv.innerHTML = "<p>Số câu ĐÚNG: " + numberReading + "</p>";
-
-            // var ls = [5, 5, 5, 5, 5, 5, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 115, 120, 125, 130, 135, 140, 145, 150, 160, 165, 170, 175, 180, 185, 190, 195, 200, 210, 215, 220, 230, 240, 245, 250, 255, 260, 270, 275, 280, 290, 295, 300, 310, 315, 320, 325, 330, 340, 345, 350, 360, 365, 370, 380, 385, 390, 400, 405, 410, 420, 425, 430, 440, 445, 450, 460, 465, 470, 475, 480, 485, 490, 495, 495, 495, 495, 495, 495, 495, 495, 495, 495, 495];
-            // for (var i = 1; i <= 100; i++) {
-            //     if (numberListeing == i) {
-            //         scoreListeing = ls[i]
-            //     }
-            // }
-            // for (var i = 1; i <= 100; i++) {
-            //     if (numberReading == i) {
-            //         scoreReading = ls[i]
-            //     }
-            // }
-            // var Rs = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 65, 70, 80, 85, 90, 95, 100, 110, 115, 120, 125, 130, 140, 145, 150, 160, 165, 170, 175, 180, 190, 195, 200, 210, 215, 220, 225, 230, 235, 240, 250, 255, 260, 265, 270, 280, 285, 290, 300, 305, 310, 320, 325, 330, 335, 340, 350, 355, 360, 365, 370, 380, 385, 390, 395, 400, 405, 410, 415, 420, 425, 430, 435, 445, 450, 455, 465, 470, 480, 485, 490, 495, 495, 495, 495];
-            // for (var i = 1; i <= 100; i++) {
-
-            //}
-            // var scoreTotal = scoreListeing + scoreReading;
-            // $("b:contains('LISTEING 0/100 => Your score 0/495')").text("LISTEING " + numberListeing + "/100 => Your score " + scoreListeing + "/495");
-            // $("b:contains('READING 0/100 => Your score 0/495')").text("READING " + numberReading + "/100 => Your score " + scoreReading + "/495");
-            // $("h3:contains('TOTAL SCORE: ')").text("TOTAL SCORE:  " + scoreTotal);
-            // $("h2:contains('kết quả bài thi toeic ')").text("kết quả bài thi toeic:  " + scoreTotal);
-
-        }
+        
     </script>
 </body>
 

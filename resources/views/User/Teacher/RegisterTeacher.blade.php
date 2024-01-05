@@ -8,15 +8,15 @@
 
     <ul class="nav nav-tabs" id="tabs">
         <li><a href="<?= url('User/Login') ?>">Đăng Nhập</a></li>
-        <li class="active"><a>Đăng Ký</a></li>
-        <li><a href="<?= url('Teacher/Register') ?>">Đăng Ký (Người dạy)</a></li>
+        <li><a href="<?= url('User/Register') ?>">Đăng Ký</a></li>
+        <li class="active"><a>Đăng Ký (Người dạy)</a></li>
     </ul>
 
     <div class="tab-content">
         <div class="tab-pane active" id="information">
             <i style="color: red">{{ session()->get('error') }}</i>
 
-            <form class="form-profile" action="{{ url('User/save') }}" method="POST">
+            <form class="form-profile" action="{{ url('Teacher/save') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id" value="">
                 <div>

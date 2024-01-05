@@ -1,5 +1,6 @@
-<?= $this->extend('User/layout') ?>
-<?= $this->section('content') ?>
+@extends('User.layout')
+
+@section('content')
 <input style="display:none;" id="baseUrl" value="" />
 </head>
 
@@ -15,7 +16,8 @@
 		<div>
 			<div class="tab-content">
 				<div class="tab-pane active" id="information">
-					<form class="form-profile" action="<?= base_url('User/updateProfile') ?>" method="post">
+					<form class="form-profile" action="<?= url('User/updateProfile') ?>" method="post">
+						@csrf
 						<input type="hidden" name="id" value="<?php echo $user['id']; ?>">
 						<div class="form-group">
 							<label style="font-weight: bold" for="staticEmail" class="col-sm-2 col-form-label">Email đăng ký</label>
@@ -53,6 +55,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="<?= base_url() ?>resources/js/client/profileClient.js"></script>
+	<script src="<?= url("resources/js/client/profileClient.js") ?>"></script>
 </body>
-<?= $this->endSection() ?>
+@endsection
