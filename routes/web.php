@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\ForumController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\TransactionUserController;
 
 // use App\Http\Controllers\Admin\UserController;
 
@@ -98,6 +99,11 @@ Route::group([], function () {
         // Route::get('Ratings', [HistoryController::class, 'ratings']);
 
     });
+    // thanh toán momo
+    Route::get('transaction',[TransactionUserController::class,'index']);
+    Route::post('momo_payment',[TransactionUserController::class,'momo_payment']);
+    //
+
     Route::group(['prefix' => 'Teacher'], function () {
         Route::get('Infor',[TeacherController::class, 'showInforTeacher'] );
         //

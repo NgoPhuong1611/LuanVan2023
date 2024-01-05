@@ -103,12 +103,14 @@ class UserController extends Controller
         $email = $request->input('email');
         $firstname = $request->input('first_name');
         $lastname = $request->input('last_name');
+        
 
         $data = [
             'username' => $username,
             'password' => md5((string)$password),
             'email' => $email,
             'first_name' => $firstname,
+            'type'=>0,
             'last_name' => $lastname,
         ];
 

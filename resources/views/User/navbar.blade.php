@@ -37,6 +37,7 @@
                             <ul class="dropdown-menu">
                             <li><a href="{{ url('/User/Infor') }}">Tài khoản</a></li>
                             <li><a href="{{ url('/User/ExamHistory') }}">Lịch sử </a></li>
+                            <li><a href="{{ url('/transaction') }}">Nạp Xu</a></li>
                             <li><a href="{{ url('/User/Logout') }}">Thoát</a></li>
                             </ul>
                         <?php else : ?>
