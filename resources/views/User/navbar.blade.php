@@ -33,7 +33,7 @@
                         $session = session()->all();
                     @endphp
                         <?php if (isset($session['username']) && !empty($session['username'])) : ?>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $session['username'] ?><b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $session['username']?><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                             <li><a href="{{ url('/User/Infor') }}">Tài khoản</a></li>
                             <li><a href="{{ url('/User/ExamHistory') }}">Lịch sử </a></li>
@@ -44,6 +44,7 @@
                             <a href="{{ url('/User/Login') }}">Đăng nhập</a>
                         <?php endif ?>
                     </li>
+
 
                 </ul>
             </div>
