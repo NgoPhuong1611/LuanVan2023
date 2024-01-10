@@ -70,6 +70,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <form action="<?= url('dashboard/question/save') ?>" method="POST" enctype="multipart/form-data">
+                                                           @csrf
                                                             <input type="hidden" name="id" value="<?= isset($question) && !empty($question) ? $question['id'] : '' ?>">
                                                             <div class="general-info">
                                                                 <div class="row">

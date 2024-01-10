@@ -35,26 +35,39 @@
         </div>
 
         <!-- /. PAGE TITLE-->
-       
                 <div class="span3">
                     <div class="side-bar">
-
                         <h3>DANH MỤC</h3>
                         <ul class="nav nav-list">
                             <li><form action="{{url("/momo_payment")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="total_momo" value=10000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect">100 xu</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="100">10.000vnd = 100 xu</button>
                             </form></li>
                             <li><form action="{{url("/momo_payment")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="total_momo" value=50000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect">500 xu</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="500">50.000vnd = 500 xu</button>
                             </form></li>
                             <li><form action="{{url("/momo_payment")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="total_momo" value=100000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect">1100 xu</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="1100">100.000vnd = 1100 xu</button>
+                            </form></li>
+                            <li><form action="{{url("/momo_payment")}}"method="POST" >
+                                @csrf
+                                <input type="hidden" name="total_momo" value=200000>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="2300">200.000vnd = 1100 xu</button>
+                            </form></li>
+                            <li><form action="{{url("/momo_payment")}}"method="POST" >
+                                @csrf
+                                <input type="hidden" name="total_momo" value=500000>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="6000">500.000vnd = 1100 xu</button>
+                            </form></li>
+                            <li><form action="{{url("/momo_payment")}}"method="POST" >
+                                @csrf
+                                <input type="hidden" name="total_momo" value=1000000>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="13000">1.000.000vnd = 1100 xu</button>
                             </form></li>
                         </ul>
 

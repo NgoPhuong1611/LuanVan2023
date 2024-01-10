@@ -189,11 +189,11 @@ $menu = [
     [
         'url' => '',
         'name' => 'Quản lý Giao dịch',
-        'active' => 'dashboard/trasaction',
+        'active' => 'dashboard/transaction',
         'icon' => '<i class="fa fa-bars"></i>',
         'sub_menu' => [
             [
-                'url' => url('dashboard/trasaction/'),
+                'url' => url('dashboard/transaction/'),
                 'name' => 'Danh sách',
             ],
             [
@@ -236,7 +236,7 @@ $menu = [
     ],
     [
         'url' => '',
-        'name' => 'Quản lý QUảng Cáo',
+        'name' => 'Quản lý Quảng Cáo',
         'active' => 'dashboard/banner',
         'icon' => '<i class="fa fa-bars"></i>',
         'sub_menu' => [

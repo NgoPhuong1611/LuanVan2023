@@ -13,7 +13,7 @@
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>Danh sách người dùng</h4>
+                                    <h4>LỊCH SỬ GIAO DỊCH</h4>
                                 </div>
                             </div>
                         </div>
@@ -31,46 +31,23 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                            <th>Id</th>
-                                                <th>name</th>
-                                                <th>Email</th>
-                                                <th>Updated_at	</th>
-                                                <th style="width: 30px;">Status</th>
-                                                <th style="width: 70px;">Quản lý</th>
+                                            <th>Người nạp</th>
+                                                <th> Người duyệt</th>
+                                                <th>Loại giao dịch</th>
+                                                <th>Số xu</th>
+                                                <th>Thời gian giao dịch</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if (isset($user) || !empty($user)) : ?>
-                                            <?php foreach ($user as $item) : ?>
+                                            @foreach($transactions as $transaction)
                                             <tr>
-                                            <td><?= $item['id'] ?></td>
-
-                                                <td><?= $item['username'] ?></td>
-                                                <td><?= $item['email'] ?></td>
-                                                <td><?= $item['updated_at'] ?></td>
-                                                <td>
-                                                    <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
-                                                        <label>
-                                                            <input type="checkbox" id="checkbox2" name="status" value="" <?= $item['status'] == 1 ? 'checked' : '' ?>>
-                                                            <span class="cr">
-                                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div style="width: 90px;" class="btn-group btn-group-sm">
-                                                        <a href ="<?= url('dashboard/user/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
-                                                            <span class="icofont icofont-ui-edit"></span>
-                                                        </a>
-                                                        <a href ="<?= url('dashboard/user/delete/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
-                                                            <span class="icofont icofont-ui-delete"></span>
-                                                        </a>
-                                                    </div>
-                                                </td>
+                                                <td>{{ $transaction->user->username }}</td>
+                                                <td>{{ $transaction->admin_id }}</td>
+                                                <td>  {{ $transaction->title }} </td>
+                                                <td>{{ $transaction->quantity_coin }}</td>
+                                                <td>{{$transaction->time_date}}</td>
                                             </tr>
-                                            <?php endforeach ?>
-                                            <?php endif ?>
+                                              @endforeach
                                         </tbody>
                                     </table>
 

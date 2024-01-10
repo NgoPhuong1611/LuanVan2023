@@ -17,7 +17,26 @@
             <i style="color: red">{{ session()->get('error') }}</i>
 
             <form class="form-profile" action="{{ url('User/save') }}" method="POST">
-                @csrf
+            @csrf
+                    <div class="col-12">
+                    @if (!empty($errors))
+                    @if (is_string($errors))
+                        <!-- Nếu $errors là chuỗi, hiển thị thông báo lỗi -->
+                        <div class="alert alert-danger mb-1">
+                            {{ $errors }}
+                        </div>
+                    @else
+                        <!-- Nếu $errors là một đối tượng MessageBag, kiểm tra và hiển thị từng thông báo lỗi -->
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger mb-1">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                @else
+                    <!-- Nếu không có lỗi, ẩn thông báo -->
+                    <p></p>
+                @endif
                 <input type="hidden" name="id" value="">
                 <div>
                     <label for="first_name"><b>FirstName:</b></label>
