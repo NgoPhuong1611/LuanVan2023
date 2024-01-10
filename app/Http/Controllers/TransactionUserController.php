@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,12 @@ class TransactionUserController extends Controller
     {
         return view('user.Transaction.index');
     }
-
+    public function transactionHistory()
+    {
+        $user_id = User::find(session()->get('id'))->id; // Lấy ID của người dùng đã đăng nhập
+        $transactions = Transaction::where('user_id', $user_id)->get();
+        return view('user.Transaction.History', ['transactions' => $transactions]);
+    }
 
     public function execPostRequest($url, $data)
     {
@@ -87,11 +93,22 @@ class TransactionUserController extends Controller
             // Tiến hành cộng thêm giá trị $transactionAmount
             $newQuantityCoin = $currentQuantityCoin + $transactionAmount;
             $data = [
+               
                 'quantity_coin'=>  $newQuantityCoin,  
             ];
             User::where('id', $user_id)->update($data);
+            $data=[
+                'user_id'=>$user_id,
+                // 'admin_id'=> null,
+                'title'=>'Nap Xu',
+                'type'=>0,
+                'quantity_coin'=>$transactionAmount,
+            ];
+            // dd($data);
+            Transaction::create($data);
             // Redirect hoặc thông báo thành công khi cộng số xu thành công
             return redirect()->to($jsonResult['payUrl']); 
+          
     }
 
 }

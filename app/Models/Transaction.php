@@ -14,6 +14,10 @@ class Transaction extends Model
 
     public $timestamps = false; // Sử dụng timestamps hay không
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     // Các quy tắc validation
     public static $rules = [
         // Quy tắc validation
