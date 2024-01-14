@@ -31,8 +31,10 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
+                                            <th >Id</th>
                                                 <th >Tiêu đề</th>
-                                                <th style="width: 30px;">Ngày Cập nhật</th>
+                                                <th style="width: 10px;">Admin</th>
+                                                <th style="width: 20px;">Ngày Cập nhật</th>
                                                 <th style="width: 30px;">Trạng Thái</th>
                                                 <th style="width: 70px;">Quản lý</th>
                                             </tr>
@@ -41,14 +43,16 @@
                                             <?php if (isset($posts) || !empty($posts)) : ?>
                                                 <?php foreach ($posts as $item) : ?>
                                                     <tr>
-                                                        <td><?= $item['title'] ?> </td>
+                                                    <td><?= $item['id'] ?> </td>
+                                                        <td  style=" width: 60%; max-width: 200px; overflow: hidden; text-overflow: ellipsis;"><?= $item['title'] ?> </td>
+                                                        <td><?= $item['author'] ?> </td>
                                                         <td>
                                                             <?= $item['updated_at'] ?>
                                                         </td>
                                                         <td>
                                                             <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
                                                                 <label>
-                                                                    <input type="checkbox" id="checkbox2" name="status" value=""<?= $item['status'] == 1 ? 'checked' : '' ?>>
+                                                                    <input type="checkbox" id="checkbox2" name="status" value=""<?= $item['status'] == 1 ? 'checked ' : '' ?> disabled>
                                                                     <span class="cr">
                                                                         <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
                                                                     </span>
@@ -65,6 +69,9 @@
                                                                 <a href ="<?= url('dashboard/posts/delete/'.$item['id']) ?>"   style="margin: 4px;" onclick="if(confirm('Bạn có chắc chắn xóa chi tiết liên hệ này không?') === false) event.preventDefault()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
                                                                     <span class="icofont icofont-ui-delete"></span>
                                                                 </a>
+                                                                <!-- <a href="<?= url('dashboard/posts/delete/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_post(<?= $item['id'] ?>, '<?= $item['title'] ?>')" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                                    <span class="icofont icofont-ui-delete"></span>
+                                                                </a> -->
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -91,37 +98,38 @@
 
 @yield('js')
 <script>
-    function delete_account(id, name) {
-        const is_confirm = confirm(`Bạn muốn xóa tài khoản "${name}" ?`);
-        if (!is_confirm) {
-            return
-        }
-
-        const data = new FormData();
-        data.append('id', id);
-        var requestOptions = {
-            method: 'POST',
-            body: data,
-            redirect: 'follow'
-        };
-
-        fetch('<?= url('dashboard/category/delete') ?>', requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    msgbox_success(result.message)
-                    document.getElementById(`menu-${id}`).remove()
-                    return
-                }
-
-                const error = result.result.error;
-                if (error) {
-                    msgbox_error(error)
-                    return
-                }
-
-            })
-            .catch(error => msgbox_error(error));
+  function delete_post(id, name) {
+    const is_confirm = confirm(`Bạn muốn xóa bài viết "${name}" ?`);
+    if (!is_confirm) {
+        return;
     }
+
+    const data = new FormData();
+    data.append('id', id);
+
+    var requestOptions = {
+        method: 'POST',
+        body: data,
+        redirect: 'follow'
+    };
+
+    fetch('<?= url('dashboard/posts/delete') ?>', requestOptions) // Update endpoint to match your Laravel route
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                msgbox_success(result.message);
+                // Remove the deleted post from the DOM if necessary
+                // Example: document.getElementById(`post-${id}`).remove();
+                return;
+            }
+
+            const error = result.result.error;
+            if (error) {
+                msgbox_error(error);
+                return;
+            }
+        })
+        .catch(error => msgbox_error(error));
+}
 </script>
 

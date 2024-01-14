@@ -14,7 +14,7 @@ $menu = [
         'url' => '',
         'active' => 'dashboard/admin',
         'name' => 'Tài khoản quản trị',
-        'icon' => '<i class="fa fa-question-circle-o"></i>',
+        'icon' => '<i class="fa fa-user"></i>',
                 'sub_menu' => [
                     [
                         'url' => url('dashboard/admin'),
@@ -34,7 +34,7 @@ $menu = [
         'url' => '',
         'active' => 'dashboard/user',
         'name' => 'Tài khoản người dùng',
-        'icon' => '<i class="fa fa-question-circle-o"></i>',
+        'icon' => '<i class="fa fa-user"></i>',
         'sub_menu' => [
             [
                 'url' => '',
@@ -113,7 +113,7 @@ $menu = [
         'url' => '',
         'name' => 'Quản lý Đề Thi',
         'active' => 'dashboard/exam',
-        'icon' => '<i class="fa fa-list-ol"></i>',
+        'icon' => '<i class="fa fa-file-text"></i>',
         'sub_menu' => [
             [
                 'url' => '',
@@ -147,50 +147,55 @@ $menu = [
             ],
         ]
     ],
-    [
-        'url' => '',
-        'active' => 'dashboard/learn',
-        'name' => 'Quản lý bài Luyện tập',
-        'icon' => '<i class="fa fa-leanpub"></i>',
-        'sub_menu' => [
-            [
-                'url' => '',
-                'name' => 'Bài ngữ pháp',
-                'active' => 'dashboard/learn',
-                'sub_menu' => [
-                    [
-                        'url' => url('dashboard/learn'),
-                        'name' => 'Danh sách',
-                    ],
-                    [
-                        'url' => url('dashboard/learn/detail'),
-                        'name' => 'Thêm mới',
-                    ],
-                ]
-            ],
-            [
-                'url' => '',
-                'name' => 'Bài từ vựng',
-                'active' => 'dashboard/learn',
-                'sub_menu' => [
-                    [
-                        'url' => url('dashboard/learn/'),
-                        'name' => 'Danh sách',
-                    ],
-                    [
-                        'url' => url('dashboard/learn/detail'),
-                        'name' => 'Thêm mới',
-                    ],
-                ]
-            ],
-        ]
-    ],
+    // [
+    //     'url' => '',
+    //     'active' => 'dashboard/learn',
+    //     'name' => 'Quản lý bài Luyện tập',
+    //     'icon' => '<i class="fa fa-leanpub"></i>',
+    //     'sub_menu' => [
+    //         [
+    //             'url' => '',
+    //             'name' => 'Bài ngữ pháp',
+    //             'active' => 'dashboard/learn',
+    //             'sub_menu' => [
+    //                 [
+    //                     'url' => url('dashboard/learn'),
+    //                     'name' => 'Danh sách',
+    //                 ],
+    //                 [
+    //                     'url' => url('dashboard/learn/detail'),
+    //                     'name' => 'Thêm mới',
+    //                 ],
+    //             ]
+    //         ],
+    //         [
+    //             'url' => '',
+    //             'name' => 'Bài từ vựng',
+    //             'active' => 'dashboard/learn',
+    //             'sub_menu' => [
+    //                 [
+    //                     'url' => url('dashboard/learn/'),
+    //                     'name' => 'Danh sách',
+    //                 ],
+    //                 [
+    //                     'url' => url('dashboard/learn/detail'),
+    //                     'name' => 'Thêm mới',
+    //                 ],
+    //             ]
+    //         ],
+    //     ]
+    // ],
 
     [
         'url' => '',
         'name' => 'Quản lý Giao dịch',
+
+        'active' => 'dashboard/trasaction',
+        'icon' => '<i class="fa fa-exchange"></i>',
+
         'active' => 'dashboard/transaction',
         'icon' => '<i class="fa fa-bars"></i>',
+
         'sub_menu' => [
             [
                 'url' => url('dashboard/transaction/'),
@@ -206,7 +211,7 @@ $menu = [
         'url' => '',
         'name' => 'Quản lý Nhiệm vụ',
         'active' => 'dashboard/mission',
-        'icon' => '<i class="fa fa-bars"></i>',
+        'icon' => '<i class="fa fa-tasks"></i>',
         'sub_menu' => [
             [
                 'url' => url('dashboard/mission/'),
@@ -222,7 +227,7 @@ $menu = [
         'url' => '',
         'name' => 'Quản lý Diễn Đàn',
         'active' => 'dashboard/forum',
-        'icon' => '<i class="fa fa-bars"></i>',
+        'icon' => '<i class="fa fa-comments"></i>',
         'sub_menu' => [
             [
                 'url' => url('dashboard/forum/'),
@@ -234,6 +239,24 @@ $menu = [
             ],
         ]
     ],
+
+    // [
+    //     'url' => '',
+    //     'name' => 'Quản lý QUảng Cáo',
+    //     'active' => 'dashboard/banner',
+    //     'icon' => '<i class="fa fa-bars"></i>',
+    //     'sub_menu' => [
+    //         [
+    //             'url' => url('dashboard/banner/'),
+    //             'name' => 'Danh sách',
+    //         ],
+    //         [
+    //             'url' => url('dashboard/'),
+    //             'name' => 'Thêm mới',
+    //         ],
+    //     ]
+    // ],
+
     [
         'url' => '',
         'name' => 'Quản lý Quảng Cáo',
@@ -250,11 +273,12 @@ $menu = [
             ],
         ]
     ],
+
     [
         'url' => '',
         'name' => 'Quản lý Danh mục',
         'active' => 'dashboard/category',
-        'icon' => '<i class="fa fa-bars"></i>',
+        'icon' => '<i class="fa fa-file-text"></i>',
         'sub_menu' => [
             [
                 'url' => url('dashboard/category'),
@@ -270,7 +294,7 @@ $menu = [
         'url' => '',
         'name' => 'Quản lý Bài viết',
         'active' => 'dashboard/posts',
-        'icon' => '<i class="fa fa-info"></i>',
+        'icon' => '<i class="fa fa-file-text"></i>',
         'sub_menu' => [
 
             [
@@ -288,7 +312,7 @@ $menu = [
 
 <nav class="pcoded-navbar">
     <div class="pcoded-inner-navbar main-menu">
-        <div class="pcoded-navigatio-lavel">Bảng điều khiển</div>
+        <!-- <div class="pcoded-navigatio-lavel">Bảng điều khiển</div> -->
         <ul class="pcoded-item pcoded-left-item">
             <?php foreach ($menu as $row) : ?>
                 <?php $classActive = Request::is($row['active'] . '*') ? ' pcoded-trigger' : ''; ?>

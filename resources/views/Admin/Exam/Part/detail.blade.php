@@ -1,5 +1,7 @@
 @extends('Admin.layout')
 @section('content')
+ <!-- ckeditor js -->
+ <script type="text/javascript" src="<?= asset('ckeditor\ckeditor.js')?>"></script>
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -59,8 +61,8 @@
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <label for="paragraph">Paragraph</label>
-                                                                        <textarea class="form-control" id="editor0" name="paragraph" required></textarea>
+                                                                        <label for="edito5">Direction</label>
+                                                                        <textarea class="form-control" id="editor5" name="direction" required></textarea>
                                                                     </div>
                                                                     <!-- Import -->
                                                                     <div class="col-md-6">
@@ -70,6 +72,7 @@
                                                                 <!-- end of row -->
                                                                 <div class="row">
                                                                     <div class="col-md-12 text-right">
+
                                                                         <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
                                                                         <a href="<?= url('dashboard/exam/part-exam-detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
                                                                     </div>
@@ -100,10 +103,10 @@
     </div>
 </div>
 @endsection
-@section('js')
 
+@section('js')
 <script>
-    CKEDITOR.replace('editor0');
+    CKEDITOR.replace('editor5');
 
     var cleave = new Cleave('.cleave1', {
         numeral: true,
@@ -115,4 +118,5 @@
         numeralThousandsGroupStyle: 'thousand'
     });
 </script>
+@endsection
 

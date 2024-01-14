@@ -9,6 +9,7 @@ class Admin extends Model
     protected $table = 'admin'; // Tên bảng trong database
 
     protected $primaryKey = 'id'; // Khóa chính của bảng
+    protected $fillable = ['author',];
 
     protected $guarded = []; // Các trường không được phép gán tự động
 

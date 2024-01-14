@@ -57,10 +57,27 @@
                                             <div class="edit-info">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <form action="<?= url('dashboard/exam/save') ?>" method="post">
+                                                        <form action="<?= url('dashboard/exam/save') ?>" method="post"  id="examForm">
                                                         @csrf
                                                             <input type="hidden" name="id" value="">
+                                                            <input type="hidden" name="selectedQuestions[]" multiple>
                                                             <div class="general-info">
+                                                            <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <label for="title">Tiêu đề</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" value="" id="title" name="title" placeholder="Tiêu đề ..." required autofocus>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="title">Xu</label>
+                                                                        <div class="input-group">
+                                                                            <input type="number" class="form-control"  id="title" name="quantity_coin"  required autofocus>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <label for="status">Trạng thái</label>
@@ -75,7 +92,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <label for="status">Level</label>
+                                                                        <label for="level">Level</label>
                                                                         <div class="input-group">
                                                                             <select name="level" class="form-control" required>
                                                                                 <option value="" disabled selected>
@@ -94,16 +111,7 @@
                                                                     </div>
 
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <label for="title">Tiêu đề</label>
-                                                                        <div class="input-group">
-                                                                            <input type="text" class="form-control" value="" id="title" name="title" placeholder="Tiêu đề ..." required autofocus>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="row">
+                                                                            <!-- <div class="row">
                                                                     <div class="col-md-12">
                                                                     <label for="part">Chọn Part</label>
                                                                     <div class="input-group">
@@ -115,17 +123,17 @@
                                                                         <option value="5">Part 5</option>
                                                                         <option value="6">Part 6</option>
                                                                         <option value="7">Part 7</option>
-                                                                        <!-- Các option khác -->
                                                                     </select>
                                                                     </div>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                                 <!------  danh sach cau hoi----->
                                                                 <div class="row">
                                                                                 <table id="simpletable" class="table table-striped table-bordered nowrap">
                                                                                     <thead>
                                                                                         <tr>
                                                                                         <th style="width: 10%;">Phần</th>
+                                                                                        <th style="width: 10%;">Id câu hỏi</th>
                                                                                         <th style="width: 40%;">Câu hỏi</th>
                                                                                         <th style="width: 25%;">Ngày tạo</th>
                                                                                         <th style="width: 10%;">Quản lý</th>
@@ -137,18 +145,19 @@
 
                                                                                                 <tr>
                                                                                                 <td style="width: 10%;"><?= $question['exam_part_id'] ?></td>
-                                                                                                <td style="width: 40%;"><?= $question['question'] ?></td>
+                                                                                                <td style="width: 10%;"><?= $question['id'] ?></td>
+                                                                                                <td style=" width: 60%; max-width: 200px; overflow: hidden; text-overflow: ellipsis;"><?= $question['question'] ?></td>
                                                                                                 <td style="width: 25%;"><?= $question['created_at'] ?></td>
                                                                                                 <td style="width: 10%;">
 
-                                                                                                    <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
-                                                                                                        <label>
-                                                                                                            <input type="checkbox" id="checkbox2" name="status" value="" >
-                                                                                                            <span class="cr">
-                                                                                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                                                                            </span>
-                                                                                                        </label>
-                                                                                                    </div>
+                                                                                                <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
+                                                                                                    <label>
+                                                                                                    <input type="checkbox" class="page-content-checkbox" id="question_<?= $question['id'] ?>" name="selectedQuestions[]" value="<?= $question['id'] ?>">
+                                                                                                        <span class="cr">
+                                                                                                            <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                                                                                        </span>
+                                                                                                    </label>
+                                                                                                </div>
 
                                                                                                     </td>
                                                                                                 </tr>
@@ -173,8 +182,9 @@
                                                             <!-- end of row -->
                                                             <div class="row">
                                                                 <div class="col-md-12 text-right">
-                                                                    <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
-                                                                    <a href="<?= url('dashboard/posts/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
+                                                                <a type="submit" href="<?= url('dashboard/exam/detailradom') ?>" >Thêm ngẫu nhiên</a>                                                                    <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu bài thi</button>
+                                                                    <a href="<?= url('dashboard/exam/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
+
                                                                 </div>
                                                             </div>
                                                     </div>
@@ -201,9 +211,10 @@
     </div>
     <!-- Main body end -->
 </div>
+
 </div>
 @endsection()
-@yield('js')
+@section('js')
 <script>
     CKEDITOR.replace('editor');
     CKEDITOR.replace('editor3');
@@ -244,50 +255,27 @@
     }
 </script>
 
+
 <script>
-// Tạo các mảng chứa danh sách câu hỏi cho từng phần
-var partQuestions = {
-    1: <?= json_encode($questions1) ?>,
-    2: <?= json_encode($questions2) ?>,
-    3: <?= json_encode($questions3) ?>,
-    4: <?= json_encode($questions4) ?>,
-    5: <?= json_encode($questions5) ?>,
-    6: <?= json_encode($questions6) ?>,
-    7: <?= json_encode($questions7) ?>,
-};
+function saveSelectedQuestions() {
+    var selectedQuestions = [];
 
-function showTable() {
-    var selectedPart = document.getElementById("part").value;
-    var questions = partQuestions[selectedPart]; // Lấy danh sách câu hỏi tương ứng với phần đã chọn
+    // Duyệt qua từng trang
+    $(".page-content-checkbox:checked").each(function () {
+        var questionId = $(this).val();
+        selectedQuestions.push(questionId);
+    });
 
-    var tableBody = document.getElementById("simpletable").getElementsByTagName("tbody")[0];
-    tableBody.innerHTML = ''; // Xóa dữ liệu cũ trong bảng
-
-    if (questions && questions.length > 0) {
-        questions.forEach(function(question) {
-            var row = tableBody.insertRow(-1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-
-            cell1.innerHTML = question.exam_part_id;
-            cell2.innerHTML = question.question;
-            cell3.innerHTML = question.created_at;
-            cell4.innerHTML = '<div class="checkbox-fade fade-in-primary d-flex justify-content-center">' +
-    '<label>' +
-    '<input type="checkbox" id="checkbox2" name="status" value="" >' +
-    '<span class="cr">' +
-    '<i class="cr-icon icofont icofont-ui-check txt-primary"></i>' +
-    '</span>' +
-    '</label>' +
-    '</div>';
-        });
-    } else {
-        var row = tableBody.insertRow(0);
-        var cell = row.insertCell(0);
-        cell.colSpan = 4;
-        cell.innerHTML = "Không có câu hỏi nào";
-    }
+    // Gán mảng selectedQuestions vào trường input ẩn
+    $("#examForm input[name='selectedQuestions']").val(selectedQuestions.join(','));
 }
+
+$(document).ready(function () {
+    $("button[type='submit']").on('click', function (event) {
+        // Gọi hàm saveSelectedQuestions trước khi gửi biểu mẫu
+        saveSelectedQuestions();
+    });
+});
 </script>
+@endsection
+

@@ -118,7 +118,7 @@ class UserAdminController extends Controller
     {
         $user = User::find($id);
 
-        return view('Admin.User.editteacher', ['user' => $user]);
+        return view('Admin.Teacher.edit', ['user' => $user]);
     }
 
     public function update(Request $request, $id)

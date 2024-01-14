@@ -288,63 +288,79 @@
                             <hr width="60%">
                             <?php $count = 0; ?>
 
+                            <?php if (isset($question1)) { ?>
+                                <?php foreach ($question1 as $value) : ?>
+                                    <?php $count++; ?>
+                                    <a href="#<?= $count ?>">
+                                        <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                            <?= $count ?>
+                                        </div>
+                                    </a>
+                                <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question2)) { ?>
+                                <?php foreach ($question2 as $value) : ?>
+                                    <?php $count++; ?>
+                                    <a href="#<?= $count ?>">
+                                        <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                            <?= $count ?>
+                                        </div>
+                                    </a>
+                                <?php endforeach ?>
+                                <?php } ?>
+                            <?php if (isset($question3)) { ?>
+                                <?php foreach ($question3 as $value) : ?>
+                                    <?php $count++; ?>
+                                    <a href="#<?= $count ?>">
+                                        <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                            <?= $count ?>
+                                        </div>
+                                    </a>
+                                <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question4)) { ?>
 
-                            <?php foreach ($question1 as $value) : ?>
-                                <?php $count++; ?>
-                                <a href="#<?= $count ?>">
-                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                        <?= $count ?>
-                                    </div>
-                                </a>
-                            <?php endforeach ?>
-                            <?php foreach ($question2 as $value) : ?>
-                                <?php $count++; ?>
-                                <a href="#<?= $count ?>">
-                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                        <?= $count ?>
-                                    </div>
-                                </a>
-                            <?php endforeach ?>
-                            <?php foreach ($question3 as $value) : ?>
-                                <?php $count++; ?>
-                                <a href="#<?= $count ?>">
-                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                        <?= $count ?>
-                                    </div>
-                                </a>
-                            <?php endforeach ?>
-                            <?php foreach ($question4 as $value) : ?>
-                                <?php $count++; ?>
-                                <a href="#<?= $count ?>">
-                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                        <?= $count ?>
-                                    </div>
-                                </a>
-                            <?php endforeach ?>
-                            <?php foreach ($question5 as $value) : ?>
-                                <?php $count++; ?>
-                                <a href="#<?= $count ?>">
-                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                        <?= $count ?>
-                                    </div>
-                                </a>
-                            <?php endforeach ?>
-                            <?php foreach ($question6 as $value) : ?>
-                                <?php $count++; ?>
-                                <a href="#<?= $count ?>">
-                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                        <?= $count ?>
-                                    </div>
-                                </a>
-                            <?php endforeach ?>
-                            <?php foreach ($question7 as $value) : ?>
-                                <?php $count++; ?>
-                                <a href="#<?= $count ?>">
-                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                        <?= $count ?>
-                                    </div>
-                                </a>
-                            <?php endforeach ?>
+                                <?php foreach ($question4 as $value) : ?>
+                                    <?php $count++; ?>
+                                    <a href="#<?= $count ?>">
+                                        <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                            <?= $count ?>
+                                        </div>
+                                    </a>
+                                <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question5)) { ?>
+
+                                <?php foreach ($question5 as $value) : ?>
+                                    <?php $count++; ?>
+                                    <a href="#<?= $count ?>">
+                                        <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                            <?= $count ?>
+                                        </div>
+                                    </a>
+                                <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question6)) { ?>
+                                <?php foreach ($question6 as $value) : ?>
+                                    <?php $count++; ?>
+                                    <a href="#<?= $count ?>">
+                                        <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                            <?= $count ?>
+                                        </div>
+                                    </a>
+                                <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question7)) { ?>
+                                <?php foreach ($question7 as $value) : ?>
+                                    <?php $count++; ?>
+                                    <a href="#<?= $count ?>">
+                                        <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                            <?= $count ?>
+                                        </div>
+                                    </a>
+                                <?php endforeach ?>
+                            <?php } ?>
+
 
 
                             <br> <br>
@@ -365,10 +381,11 @@
                         <div class="part">
                             <?php $index = 0; ?>
                             <!--- part 1--->
+                            <?php if (isset($part1) && !empty($part1)) { ?>
                             <div class="panel panel-primary">
                                 <div class="panel-body">
-                                    <h2><b style="font-weight: bold;">Part <?= $part1[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part1[0]['direction'] ?></p>
+                                    <h2><b style="font-weight: bold;">Part <?= $part1['part_number'] ?></b></h2>
+                                    <p><b>Direction:</b> <?= $part1['direction'] ?></p>
                                 </div>
                                 <div class="audio-container">
                                     <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -416,12 +433,13 @@
                         <!-- end answer  -->
 
                     <?php endforeach ?>
+                    <?php } ?>
                     <!--- part 2--->
-
+                    <?php if (isset($part2) && !empty($part2)) { ?>
                     <div class="panel panel-primary">
                         <div class="panel-body">
-                            <h2><b style="font-weight: bold;">Part <?= $part2[0]['part_number'] ?></b></h2>
-                            <p><b>Direction:</b> <?= $part2[0]['direction'] ?></p>
+                            <h2><b style="font-weight: bold;">Part <?= $part2['part_number'] ?></b></h2>
+                            <p><b>Direction:</b> <?= $part2['direction'] ?></p>
                         </div>
                         <div class="audio-container">
                             <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -455,12 +473,13 @@
                 <div class="explain" id="explain<?= $value['id'] ?>"></div>
 
             <?php endforeach ?>
-
+            <?php }?>
             <!--- part 3--->
+            <?php if (isset($part3) && !empty($part3)) { ?>
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h2><b style="font-weight: bold;">Part <?= $part3[0]['part_number'] ?></b></h2>
-                    <p><b>Direction:</b> <?= $part3[0]['direction'] ?></p>
+                    <h2><b style="font-weight: bold;">Part <?= $part3['part_number'] ?></b></h2>
+                    <p><b>Direction:</b> <?= $part3['direction'] ?></p>
                 </div>
                 <div class="audio-container">
                     <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -491,12 +510,13 @@
         <?php endforeach ?>
         <div class="explain" id="explain<?= $value['id'] ?>"></div>
     <?php endforeach ?>
-
+    <?php } ?>
     <!--- part 4--->
+    <?php if (isset($part4) && !empty($part4)) { ?>
     <div class="panel panel-primary">
         <div class="panel-body">
-            <h2><b style="font-weight: bold;">Part <?= $part4[0]['part_number'] ?></b></h2>
-            <p><b>Direction:</b> <?= $part4[0]['direction'] ?></p>
+            <h2><b style="font-weight: bold;">Part <?= $part4['part_number'] ?></b></h2>
+            <p><b>Direction:</b> <?= $part4['direction'] ?></p>
         </div>
         <div class="audio-container">
             <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -527,12 +547,13 @@
 <?php endforeach ?>
 <div class="explain" id="explain<?= $value['id'] ?>"></div>
 <?php endforeach ?>
-
+<?php }?>
 <!--- part 5--->
+<?php if (isset($part5) && !empty($part5)) { ?>
 <div class="panel panel-primary">
     <div class="panel-body">
-        <h2><b style="font-weight: bold;">Part <?= $part5[0]['part_number'] ?></b></h2>
-        <p><b>Direction:</b> <?= $part5[0]['direction'] ?></p>
+        <h2><b style="font-weight: bold;">Part <?= $part5['part_number'] ?></b></h2>
+        <p><b>Direction:</b> <?= $part5['direction'] ?></p>
     </div>
 </div>
 <?php $count = 100; ?>
@@ -549,12 +570,13 @@
         <?php endforeach ?>
     <div class="explain" id="explain<?= $value['id'] ?>"></div>
 <?php endforeach ?>
-
+<?php } ?>
 <!--- part 6--->
+<?php if (isset($part6) && !empty($part6)) { ?>
 <div class="panel panel-primary">
     <div class="panel-body">
-        <h2><b style="font-weight: bold;">Part <?= $part6[0]['part_number'] ?></b></h2>
-        <p><b>Direction:</b> <?= $part6[0]['direction'] ?></p>
+        <h2><b style="font-weight: bold;">Part <?= $part6['part_number'] ?></b></h2>
+        <p><b>Direction:</b> <?= $part6['direction'] ?></p>
     </div>
 </div>
 
@@ -592,12 +614,13 @@
     <?php endforeach ?>
 <?php endforeach ?>
 
-
+<?php } ?>
 <!--- part 7--->
+<?php if (isset($part7) && !empty($part7)) { ?>
 <div class="panel panel-primary">
     <div class="panel-body">
-        <h2><b style="font-weight: bold;">Part <?= $part7[0]['part_number'] ?></b></h2>
-        <p><b>Direction:</b> <?= $part6[0]['direction'] ?></p>
+        <h2><b style="font-weight: bold;">Part <?= $part7['part_number'] ?></b></h2>
+        <p><b>Direction:</b> <?= $part7['direction'] ?></p>
     </div>
 </div>
 <?php $count = 146; ?>
@@ -632,6 +655,7 @@
         <?php } ?>
     <?php endforeach ?>
 <?php endforeach ?>
+<?php } ?>
 <hr>
                         </div>
                     </div>
@@ -695,7 +719,10 @@
                     if (answers[i].checked && answers[i].value == a) {
                         answers[i].parentElement.classList.add("correct-answer");
                         answerSelected = true; // Đánh dấu
-                        <?php if ($value['exam_part_id'] == $part1[0]['id'] || $value['exam_part_id'] == $part2[0]['id'] || $value['exam_part_id'] == $part3[0]['id'] || $value['exam_part_id'] == $part4[0]['id']) : ?>
+                        <?php if ((isset($part1) ? $value['exam_part_id'] == $part1['id'] : false) ||
+                                (isset($part2) ? $value['exam_part_id'] == $part2['id'] : false) ||
+                                (isset($part3) ? $value['exam_part_id'] == $part3['id'] : false) ||
+                                (isset($part4) ? $value['exam_part_id'] == $part4['id'] : false))  : ?>
                             numberListeing++;
                         <?php else : ?>
                             numberReading++;

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Post;
-
 use App\Models\Admin;
 use Exception;
 
@@ -36,7 +35,7 @@ class PostsController extends Controller
 
         $category_id = $request->input('category');
         // $author = session('id');
-        $author = 1;
+        $author = Admin::find(session()->get('id'))->id;
         $title = $request->input('title');
         $slug = $request->input('slug');
         $description = $request->input('description');
@@ -55,8 +54,8 @@ class PostsController extends Controller
 
         try {
             $post = Post::create($data);
-        } catch (\Exception $e) {
-            throw new \Exception('UNEXPECTED_ERROR_MESSAGE');
+        } catch (Exception $e) {
+            throw new Exception('UNEXPECTED_ERROR_MESSAGE');
         }
         return redirect()->to('dashboard/posts/detail');
     }

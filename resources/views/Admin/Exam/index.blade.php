@@ -31,7 +31,10 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
+                                            <th>Id</th>
                                                 <th>Đề thi</th>
+                                                <th>Xu</th>
+                                                <th>Số câu</th>
                                                 <th>Người ra Đề</th>
                                                 <th>Cấp độ</th>
                                                 <th style="width: 30px;">Ngày Tạo</th>
@@ -43,7 +46,10 @@
                                             <?php if (isset($exam) || !empty($exam)) : ?>
                                                 <?php foreach ($exam as $item) : ?>
                                                     <tr>
+                                                    <td><?= $item['id'] ?> </td>
                                                         <td><?= $item['title'] ?> </td>
+                                                        <td><?= $item['quantity_coin'] ?> </td>
+                                                        <td><?= tinhSoCauHoi($item) ?>  </td>
                                                         <td>
                                                             <?php foreach ($admin as $i) : ?>
                                                                 <?php if ($i['id'] == $item['author']) : ?>
@@ -58,7 +64,7 @@
                                                         <td>
                                                             <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
                                                                 <label>
-                                                                    <input type="checkbox" id="checkbox2" name="status" value="" <?= $item['status'] == 1 ? 'checked' : '' ?>>
+                                                                    <input type="checkbox" id="checkbox2" name="status" value=""  disabled="true" <?= $item['status'] == 1 ? 'checked' : '' ?>>
                                                                     <span class="cr">
                                                                         <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
                                                                     </span>
@@ -94,7 +100,23 @@
         </div>
     </div>
 </div>
+<?php
+use App\Models\ExamToExamPart;
+use App\Models\ExamQuestionSingle;
+use App\Models\ExamQuestionGroup;
+use App\Models\ExamPart;
+use App\Models\Question;
 
+function tinhSoCauHoi($exam)
+{
+
+    $a = 0;
+
+    $examQuestionSingles = ExamQuestionSingle::where('exam_id', $exam['id'])->get();
+    $a = $examQuestionSingles->count();
+    return $a ;
+}
+?>
 
 @endsection
 

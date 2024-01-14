@@ -1,5 +1,4 @@
 @extends('Admin.layout')
-
 @section('content')
 
 <div class="pcoded-content">
@@ -31,25 +30,25 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                            <th style="width: 10%;">Phần</th>
-                                            <th style="width: 40%;">Câu hỏi</th>
-                                            <th style="width: 25%;">Ngày tạo</th>
-                                            <th style="width: 10%;">Quản lý</th>
+                                                <th >Id</th>
+                                                <th>Loại</th>
+                                                <th >Câu hỏi</th>
+                                                <th >Quản lý</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php if (isset($questions) && !empty($questions)) :  ?>
                                                 <?php foreach ($questions as $question) : ?>
                                                     <tr>
-                                                    <td style="width: 10%;"><?= $question['exam_part_id'] ?></td>
-                                                    <td style="width: 40%;"><?= $question['question'] ?></td>
-                                                    <td style="width: 25%;"><?= $question['created_at'] ?></td>
-                                                    <td style="width: 10%;">
+                                                        <td> <?= $question['id'] ?></td>
+                                                        <td><?= $question['type'] ?></td>
+                                                        <td style=" width: 75%; max-width: 100px; overflow: hidden; text-overflow: ellipsis;"><?= empty($question['question']) ? "Mark your answer on your answer sheet." : $question['question'] ?></td>
+                                                        <td>
                                                             <div class="btn-group btn-group-sm">
-                                                                <a style="margin: 4px;" href="<?= url('dashboard/question/detail') . '/' . $question['id'] ?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                                <a style="margin: 4px;" href="<?= url('dashboard/question/edit/' . $question['id']) ?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                                     <span class="icofont icofont-ui-edit"></span>
                                                                 </a>
-                                                                <a style="margin: 4px;" onclick="delete_question(<?= $question['id'] ?>)" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                                <a style="margin: 4px;" href="<?= url('dashboard/question/delete/' . $question['id']) ?>" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
                                                                     <span class="icofont icofont-ui-delete"></span>
                                                                 </a>
                                                             </div>
@@ -77,9 +76,9 @@
 
 @endsection
 
-@yield('js')
-<script>
-    function delete_account(id, name) {
+@section('js')
+<!-- <script>
+    function delete_question(id, name) {
         const is_confirm = confirm(`Bạn muốn xóa tài khoản "${name}" ?`);
         if (!is_confirm) {
             return
@@ -111,6 +110,6 @@
             })
             .catch(error => msgbox_error(error));
     }
-</script>
+</script> -->
 
-
+@endsection
