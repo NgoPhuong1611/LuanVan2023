@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
-                    <form class="md-float-material form-material" method="POST" action="{{ route('admin-authLogin') }}">
+                    <form class="md-float-material form-material" method="POST" action="<?= url('/resetPasswordAd') ?>">
                        @csrf
                         <div class="text-center">
                             <img src="{{ asset('templates/libraries/assets/images/logo.png') }}" alt="logo.png">
@@ -42,7 +42,7 @@
                             <div class="card-block">
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
-                                        <h3 class="text-center">Đăng nhập</h3>
+                                        <h3 class="text-center">Đặt Lại Mật Khẩu</h3>
 
                                     </div>  
                                   
@@ -68,20 +68,20 @@
                                     
                                     </div>
                                 </div>
-                            
+                                    <input name="email" hidden value="{{ $email }}">
+
                                 <div class="form-group form-primary">
-                                    <input type="text" name="username" value="" class="form-control" placeholder="Tài khoản" required>
+                                    <input type="password" name="password" class="form-control" placeholder="Mật Khẩu Mới..." required>
                                     <span class="form-bar"></span>
                                 </div>
                                 <div class="form-group form-primary">
                                    
-                                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
+                                    <input type="password" name="confirm_password" class="form-control" placeholder="Nhập Lại Mật Khẩu..." required>
                                     <span class="form-bar"></span>
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>
-                                        <a href="<?= url('forgotpasswordAd') ?>">Forgot password</a>
+                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Cập Nhập Mật Khẩu</button>
                                     </div>
                                 </div>
                             </div>

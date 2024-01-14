@@ -245,9 +245,9 @@ class ExamController extends Controller
             'status' => $status,
         ]);
 
-        if (!$exam) {
-            throw new Exception(UNEXPECTED_ERROR_MESSAGE);
-        }
+        // if (!$exam) {
+        //     throw new Exception(UNEXPECTED_ERROR_MESSAGE);
+        // }
 
         $exam_id = $exam->id;
 

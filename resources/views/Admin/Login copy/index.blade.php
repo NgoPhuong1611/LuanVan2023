@@ -81,7 +81,6 @@
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>
-                                        <a href="<?= url('forgotpasswordAd') ?>">Forgot password</a>
                                     </div>
                                 </div>
                             </div>

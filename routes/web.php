@@ -93,7 +93,7 @@ Route::group([], function () {
         Route::get('Register', [UserController::class, 'register']);
         Route::post('save',[UserController::class, 'save']);
         Route::get('Logout', [UserController::class, 'logout']);
-        //quên mật khẩu
+        //quên mật khẩu user
         Route::get('forgotpassword',[UserController::class, 'forgotpassword']);
         Route::post('recoverPass',[UserController::class, 'recoverPass']);
         Route::post('confirmToken',[UserController::class, 'confirmToken']);
@@ -166,6 +166,16 @@ Route::get('admin-login',  [LoginController::class, 'index'])->name('admin-login
 Route::post('admin-login', [loginController::class,'authLogin'])->name('admin-authLogin');
 Route::get('logout', [LoginController::class,'logout'])->name('admin-logout');
 Route::get('dashboard', [Home::class, 'index'])->name('Home');
+//quên mật khẩu admin
+Route::get('forgotpasswordAd',[LoginController::class, 'forgotpassword']);
+Route::post('recoverPassAd',[LoginController::class, 'recoverPass']);
+Route::get('confirmTokenAd', [LoginController::class, 'showConfirmTokenForm'])->name('showConfirmTokenForm');
+Route::post('confirmTokenAd',[LoginController::class, 'confirmToken']);
+Route::get('resetPasswordAd',[LoginController::class, 'showResetPasswordForm'])->name('showResetPasswordForm');
+Route::post('resetPasswordAd',[loginController::class,'resetPassword']);
+
+
+//
 //1 trong 2 dòng dòng 2 trường hợp chức năng đăng nhập admin
 Route::prefix('dashboard')->middleware('Admin')->group(function () {
     //  Route::prefix('dashboard')->group(function () {
@@ -185,7 +195,7 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
 
 
     });
-
+    
     Route::group(['prefix' => 'user'], function () {
         Route::get('/',  [UserAdminController::class, 'index']);
         Route::get('detail',  [UserAdminController::class, 'detail']);
