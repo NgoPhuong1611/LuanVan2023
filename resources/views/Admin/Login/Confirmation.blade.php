@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
-                    <form class="md-float-material form-material" method="POST" action="{{ route('admin-authLogin') }}">
+                    <form class="md-float-material form-material" method="POST" action="<?= url('/recoverPassAd') ?>">
                        @csrf
                         <div class="text-center">
                             <img src="{{ asset('templates/libraries/assets/images/logo.png') }}" alt="logo.png">
@@ -68,21 +68,10 @@
                                     
                                     </div>
                                 </div>
-                            
                                 <div class="form-group form-primary">
-                                    <input type="text" name="username" value="" class="form-control" placeholder="Tài khoản" required>
-                                    <span class="form-bar"></span>
-                                </div>
-                                <div class="form-group form-primary">
-                                   
-                                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
-                                    <span class="form-bar"></span>
-                                </div>
-                                <div class="row m-t-30">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>
-                                        <a href="<?= url('forgotpasswordAd') ?>">Forgot password</a>
-                                    </div>
+                                    <label for="email"><b>MÃ XÁC NHẬN CỦA BẠN LÀ :</b></label>
+                                    <input name="email" hidden value="{{ $to_email }}">
+                                    <input name="token" value="{{ $token_random }}">                       
                                 </div>
                             </div>
                         </div>

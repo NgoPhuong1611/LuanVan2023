@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Exam;
+use App\Models\ExamHistory;
 
 use Illuminate\Http\Request;
 use App\Models\ExamPart;
@@ -247,19 +249,42 @@ class PracticeController extends Controller
     //lưu bài làm của người học
     public function save(Request $request)
     {
+        
         $user_id = User::find(session()->get('id'))->id; // Lấy ID của người dùng hiện tại
         $questionId = $request->input('question_id'); // ID của câu hỏi
         $examPart = $request->input('examPart');
         $detail = $request->input('answer'); // Giả sử tên trường là 'answer'
+        // Tao de thi
+        // $author = 1; // Sửa nếu cần thiết
+        // $level = $request->input('level');
+        // $title = $request->input('title');
+        // $status = $request->input('status');
 
+        $exam = Exam::create([
+            'author' => 1,
+            'level' => 0,
+            'title' =>  $user_id,
+            'status' => 1,
+        ]);
+        $exam_id = $exam->id;
+        $user_id =User::find(session()->get('id'))->id;
+        $data1 = [
+            'user_id' => $user_id,
+            'exam_id' => $exam_id,
+            ];
+        $examHistory = ExamHistory::create($data1);
+        /////
         $data = [
             'user_id' => $user_id,
             'question_id' => $questionId,
             'part_number' => $examPart,
+            'exam_id' => $exam_id,
+
             'type' => 1,
             'detail' => $detail,
         ];
         FileUser::create($data);
+
         return view('User.History.index');
     }
 
@@ -278,10 +303,24 @@ class PracticeController extends Controller
         file_put_contents($path, $audioBinary );
 
         // Lưu thông tin vào table file_user
+        $exam = Exam::create([
+            'author' => 1,
+            'level' => 0,
+            'title' =>  $user_id,
+            'status' => 1,
+        ]);
+        $exam_id = $exam->id;
+        $user_id =User::find(session()->get('id'))->id;
+        $data1 = [
+            'user_id' => $user_id,
+            'exam_id' => $exam_id,
+            ];
+        $examHistory = ExamHistory::create($data1);
         $data = [
             'user_id' => $user_id,
             'question_id' => $questionId,
             'part_number' => $examPart,
+            'exam_id' => $exam_id,
             'type' => 0,
             'detail' => $fileName,
         ];
