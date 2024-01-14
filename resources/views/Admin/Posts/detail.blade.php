@@ -79,7 +79,7 @@
                                                                     <div class="col-md-6">
                                                                         <label for="partnumber">Danh mục bài viết</label>
                                                                         <div style="height: 1px;" class="input-group">
-                                                                            <select name="category" class="form-control js-example-basic-single">
+                                                                            <select name="category" class="form-control js-example-basic-single" required>
                                                                                 <option value="" disabled selected>
                                                                                     --Chọn danh mục--
                                                                                 </option>
@@ -110,11 +110,11 @@
                                                                     <div class="col-md-12 mb-3">
                                                                         <label for="description">Mô tả</label>
 
-                                                                        <textarea class="form-control" id="editor" name="description" required></textarea>
+                                                                        <textarea class="form-control" id="editor" name="description" required autofocus></textarea>
                                                                     </div>
                                                                     <div class="col-md-12 mb-3">
                                                                         <label for="content">Nội dung bài viêt</label>
-                                                                        <textarea class="form-control" id="editor3" name="content" required></textarea>
+                                                                        <textarea class="form-control" id="editor3" name="content" required autofocus></textarea>
 
                                                                     </div>
                                                                 </div>
@@ -175,22 +175,21 @@
 
     function slug(str) {
 
-        str = str.replace(/^\s+|\s+$/g, "");
-        str = str.toLowerCase();
+    str = str.replace(/^\s+|\s+$/g, "");
+    str = str.toLowerCase();
 
-        var from = "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ·/_,:;";
-        var to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyd------";
-        for (var i = 0; i < from.length; i++) {
-            str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
-        }
-
-        str = str.replace(/[^a-z0-9 -]/g, '')
-            .replace(/\s+/g, "-")
-            .replace(/-+/g, "-")
-
-        return str
+    var from = "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ·/_,:;";
+    var to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyd------";
+    for (var i = 0; i < from.length; i++) {
+        str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
     }
 
+    str = str.replace(/[^a-z0-9 -]/g, '')
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+
+    return str
+    }
     // $('#name').on('input', function() {
     //     $('#slug').val(slug($(this).val()))
     // })
@@ -198,6 +197,7 @@
     document.getElementById('title').oninput = function() {
         document.getElementById('slug').value = (slug(document.getElementById('title').value))
     }
-</script>
+    </script>
+@endsection
 
 

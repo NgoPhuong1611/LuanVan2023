@@ -39,6 +39,7 @@
                                                 <th>Password</th>
                                                 <th>Level</th>
                                                 <th style="width: 30px;">Last_login_at</th>
+                                                <th>status</th>
                                                 <th style="width: 70px;">Quản lý</th>
                                             </tr>
                                         </thead>
@@ -51,15 +52,24 @@
                                                 <td><?= $item['password'] ?></td>
                                                 <td><?= $item['level'] ?></td>
                                                 <td><?= $item['updated_at'] ?></td>
-
+                                                <td>
+                                                    <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
+                                                        <label>
+                                                            <input type="checkbox" id="checkbox2" name="status" value="" <?= $item['status'] == 1 ? 'checked' : '' ?> disabled>
+                                                            <span class="cr">
+                                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <div style="width: 90px;" class="btn-group btn-group-sm">
                                                         <a href ="<?= url('dashboard/user/editteacher/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                             <span class="icofont icofont-ui-edit"></span>
                                                         </a>
-                                                        <a href ="<?= url('dashboard/user/deleteteacher/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                        <!-- <a href ="<?= url('dashboard/user/deleteteacher/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
                                                             <span class="icofont icofont-ui-delete"></span>
-                                                        </a>
+                                                        </a> -->
                                                     </div>
                                                 </td>
                                             </tr>

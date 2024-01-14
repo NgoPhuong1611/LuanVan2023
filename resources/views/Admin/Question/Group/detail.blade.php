@@ -72,13 +72,13 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<form action="<?= url('dashboard/question-group/save') ?>" method="post">
-															<input type="hidden" name="question_group_id" value="<?= isset($questionGroup) && !empty($questionGroup) ? $questionGroup['id'] : '' ?>">
+                                                        @csrf
 															<div class="general-info">
 																<div class="row">
 																	<div class="col-md-12">
 																		<label for="title">Tiêu đề</label>
 																		<div class="input-group">
-																			<input type="text" class="form-control field" value="<?= isset($questionGroup) && !empty($questionGroup) ? $questionGroup['title'] : set_value('title') ?>" name="title" placeholder="Tiêu đề ..." required autofocus>
+																			<input type="text" class="form-control field"  name="title" placeholder="Tiêu đề ..." required autofocus>
 																		</div>
 																	</div>
 																	<div class="col-md-12 mb-4">
@@ -87,7 +87,7 @@
 																			<select name="part_id" class="form-control js-example-basic-single">
 																				<?php if (isset($examPart) || !empty($examPart)) : ?>
 																					<?php foreach ($examPart as $item) : ?>
-																						<option value="<?= $item['id'] ?>" <?= isset($questionGroup) && !empty($questionGroup) && $questionGroup['exam_part_id'] == $item['id'] ? 'selected' : '' ?>>Part <?= $item['part_number'] ?></option>
+																						<option value="<?= $item['id'] ?>"  >Part <?= $item['part_number'] ?></option>
 																					<?php endforeach ?>
 																				<?php endif ?>
 																			</select>
@@ -100,8 +100,10 @@
 																				<option value="" disabled selected>
 																					--Chọn loại câu hỏi--
 																				</option>
-																				<option value="1" <?= isset($question) && !empty($question) && $question['type'] == 1 ? 'selected' : '' ?>>Câu hỏi nghe</option>
-																				<option value="2" <?= isset($question) && !empty($question) && $question['type'] == 2 ? 'selected' : '' ?>>Câu hỏi đọc</option>
+																				<option value="1"  >Câu hỏi nghe</option>
+																				<option value="2" selected  >Câu hỏi đọc</option>
+                                                                                <option value="3"  >Câu hỏi nói</option>
+																				<option value="4"  >Câu hỏi viết</option>
 																			</select>
 																		</div>
 																	</div>
@@ -109,37 +111,11 @@
 																<div class="row">
 																	<div class="col-md-12 mb-3">
 																		<label for="paragraph">Đoạn văn</label>
-																		<textarea class="form-control field" id="editor1" name="paragraph" required><?= isset($questionGroup) && !empty($questionGroup) ? $questionGroup['paragraph'] : set_value('paragraph') ?></textarea>
+																		<textarea class="form-control field" id="editor1" name="paragraph" required></textarea>
 																	</div>
 																</div>
 															</div>
 
-															<div class="row">
-																<div class="col-md-12 mb-3" id="question1">
-																	<label for="upload_audio">Upload tệp âm thanh cho nhóm câu hỏi</label>
-																	<input type="file" name="question_group_audio" id="filer_input_audio" onchange="return fileValidation()" accept=".mp3, .aac, .wav, .flac, .wma, .ogg, .aiff ,.alac" multiple="multiple">
-																	<?php if (isset($audio)) : ?>
-																		<ul id="product-image" class="jFiler-items-list jFiler-items-default">
-																			<li class="jFiler-item" data-jfiler-index="0" id="img-<?= $audio['id'] ?>">
-																				<div class="jFiler-item-container">
-																					<div class="jFiler-item-inner">
-																						<div class="jFiler-item-icon pull-left"><i class="icon-jfi-file-o jfi-file-type-image jfi-file-ext-png"></i></div>
-																						<div class="jFiler-item-info pull-left">
-																							<div class="jFiler-item-title" title="<?= $audio['audio_name'] ?>"><a href="<?= base_url('uploads/audios/' . $audio['audio_name']) ?>" target="_blank" rel="noopener noreferrer"><?= $audio['audio_name'] ?></a></div>
-																							<div class="jFiler-item-others"><span><?= @get_file_size(AUDIO_PATH . '/' . $audio['audio_name'], 2) ?? 0 ?> MB</span><span class="jFiler-item-status"></span></div>
-																							<div class="jFiler-item-assets">
-																								<ul class="list-inline">
-																									<li><a onclick="delete_audio(<?= $audio['id'] ?>)" class="icon-jfi-trash jFiler-item-trash-action"></a></li>
-																								</ul>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																			</li>
-																		</ul>
-																	<?php endif ?>
-																</div>
-															</div>
 															<?php if (!isset($questions) && empty($questions)) : ?>
 																<div class="border border-secondary rounded mb-3 repeater">
 																	<div class="m-3">
@@ -147,7 +123,7 @@
 																			<div class="col-md-12">
 																				<label for="question">Câu hỏi</label>
 																				<div class="input-group">
-																					<textarea type="text" class="form-control field" value="" name="questions[]" placeholder="Câu hỏi ..." rows="3" autofocus><?= set_value('questions')[0] ?></textarea>
+																					<textarea type="text" class="form-control field" value="" name="questions[]" placeholder="Câu hỏi ..." rows="3" autofocus></textarea>
 																				</div>
 																			</div>
 																			<div class="col-md-12">
@@ -169,7 +145,7 @@
 																			<label for="questions">Câu trả lời</label>
 																			<div class="form-row" style="padding-top: 5px;" id="someId1">
 																				<div class="input-group">
-																					<input style="height: 41px;" type="text" name="options[0][]" value="<?= set_value('options')[0][0] ?>" class="form-control field" placeholder="Answer..." required>
+																					<input style="height: 41px;" type="text" name="options[0][]"  class="form-control field" placeholder="Answer..." required>
 																					<button type="button" class="btn btn-success" onclick="addFormElements(this)">Thêm</button>
 																					<button type="button" class="btn btn-danger" onclick="removeFormElements(this)">Xóa</button>
 																				</div>

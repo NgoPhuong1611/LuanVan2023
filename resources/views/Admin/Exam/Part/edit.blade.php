@@ -1,5 +1,6 @@
 @extends('Admin.layout')
 @section('content')
+<script type="text/javascript" src="<?= asset('ckeditor\ckeditor.js')?>"></script>
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -78,10 +79,11 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <label for="direction">Paragraph</label>
-                                                                        <textarea class="form-control" id="editor0" value="" name="direction" required><?= $examPart['direction'] ?></textarea>
-                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                            <label for="direction">Mô tả</label>
+
+                                                                            <textarea class="form-control" id="editor0"   name="direction" required><?= $examPart['direction'] ?></textarea>
+                                                                        </div>
                                                                     <!-- Import -->
                                                                     <div class="col-md-6">
 
@@ -136,3 +138,5 @@
     });
 </script>
 
+
+@endsection

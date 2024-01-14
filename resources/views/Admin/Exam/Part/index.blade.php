@@ -1,4 +1,5 @@
 @extends('Admin.layout')
+
 @section('content')
 
 <div class="pcoded-content">
@@ -12,7 +13,7 @@
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>Danh sách phần đề thi</h4>
+                                    <h4>Danh Sách Phần</h4>
                                 </div>
                             </div>
                         </div>
@@ -26,41 +27,42 @@
                             <!-- Zero config.table start -->
                             <div class="card">
                                 <div class="card-block">
-
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Phần đề thi</th>
-                                                <!-- <th style="width: 30px;">Trạng thái</th> -->
-                                                <th style="width: 70px;">Quản lý</th>
+                                                <th>Id</th>
+                                                <th>Phần</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Mô tả</th>
+                                                <th>Câu hỏi</th>
+                                                <th >Quản lý</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php if (isset($examParts) || !empty($examParts)) : ?>
-                                                <?php foreach ($examParts as $item) : ?>
-                                                    <tr>
-                                                        <!-- <td><?= $item['part_number'] ?></td> -->
-                                                        <td><?= $item['title'] ?></td>
-                                                        <!-- <td><?= $item['direction'] ?></td> -->
-                                                        <td>
-                                                            <div class="btn-group btn-group-sm">
-                                                                <a href="<?= url('dashboard/exam-part/edit/'.$item['id']) ?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
-                                                                    <span class="icofont icofont-ui-edit"></span>
-                                                                </a>
-                                                                <a href ="<?= url('dashboard/exam-part/delete/'.$item['id']) ?>" onclick="if(confirm('Bạn có chắc chắn xóa chi tiết liên hệ này không?') === false) event.preventDefault()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
-                                                                    <span class="icofont icofont-ui-delete"></span>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach ?>
-                                            <?php else : ?>
-                                                <tr>
-                                                    <td colspan="3" class="text-center">Hiện không có nhóm câu hỏi nào. <a href="<?= base_url('dashboard/question-group/detail') ?>">Bấm vào đây để thêm mới.</a></td>
-                                                </tr>
+                                            <?php if (isset($examParts) || !empty($examParts)) : ?>
+                                            <?php foreach ($examParts as $item) : ?>
+                                            <tr>
+                                                <td><?= $item['id'] ?></td>
+                                                <td><?= $item['part_number'] ?></td>
+                                                <td><?= $item['title'] ?></td>
+
+                                                <td style=" width: 60%; max-width: 100px; overflow: hidden; text-overflow: ellipsis;"><?= $item['direction'] ?></td>
+                                                <td><?= tinhSoCauHoi($item['id']) ?> </td>
+
+                                                <td> <div style="width: 90px;" class="btn-group btn-group-sm">
+                                                         <a href ="<?= url('dashboard/exam-part/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                            <span class="icofont icofont-ui-edit"></span>
+                                                        </a>
+                                                        <a href ="<?= url('dashboard/exam-part/delete/'.$item['id']) ?>" style="margin: 4px;" onclick="delete_account()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                            <span class="icofont icofont-ui-delete"></span>
+                                                        </a>
+                                                    </div></td>
+                                            </tr>
+                                            <?php endforeach ?>
                                             <?php endif ?>
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
@@ -72,12 +74,26 @@
     </div>
 </div>
 
+<?php
+use App\Models\ExamPart;
+use App\Models\Question;
 
-@endsection
-@section('js')
+function tinhSoCauHoi($id)
+{
+
+    $a = 0;
+
+    $Question = Question::where('exam_part_id', $id)->get();
+    $a = $Question->count();
+    return $a ;
+}
+?>
+@endsection()
+
+@yield('js')
 <script>
     function delete_account(id, name) {
-        const is_confirm = confirm(`Bạn muốn xóa phần đề thi "${name}" ?`);
+        const is_confirm = confirm(`Bạn muốn xóa tài khoản "${name}" ?`);
         if (!is_confirm) {
             return
         }
@@ -90,7 +106,7 @@
             redirect: 'follow'
         };
 
-        fetch('<?= url('dashboard/category/delete') ?>', requestOptions)
+        fetch('<?= url('dashboard/admin/delete') ?>', requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.success) {

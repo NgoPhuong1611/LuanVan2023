@@ -13,7 +13,7 @@
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4></h4>
+                                    <h4>Danh sách danh mục bài viết</h4>
                                 </div>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-
+                                            <th>Id</th>
                                                 <th>Tên</th>
                                                 <th style="width: 30px;">Trạng thái</th>
                                                 <th style="width: 70px;">Quản lý</th>
@@ -41,12 +41,12 @@
                                             <?php if (isset($category) || !empty($category)) : ?>
                                             <?php foreach ($category as $item) : ?>
                                             <tr>
-
+                                            <td><?= $item['id'] ?></td>
                                                 <td><?= $item['name'] ?></td>
                                                 <td>
                                                     <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
                                                         <label>
-                                                            <input type="checkbox" id="checkbox2" name="status" value="" <?= $item['status'] == 1 ? 'checked' : '' ?>>
+                                                            <input type="checkbox" id="checkbox2" name="status" value="" <?= $item['status'] == 1 ? 'checked' : '' ?> disabled>
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
                                                             </span>

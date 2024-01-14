@@ -56,9 +56,6 @@
                                                     <td><?= $item['time_date'] ?></td>
                                                     <td>
                                                     <div style="width: 90px;" class="btn-group btn-group-sm">
-                                                        <!-- <a href ="<?= url('dashboard/user/edit/'.$item['id']) ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
-                                                            <span class="icofont icofont-ui-edit"></span>
-                                                        </a> -->
                                                          <a href ="<?= url('dashboard/forum') ?>"  style="margin: 4px;"  class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                             <span class="icofont icofont-ui-edit"></span>
                                                         </a>

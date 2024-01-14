@@ -14,7 +14,7 @@ class PartExamController extends Controller
     public function index()
     {
         $examPartModel = new ExamPart;
-        $examParts = $examPartModel->paginate(10);
+        $examParts = $examPartModel->get();
 
         $datas['examParts'] = $examParts;
         return view('Admin/Exam/Part/index', $datas);
@@ -26,7 +26,7 @@ class PartExamController extends Controller
     public function save(Request $request)
     {
         $title = $request->input('title');
-        $direction = $request->input('paragraph');
+        $direction = $request->input('direction');
         $part_number = $request->input('part_number');
 
         $data = [
@@ -67,7 +67,7 @@ class PartExamController extends Controller
 
         $title =  $request->input('title');
 
-        $direction =  $request->input('paragraph');
+        $direction =  $request->input('direction');
         $part_number =  $request->input('part_number');
         $datas = [
             'part_number' => $part_number,

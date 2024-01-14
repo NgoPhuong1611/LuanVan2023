@@ -1,5 +1,6 @@
 @extends('Admin.layout')
 @section('content')
+
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <!-- Main-body start -->
@@ -8,116 +9,207 @@
                 <!-- Page-header start -->
                 <div class="page-header">
                     <div class="row align-items-end">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>Danh sách đề thi</h4>
+                                    <h4>Thông tin đề thi</h4>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+                <!-- Page-header end -->
+
                 <!-- Page-body start -->
                 <div class="page-body">
+
+                    <!--profile cover end-->
                     <div class="row">
-                        <div class="col-sm-12">
-                            <!-- Zero config.table start -->
-                            <div class="card">
-                                <div class="card-block">
+                        <div class="col-lg-12">
+                            <!-- tab content start -->
+                            <div class="tab-content">
+                                <!-- tab panel personal start -->
+                                <div class="tab-pane active" id="personal" role="tabpanel">
+                                    <!-- personal card start -->
+                                    <div class="card">
+                                        <div class="card-header">
 
-                                    <table id="simpletable" class="table table-striped table-bordered nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th >Tiêu đề thi</th>
-                                                <th style="width: 30px;">Ngày Cập nhật</th>
-                                                <th style="width: 30px;">Trạng Thái</th>
-                                                <th style="width: 70px;">Quản lý</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if (isset($exam) || !empty($exam)) : ?>
-                                                <?php foreach ($exam as $item) : ?>
-                                                    <tr>
-                                                        <td><?= $item['title'] ?> </td>
-                                                        <td>
-                                                            <?= $item['updated_at'] ?>
-                                                        </td>
-                                                        <td>
-                                                            <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
-                                                                <label>
-                                                                    <input type="checkbox" id="checkbox2" name="status" value=""<?= $item['status'] == 1 ? 'checked' : '' ?>>
-                                                                    <span class="cr">
-                                                                        <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                                    </span>
-                                                                </label>
+                                            <!-- <div class="alert alert-danger">
+                                                <div class="col-10">
+                                                    Error
+                                                </div>
+                                                <div class="col-1 text-right">
+                                                    <span aria-hidden="true" id="remove-alert">&times;</span>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- <div class="alert alert-danger mb-1">
+                                                <div class="row">
+                                                    <div class="col-11">
+                                                        Error
+                                                    </div>
+                                                    <div class="col-1 text-right">
+                                                        <span aria-hidden="true" id="remove-alert">&times;</span>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="card-block">
+                                            <div class="edit-info">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <form action="<?= url('dashboard/exam/update/'.$exam['id']) ?>" method="post">
+                                                        @csrf
+
+
+                                                        <input type="hidden" name="id" value="">
+                                                            <input type="hidden" name="selectedQuestions[]" multiple>
+                                                            <div class="general-info">
+                                                            <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <label for="title">Tiêu đề</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" value="<?=  $exam['id']?>" id="title" name="title" placeholder="Tiêu đề ..." required autofocus>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="quantity_coin">Xu</label>
+                                                                        <div class="input-group">
+                                                                            <input type="number" class="form-control" value="<?=  $exam['quantity_coin']?>"  id="quantity_coin" name="quantity_coin"  required autofocus>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row">
+
+                                                                <div class="col-md-6">
+                                                                        <label for="status">Trạng thái</label>
+                                                                        <div class="input-group">
+                                                                            <select name="status" class="form-control" required>
+
+                                                                                <option value="" disabled selected>
+                                                                                    --Chọn trạng thái--
+                                                                                </option>
+                                                                                <?php  if($exam['status'] == 1): ?>
+                                                                                    <option value="1" checked selected >Hiển thị</option>
+                                                                                    <option value="0">Ẩn</option>
+                                                                                <?php endif ?>
+                                                                                <?php  if($exam['status'] == 0): ?>
+                                                                                    <option value="1"  >Hiển thị</option>
+                                                                                    <option value="0" checked selected>Ẩn</option>
+                                                                                <?php endif ?>
+                                                                            </select>
+                                                                        </div>
+                                                                                </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="level">Level</label>
+                                                                        <div class="input-group">
+                                                                            <select name="level" class="form-control" required>
+                                                                                <option value="" disabled selected>
+                                                                                    --Chọn Level--
+                                                                                </option>
+                                                                                <option value="1" <?= $exam['level'] == 1 ? 'selected' : ''?> >1</option>
+                                                                                <option value="2"<?= $exam['level'] == 2 ? ' selected' : ''?> >2</option>
+                                                                                <option value="3"<?= $exam['level'] == 3 ? ' selected' : ''?> >3</option>
+                                                                                <option value="4"<?= $exam['level'] == 4 ? ' selected' : ''?> >4</option>
+                                                                                <option value="5"<?= $exam['level'] == 5 ? ' selected' : ''?> >5</option>
+                                                                                <option value="6"<?= $exam['level'] == 6 ? ' selected' : ''?> >6</option>
+                                                                                <option value="7"<?= $exam['level'] == 7 ? ' selected' : ''?> >7</option>
+
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <!-- end of row -->
+                                                                <div class="row">
+                                                                    <div class="col-md-12 text-right">
+                                                                        <button type="submit" class="btn btn-primary btn-round waves-effect waves-light m-r-20">Lưu</button>
+                                                                        <a href="<?= url('dashboard/exam/detail') ?>" id="edit-cancel" class="btn btn-default waves-effect">Huỷ</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </td>
-
-                                                        <td>
-
-                                                            <div style="width: 90px;" class="btn-group btn-group-sm">
-                                                                <a  href ="<?= url('dashboard/exam/edit/'.$item['id']) ?>"  style="margin: 4px;" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
-                                                                    <span class="icofont icofont-ui-edit"></span>
-                                                                </a>
-                                                                <a href ="<?= url('dashboard/exam/delete/'.$item['id']) ?>"   style="margin: 4px;" onclick="if(confirm('Bạn có chắc chắn xóa chi tiết liên hệ này không?') === false) event.preventDefault()" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
-                                                                    <span class="icofont icofont-ui-delete"></span>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach ?>
-                                            <?php endif ?>
-                                        </tbody>
-                                    </table>
-
-
+                                                            <!-- end of edit info -->
+                                                        </form>
+                                                    </div>
+                                                    <!-- end of col-lg-12 -->
+                                                </div>
+                                                <!-- end of row -->
+                                            </div>
+                                        </div>
+                                        <!-- end of card-block -->
+                                    </div>
+                                    <!-- personal card end-->
                                 </div>
+
                             </div>
+                            <!-- tab content end -->
                         </div>
                     </div>
                 </div>
                 <!-- Page-body end -->
             </div>
         </div>
+        <!-- Main body end -->
     </div>
 </div>
 
-
 @endsection
+
+@yield('js')
 @section('js')
+
 <script>
-    function delete_account(id, name) {
-        const is_confirm = confirm(`Bạn muốn xóa tài khoản "${name}" ?`);
-        if (!is_confirm) {
-            return
+    CKEDITOR.replace('editor');
+    CKEDITOR.replace('editor3');
+
+
+
+    // var cleave = new Cleave('.cleave1', {
+    //     numeral: true,
+    //     numeralThousandsGroupStyle: 'thousand'
+    // });
+
+    // var cleave2 = new Cleave('.cleave2', {
+    //     numeral: true,
+    //     numeralThousandsGroupStyle: 'thousand'
+    // });
+
+    function slug(str) {
+
+        str = str.replace(/^\s+|\s+$/g, "");
+        str = str.toLowerCase();
+
+        var from = "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ·/_,:;";
+        var to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyd------";
+        for (var i = 0; i < from.length; i++) {
+            str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
         }
 
-        const data = new FormData();
-        data.append('id', id);
-        var requestOptions = {
-            method: 'POST',
-            body: data,
-            redirect: 'follow'
-        };
+        str = str.replace(/[^a-z0-9 -]/g, '')
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-")
 
-        fetch('<?= base_url('dashboard/category/delete') ?>', requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    msgbox_success(result.message)
-                    document.getElementById(`menu-${id}`).remove()
-                    return
-                }
+        return str
+    }
 
-                const error = result.result.error;
-                if (error) {
-                    msgbox_error(error)
-                    return
-                }
+    // $('#name').on('input', function() {
+    //     $('#slug').val(slug($(this).val()))
+    // })
 
-            })
-            .catch(error => msgbox_error(error));
+    document.getElementById('name').oninput = function() {
+        document.getElementById('slug').value = (slug(document.getElementById('name').value))
     }
 </script>
 
+@endsection
+@if ($errors->any())
+       <div class="alert alert-danger">
+           <ul>
+               @foreach ($errors->all() as $error)
+                   <li>{{ $error }}</li>
+               @endforeach
+           </ul>
+       </div>
+   @endif

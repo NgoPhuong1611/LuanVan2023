@@ -31,8 +31,11 @@
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
+                                            <th style="width: 5%;">Id</th>
+
                                                 <th style="width: 10%;">Phần</th>
                                                 <th >Tiêu đề</th>
+                                                <th style="width: 10%;">Số câu</th>
                                                 <th style="width: 10%;">Quản lý</th>
                                             </tr>
                                         </thead>
@@ -40,14 +43,17 @@
                                             <?php if (isset($questionGroups) || !empty($questionGroups)) : ?>
                                                 <?php foreach ($questionGroups as $item) : ?>
                                                     <tr>
+                                                    <td style="width: 5%;"><?= $item['id'] ?></td>
+
                                                         <td style="width: 10%;"><?= $item['exam_part_id'] ?></td>
                                                         <td><?= $item['title'] ?></td>
+                                                        <td><?= tinhSoCauHoi($item['id']) ?> </td>
                                                         <td>
                                                             <div class="btn-group btn-group-sm">
-                                                                <a href="<?= url('dashboard/question-group/detail' . '/' . $item['id'] )?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                                <a href="<?= url('dashboard/question-group/edit' . '/' . $item['id'] )?>" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
                                                                     <span class="icofont icofont-ui-edit"></span>
                                                                 </a>
-                                                                <a onclick="delete_question_group(<?= $item['id'] ?>)" class="tabledit-delete-button btn btn-danger waves-effect waves-light">
+                                                                <a href="<?= url('dashboard/question-group/delete' . '/' . $item['id'] )?>"  class="tabledit-delete-button btn btn-danger waves-effect waves-light">
                                                                     <span class="icofont icofont-ui-delete"></span>
                                                                 </a>
                                                             </div>
@@ -73,10 +79,24 @@
 </div>
 
 
+<?php
+use App\Models\QuestionGroup;
+use App\Models\ExamPart;
+use App\Models\Question;
 
+function tinhSoCauHoi($id)
+{
+
+    $a = 0;
+
+    $Question = Question::where('question_group_id', $id)->get();
+    $a = $Question->count();
+    return $a ;
+}
+?>
 @endsection
 
-@yield('js')
+@section('js')
 <script>
     function delete_question_group(id) {
         const is_confirm = confirm(`Bạn muốn câu hỏi này?`);
@@ -102,5 +122,7 @@
             .catch(error => msgbox_error(error));
     }
 </script>
+@endsection
+
 
 

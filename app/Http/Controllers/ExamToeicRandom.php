@@ -46,14 +46,14 @@ class ExamToeicRandom extends Controller
 
         $QuestionModel = new Question();
         $question = $QuestionModel->get();
-        $question1 = $QuestionModel::where('exam_part_id', $part1[0]['id'])->take(6)->get();
+        $question1 = $QuestionModel::where('exam_part_id', $part1[0]['id'])->inRandomOrder()->take(6)->get();
         //$question1 = $QuestionModel::where('exam_part_id', $part1[0]['id'])->orderBy('RAND()')->findget(6);
-        $question2 = $QuestionModel::where('exam_part_id', $part2[0]['id'])->take(25)->get();
-        $question3 = $QuestionModel::where('exam_part_id', $part3[0]['id'])->take(39)->get();
-        $question4 = $QuestionModel::where('exam_part_id', $part4[0]['id'])->take(30)->get();
+        $question2 = $QuestionModel::where('exam_part_id', $part2[0]['id'])->inRandomOrder()->take(25)->get();
+        $question3 = $QuestionModel::where('exam_part_id', $part3[0]['id'])->inRandomOrder()->take(39)->get();
+        $question4 = $QuestionModel::where('exam_part_id', $part4[0]['id'])->inRandomOrder()->take(30)->get();
         $question5 = $QuestionModel::where('exam_part_id', $part5[0]['id'])->inRandomOrder()->take(30)->get();
-        $question6 = $QuestionModel::where('exam_part_id', $part6[0]['id'])->get();
-        $question7 = $QuestionModel::where('exam_part_id', $part7[0]['id'])->get();
+        $question6 = $QuestionModel::where('exam_part_id', $part6[0]['id'])->inRandomOrder()->get();
+        $question7 = $QuestionModel::where('exam_part_id', $part7[0]['id'])->inRandomOrder()->get();
         $data['question'] = $question;
         $data['question1'] = $question1;
         $data['question2'] = $question2;
@@ -69,7 +69,7 @@ class ExamToeicRandom extends Controller
 
 
         $QuestionAnswerModel = new QuestionAnswer();
-        $question_answer = $QuestionAnswerModel->get();
+        $question_answer = $QuestionAnswerModel->inRandomOrder()->get();
         $data['question_answer'] = $question_answer;
 
         $QuestionImageModel = new QuestionImage();

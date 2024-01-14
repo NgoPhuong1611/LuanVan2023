@@ -284,6 +284,7 @@
                             <hr width="60%">
                             <?php $count = 0; ?>
 
+                            <?php if (isset($question1)) { ?>
 
                             <?php foreach ($question1 as $value) : ?>
                                 <?php $count++; ?>
@@ -293,6 +294,8 @@
                                     </div>
                                 </a>
                             <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question2)) { ?>
                             <?php foreach ($question2 as $value) : ?>
                                 <?php $count++; ?>
                                 <a href="#<?= $count ?>">
@@ -301,6 +304,8 @@
                                     </div>
                                 </a>
                             <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question3)) { ?>
                             <?php foreach ($question3 as $value) : ?>
                                 <?php $count++; ?>
                                 <a href="#<?= $count ?>">
@@ -309,6 +314,9 @@
                                     </div>
                                 </a>
                             <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question4)) { ?>
+
                             <?php foreach ($question4 as $value) : ?>
                                 <?php $count++; ?>
                                 <a href="#<?= $count ?>">
@@ -317,6 +325,8 @@
                                     </div>
                                 </a>
                             <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question5)) { ?>
                             <?php foreach ($question5 as $value) : ?>
                                 <?php $count++; ?>
                                 <a href="#<?= $count ?>">
@@ -325,6 +335,8 @@
                                     </div>
                                 </a>
                             <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question6)) { ?>
                             <?php foreach ($question6 as $value) : ?>
                                 <?php $count++; ?>
                                 <a href="#<?= $count ?>">
@@ -333,6 +345,8 @@
                                     </div>
                                 </a>
                             <?php endforeach ?>
+                            <?php } ?>
+                            <?php if (isset($question7)) { ?>
                             <?php foreach ($question7 as $value) : ?>
                                 <?php $count++; ?>
                                 <a href="#<?= $count ?>">
@@ -341,6 +355,7 @@
                                     </div>
                                 </a>
                             <?php endforeach ?>
+                            <?php } ?>
 
 
                             <br> <br>
@@ -360,6 +375,7 @@
                         <div class="part">
                             <?php $index = 0; ?>
                             <!--- part 1--->
+                            <?php if (isset($part1)) { ?>
                             <div class="panel panel-primary">
                                 <div class="panel-body">
                                     <h2><b style="font-weight: bold;">Part <?= $part1[0]['part_number'] ?></b></h2>
@@ -411,8 +427,9 @@
                         <!-- end answer  -->
 
                     <?php endforeach ?>
+                    <?php } ?>
                     <!--- part 2--->
-
+                    <?php if (isset($part2)) { ?>
                     <div class="panel panel-primary">
                         <div class="panel-body">
                             <h2><b style="font-weight: bold;">Part <?= $part2[0]['part_number'] ?></b></h2>
@@ -450,8 +467,9 @@
                 <div class="explain" id="explain<?= $value['id'] ?>"></div>
 
             <?php endforeach ?>
-
+            <?php }?>
             <!--- part 3--->
+            <?php if (isset($part3)) { ?>
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h2><b style="font-weight: bold;">Part <?= $part3[0]['part_number'] ?></b></h2>
@@ -486,8 +504,9 @@
         <?php endforeach ?>
         <div class="explain" id="explain<?= $value['id'] ?>"></div>
     <?php endforeach ?>
-
+    <?php } ?>
     <!--- part 4--->
+    <?php if (isset($part4)) { ?>
     <div class="panel panel-primary">
         <div class="panel-body">
             <h2><b style="font-weight: bold;">Part <?= $part4[0]['part_number'] ?></b></h2>
@@ -522,8 +541,9 @@
 <?php endforeach ?>
 <div class="explain" id="explain<?= $value['id'] ?>"></div>
 <?php endforeach ?>
-
+<?php }?>
 <!--- part 5--->
+<?php if (isset($part5)) { ?>
 <div class="panel panel-primary">
     <div class="panel-body">
         <h2><b style="font-weight: bold;">Part <?= $part5[0]['part_number'] ?></b></h2>
@@ -544,8 +564,9 @@
         <?php endforeach ?>
     <div class="explain" id="explain<?= $value['id'] ?>"></div>
 <?php endforeach ?>
-
+<?php } ?>
 <!--- part 6--->
+<?php if (isset($part6)) { ?>
 <div class="panel panel-primary">
     <div class="panel-body">
         <h2><b style="font-weight: bold;">Part <?= $part6[0]['part_number'] ?></b></h2>
@@ -586,9 +607,10 @@
         <?php } ?>
     <?php endforeach ?>
 <?php endforeach ?>
-
+<?php } ?>
 
 <!--- part 7--->
+<?php if (isset($part7)) { ?>
 <div class="panel panel-primary">
     <div class="panel-body">
         <h2><b style="font-weight: bold;">Part <?= $part7[0]['part_number'] ?></b></h2>
@@ -627,6 +649,7 @@
         <?php } ?>
     <?php endforeach ?>
 <?php endforeach ?>
+<?php } ?>
 <hr>
                         </div>
                     </div>

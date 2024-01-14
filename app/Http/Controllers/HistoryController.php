@@ -63,99 +63,127 @@ class HistoryController extends Controller
          $ExamPart = $ExamToExamPartModel::where('exam_id', $exam_id)->get();
 
          //lay part
-         $ExamPartModel = new ExamPart();
-         $exam_part = $ExamPartModel->get();
-
-         $part1 = $ExamPartModel::where('id', $ExamPart[0]['exam_part_id'])->get();
-         $part2 = $ExamPartModel::where('id', $ExamPart[1]['exam_part_id'])->get();
-         $part3 = $ExamPartModel::where('id', $ExamPart[2]['exam_part_id'])->get();
-         $part4 = $ExamPartModel::where('id', $ExamPart[3]['exam_part_id'])->get();
-         $part5 = $ExamPartModel::where('id', $ExamPart[4]['exam_part_id'])->get();
-         $part6 = $ExamPartModel::where('id', $ExamPart[5]['exam_part_id'])->get();
-         $part7 = $ExamPartModel::where('id', $ExamPart[6]['exam_part_id'])->get();
-         $data['part1'] = $part1;
-         $data['part2'] = $part2;
-         $data['part3'] = $part3;
-         $data['part4'] = $part4;
-         $data['part5'] = $part5;
-         $data['part6'] = $part6;
-         $data['part7'] = $part7;
-
-         //lay group 6,7
-         $QuestionGroupModel = new QuestionGroup();
-         $group = $QuestionGroupModel::where('exam_part_id', $part6[0]['id'])->get();
-         $group6 = [];
-         foreach ($ExamGroup as $a) {
-             foreach ($group as $b) {
-                 if ($b['id'] == $a['question_group_id']) {
-                     array_push($group6, $b);
-                 }
-             }
-         }
-         $group = $QuestionGroupModel::where('exam_part_id', $part7[0]['id'])->get();
-         $group7 = [];
-         foreach ($ExamGroup as $a) {
-             foreach ($group as $b) {
-                 if ($b['id'] == $a['question_group_id']) {
-                     array_push($group7, $b);
-                 }
-             }
-         }
-         $data['group6'] = $group6;
-         $data['group7'] = $group7;
-
-         //lay question
-         $QuestionModel = new Question();
-         $question = $QuestionModel->get();
+         $exam_part = ExamPart::get();
+         $question = Question::get();
          $question1 = [];
          $question2 = [];
          $question3 = [];
          $question4 = [];
          $question5 = [];
-         $question6 = $QuestionModel::where('exam_part_id', $part6[0]['id'])->get();
-         $question7 = $QuestionModel::where('exam_part_id', $part7[0]['id'])->get();
+         if (isset($ExamPart[0])) {
+            $part1 = ExamPart::where('id', $ExamPart[0]['exam_part_id'])->get();
+            $data['part1'] = $part1;
+            foreach ($ExamSingle as $a) {
+                foreach ($question as $b) {
 
-         foreach ($ExamSingle as $a) {
-             foreach ($question as $b) {
-                 if ($b['exam_part_id'] == $part1[0]['id'] && $b['id'] == $a['question_id']) {
+                    if ($b['exam_part_id'] == $part1[0]['id'] && $b['id'] == $a['question_id']) {
 
-                     array_push($question1, $b);
-                 } else if ($b['exam_part_id'] == $part2[0]['id'] && $b['id'] == $a['question_id']) {
+                        array_push($question1, $b);
+                    }
+                }
+            }
+            $data['question1'] = $question1;
+        }
+        if (isset($ExamPart[1])) {
+            $part2 = ExamPart::where('id', $ExamPart[1]['exam_part_id'])->get();
+            $data['part2'] = $part2;
+            foreach ($ExamSingle as $a) {
+                foreach ($question as $b) {
 
-                     array_push($question2, $b);
-                 } else if ($b['exam_part_id'] == $part3[0]['id'] && $b['id'] == $a['question_id']) {
+                    if ($b['exam_part_id'] == $part2[0]['id'] && $b['id'] == $a['question_id']) {
 
-                     array_push($question3, $b);
-                 } else if ($b['exam_part_id'] == $part4[0]['id'] && $b['id'] == $a['question_id']) {
+                        array_push($question2, $b);
+                    }
+                }
+            }
+            $data['question2'] = $question2;
+        }
+        if (isset($ExamPart[2])) {
+            $part3 = ExamPart::where('id', $ExamPart[2]['exam_part_id'])->get();
+            $data['part3'] = $part3;
+            foreach ($ExamSingle as $a) {
+                foreach ($question as $b) {
 
-                     array_push($question4, $b);
-                 } else if ($b['exam_part_id'] == $part5[0]['id'] && $b['id'] == $a['question_id']) {
+                    if ($b['exam_part_id'] == $part3[0]['id'] && $b['id'] == $a['question_id']) {
 
-                     array_push($question5, $b);
-                 }
-             }
-         }
-         $data['question1'] = $question1;
-         $data['question'] = $question;
-         $data['question2'] = $question2;
-         $data['question3'] = $question3;
-         $data['question4'] = $question4;
-         $data['question5'] = $question5;
-         $data['question6'] = $question6;
-         $data['question7'] = $question7;
+                        array_push($question3, $b);
+                    }
+                }
+            }
+            $data['question3'] = $question3;
+        }
+        if (isset($ExamPart[3])) {
+            $part4 = ExamPart::where('id', $ExamPart[3]['exam_part_id'])->get();
+            $data['part4'] = $part4;
+            foreach ($ExamSingle as $a) {
+                foreach ($question as $b) {
 
+                    if ($b['exam_part_id'] == $part4[0]['id'] && $b['id'] == $a['question_id']) {
+
+                        array_push($question4, $b);
+                    }
+                }
+            }
+            $data['question4'] = $question4;
+        }
+        if (isset($ExamPart[4])) {
+            $part5 = ExamPart::where('id', $ExamPart[4]['exam_part_id'])->get();
+            $data['part5'] = $part5;
+            foreach ($ExamSingle as $a) {
+                foreach ($question as $b) {
+
+                    if ($b['exam_part_id'] == $part5[0]['id'] && $b['id'] == $a['question_id']) {
+
+                        array_push($question5, $b);
+                    }
+                }
+            }
+            $data['question5'] = $question5;
+        }
+        if (isset($ExamPart[5])) {
+            $part6 = ExamPart::where('id', $ExamPart[5]['exam_part_id'])->get();
+            $data['part6'] = $part6;
+            $group = QuestionGroup::where('exam_part_id', $part6[0]['id'])->get();
+            $group6 = [];
+            foreach ($ExamGroup as $a) {
+                foreach ($group as $b) {
+                    if ($b['id'] == $a['question_group_id']) {
+                        array_push($group6, $b);
+                    }
+                }
+            }
+            $data['group6'] = $group6;
+            $question6 =Question::where('exam_part_id', $part6[0]['id'])->get();
+            $data['question6'] = $question6;
+
+        }
+        if (isset($ExamPart[6])) {
+            $part7 = ExamPart::where('id', $ExamPart[6]['exam_part_id'])->get();
+            $data['part7'] = $part7;
+            $group = QuestionGroup::where('exam_part_id', $part7[0]['id'])->get();
+            $group7 = [];
+            foreach ($ExamGroup as $a) {
+                foreach ($group as $b) {
+                    if ($b['id'] == $a['question_group_id']) {
+                        array_push($group7, $b);
+                    }
+                }
+            }
+            $data['group7'] = $group7;
+            $question7 = Question::where('exam_part_id', $part7[0]['id'])->get();
+            $data['question7'] = $question7;
+
+        }
+        $data['question'] = $question;
          //lay audios
-         $QuestionAudioModel = new QuestionAudio();
-         $audios= $QuestionAudioModel->get();
+         $audios= QuestionAudio::get();
          $data['audios'] = $audios;
 
 
-         $QuestionAnswerModel = new QuestionAnswer();
-         $question_answer = $QuestionAnswerModel->get();
+         $question_answer =QuestionAnswer::get();
          $data['question_answer'] = $question_answer;
 
-         $QuestionImageModel = new QuestionImage();
-         $question_image = $QuestionImageModel->get();
+         $question_image = QuestionImage::get();
          $data['question_image'] =  $question_image;
 
          $wrongAnswerQuestions = WrongAnswerQuestion::where('exam_history_id',$id)->get();
