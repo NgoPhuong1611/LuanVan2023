@@ -189,11 +189,16 @@ $menu = [
     [
         'url' => '',
         'name' => 'Quản lý Giao dịch',
+
         'active' => 'dashboard/trasaction',
         'icon' => '<i class="fa fa-exchange"></i>',
+
+        'active' => 'dashboard/transaction',
+        'icon' => '<i class="fa fa-bars"></i>',
+
         'sub_menu' => [
             [
-                'url' => url('dashboard/trasaction/'),
+                'url' => url('dashboard/transaction/'),
                 'name' => 'Danh sách',
             ],
             [
@@ -234,6 +239,7 @@ $menu = [
             ],
         ]
     ],
+
     // [
     //     'url' => '',
     //     'name' => 'Quản lý QUảng Cáo',
@@ -250,6 +256,24 @@ $menu = [
     //         ],
     //     ]
     // ],
+
+    [
+        'url' => '',
+        'name' => 'Quản lý Quảng Cáo',
+        'active' => 'dashboard/banner',
+        'icon' => '<i class="fa fa-bars"></i>',
+        'sub_menu' => [
+            [
+                'url' => url('dashboard/banner/'),
+                'name' => 'Danh sách',
+            ],
+            [
+                'url' => url('dashboard/'),
+                'name' => 'Thêm mới',
+            ],
+        ]
+    ],
+
     [
         'url' => '',
         'name' => 'Quản lý Danh mục',

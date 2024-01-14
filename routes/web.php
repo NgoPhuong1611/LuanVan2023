@@ -26,8 +26,11 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ExamHistoryController;
 use App\Http\Controllers\Admin\ForumController;
 use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\TransactionUserController;
+use App\Models\ExamHistory;
 
 // use App\Http\Controllers\Admin\UserController;
 
@@ -90,6 +93,13 @@ Route::group([], function () {
         Route::get('Register', [UserController::class, 'register']);
         Route::post('save',[UserController::class, 'save']);
         Route::get('Logout', [UserController::class, 'logout']);
+        //quên mật khẩu
+        Route::get('forgotpassword',[UserController::class, 'forgotpassword']);
+        Route::post('recoverPass',[UserController::class, 'recoverPass']);
+        Route::post('confirmToken',[UserController::class, 'confirmToken']);
+        Route::get('resetPassword',[UserController::class, 'showResetPasswordForm']);
+        Route::post('resetPassword',[UserController::class,'resetPassword']);
+        
 
         Route::get('ExamHistory', [HistoryController::class, 'index']);
         Route::get('indexExamHistory/{id}', [HistoryController::class, 'indexExamHistory']);
@@ -98,6 +108,14 @@ Route::group([], function () {
         // Route::get('Ratings', [HistoryController::class, 'ratings']);
 
     });
+    // thanh toán momo
+    Route::get('transaction',[TransactionUserController::class,'index']);
+    Route::get('transactionHistory',[TransactionUserController::class,'transactionHistory']);
+    Route::post('momo_payment',[TransactionUserController::class,'momo_payment']);
+    //số coin
+  
+    //
+
     Route::group(['prefix' => 'Teacher'], function () {
         Route::get('Infor',[TeacherController::class, 'showInforTeacher'] );
         //

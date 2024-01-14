@@ -4,12 +4,8 @@
 
 <script>
     function validatePassword() {
-        // var oldPassword = document.getElementById("old_password").value;
         var newPassword = document.getElementById("new_password").value;
         var confirmPassword = document.getElementById("confirm_password").value;
-        // if(md5((string) newPassword)==oldPassword){
-        //     document.getElementById("password-error").style.display = "block";
-        // }else
          if (newPassword != confirmPassword) {
             document.getElementById("password-error").style.display = "block";
             return false;
@@ -17,7 +13,6 @@
             document.getElementById("password-error").style.display = "none";
             return true;
         }
-
     }
 </script>
 
@@ -29,11 +24,9 @@
             <li class="active"><a href="">Đổi mật khẩu</a></li>
         </ul>
         <div class="tab-pane" id="changePass">
-
         </div>
-
-        <form class="formDoiMatKhau" action="<?= url('User/changePassword') ?>" method="post" onsubmit="return validatePassword()">
-        @csrf
+        <form method="POST" action="<?= url('User/resetPassword') ?>">
+            @csrf
             <div class="col-12">
                 @if (!empty($errors))
                 @if (is_string($errors))
@@ -53,25 +46,18 @@
                 <!-- Nếu không có lỗi, ẩn thông báo -->
                 <p></p>
             @endif
-            <input type="hidden" id="iduser" name="iduser" value="<?= $user[0]['id'] ?>">
-            <input type="hidden" id="name" name="name" value="<?= $user[0]['username'] ?>">
-
-            <div class="form-group alert alert-danger" id="password-error" style="display:none">Mật khẩu mới và nhập mật khẩu mới không khớp
-            </div>
-            {{-- <div class="form-group">
-                <label for="old_password">Mật khẩu cũ</label>
-                <input type="password" value="<?= $user[0]['password'] ?>"
-                    class="form-control" name="old_password" id="old_password" required="required" />
-            </div> --}}
-            <div class="form-group">
-                <label for="new_password">Mật khẩu mới</label>
-                <input type="password" class="form-control" name="new_password" id="new_password" required="required" />
+            <input name="email" hidden value="{{ $email }}">
+            <div>
+                <label for="password">Mật khẩu mới:</label>
+                <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
                 <label for="confirm_password">Nhập lại mật khẩu mới</label>
                 <input type="password" class="form-control" name="confirm_password" id="confirm_password" required="required" />
             </div>
-            <input class="btn btn-primary" type="submit" value="Xác nhận" />
+            <div>
+                <button type="submit">Cập nhật mật khẩu</button>
+            </div>
         </form>
     </div>
 	<script src="<?= url("resources/js/client/profileClient.js") ?>"></script>

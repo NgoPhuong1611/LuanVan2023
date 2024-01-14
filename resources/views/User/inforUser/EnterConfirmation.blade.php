@@ -9,14 +9,13 @@
         <h3 class="page-header"></h3>
         <br>
         <ul class="nav nav-tabs" id="tabs">
-            <li class="active"><a>Đăng Nhập</a></li>
+            <li class="active"><a>Quên mật khẩu</a></li>
             <li><a href="<?= url('User/Register') ?>">Đăng Ký</a></li>
             <li><a href="<?= url('Teacher/Register') ?>">Đăng Ký (Người dạy)</a></li>
         </ul>
         <div class="tab-content">
-        <form class="form-login" action="<?= url('User/userlogin') ?>" method="post">
-            @csrf
-
+        <form class="formDoiMatKhau" action="<?= url('User/confirmToken') ?>" method="post">
+        @csrf
                 <div class="col-12">
                     @if (!empty($errors))
                     @if (is_string($errors))
@@ -40,13 +39,12 @@
                 </div>
 
                 <div class="container">
-                    <label for="username"><b>Username</b></label>
-                    <input style="width: 500px;" type="text" placeholder="Enter Username" name="username" required>
-                    <label for="passsword"><b>Password</b></label>
-                    <input style="width: 500px;" type="password" placeholder="Enter Password" name="password" required>
+                    <label for=""><b>Nhập Ma Xac Nhan</b></label>
+                    <input name="email" hidden value="{{ $to_email }}">
+                    <input name="token_user" hidden value="{{ $token_random }}">
+                    <input style="width: 500px;" type="text" placeholder="Enter confirmation code....." name="token" required>
                     <br>
-                    <button type="submit">Login</button>
-                    <a href="<?= url('User/forgotpassword') ?>">Forgot password</a>
+                    <button type="submit">Send</button>
                 </div>
         </form>
         </div>

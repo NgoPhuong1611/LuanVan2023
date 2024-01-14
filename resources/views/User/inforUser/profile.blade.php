@@ -26,6 +26,12 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label style="font-weight: bold" for="staticEmail" class="col-sm-2 col-form-label">Số xu hiện tại</label>
+							<div class="col-sm-10">
+								<input type="text" readonly class="form-control-plaintext" value="<?php echo $user['quantity_coin']; ?>" name="quantity_coin">
+							</div>
+						</div>
+						<div class="form-group">
 							<div class="col-sm-10">
 							</div>
 						</div>
