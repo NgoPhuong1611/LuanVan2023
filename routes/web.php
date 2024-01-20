@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\TransactionUserController;
+use App\Http\Controllers\TransactionTeacherController;
 use App\Models\ExamHistory;
 
 // use App\Http\Controllers\Admin\UserController;
@@ -129,9 +130,12 @@ Route::group([], function () {
         Route::get('terms',[TeacherController::class, 'terms'] );
         Route::get('detail',[TeacherController::class, 'detail'] );
         Route::get('mission',[TeacherController::class, 'mission'] );
-        Route::get('coin',[TeacherController::class, 'coin'] );
-        Route::get('transaction',[TeacherController::class, 'transaction'] );
 
+        //
+        Route::get('coin',[TransactionTeacherController::class, 'index'] );
+        Route::get('transactionHistory',[TransactionTeacherController::class, 'transactionHistory'] );
+        Route::match(['get', 'post'], 'showTran',[TransactionTeacherController::class, 'showTransactionForm'] );
+        Route::match(['get', 'post'], 'createRequest',[TransactionTeacherController::class, 'createRequest'] );
 
         // Route::get('Login', [UserController::class, 'index']);
         // Route::post('userlogin', [UserController::class, 'userLogin']);
@@ -143,6 +147,7 @@ Route::group([], function () {
         // Route::post('save',[UserController::class, 'save']);
         // Route::get('Logout', [UserController::class, 'logout']);
     });
+    
     Route::group(['prefix' => 'ToForum'], function () {
         Route::get('/',[ToForumController::class, 'index'] );
     });
@@ -294,6 +299,8 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
     });
     Route::group(['prefix' => 'transaction'], function () {
         Route::get('/',[TransactionController::class, 'index']);
+        Route::get('/detail/{id}', [TransactionController::class, 'showDetail']);
+        Route::post('/update', [TransactionController::class, 'updateTransaction']);
     });
     Route::group(['prefix' => 'banner'], function () {
         Route::get('/',[BannerController::class, 'index']);
