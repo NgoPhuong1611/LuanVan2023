@@ -33,9 +33,9 @@ class TeacherController extends Controller
     public function mission(){
         return view('User.Teacher.mission');
     }
-    public function coin(){
-        return view('User.Teacher.coin');
-    }
+    // public function coin(){
+    //     return view('User.Teacher.Transaction.index');
+    // }
     public function transaction(){
         return view('User.Teacher.transaction');
     }
