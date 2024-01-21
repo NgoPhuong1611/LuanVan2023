@@ -42,13 +42,13 @@
                             <li><form action="{{url("Teacher/showTran/{$redirect}/{$so_tien}")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="so_tien" value=10000>
-                                <input type="hidden" name="redirect" value=100>
+                                <input type="hidden" name="redirect" value=150>
                                 <button type="submit" class="btn btn-default check_out"> 150 xu = 10.000vnd</button>
                             </form></li>
                             <li><form action="{{url("Teacher/showTran")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="so_tien" value=50000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect" value="500"> 550 xu= 50.000vnd</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="550"> 550 xu= 50.000vnd</button>
                             </form></li>
                             <li><form action="{{url("Teacher/showTran")}}"method="POST" >
                                 @csrf
@@ -63,12 +63,12 @@
                             <li><form action="{{url("Teacher/showTran")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="so_tien" value=500000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect" value="6000">5300 xu = 500.000vnd</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="5300">5300 xu = 500.000vnd</button>
                             </form></li>
                             <li><form action="{{url("Teacher/showTran")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="so_tien" value=1000000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect" value="13000">10600 xu = 1.000.000vnd</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="10600">10600 xu = 1.000.000vnd</button>
                             </form></li>
                         </ul>
 

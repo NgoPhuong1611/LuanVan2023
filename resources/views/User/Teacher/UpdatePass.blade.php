@@ -33,7 +33,7 @@
         </div>
 
         <form class="formDoiMatKhau" action="<?= url('User/changePassword') ?>" method="post" onsubmit="return validatePassword()">
-
+            @csrf
             <input type="hidden" id="iduser" name="iduser" value="<?= $user[0]['id'] ?>">
             <input type="hidden" id="name" name="name" value="<?= $user[0]['username'] ?>">
 

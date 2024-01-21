@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model
 {
+
     protected $table = 'question'; // Table name in the database
 
     protected $primaryKey = 'id'; // Primary key of the table

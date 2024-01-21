@@ -26,7 +26,6 @@ class TransactionController extends Controller
         // $rt_id = RequestTransaction::find(session()->get('id'))->id; 
         $rt = RequestTransaction::findOrFail($id);
         // dd($rt->id);
-        // Lấy giá trị hiện tại của quantity_coin từ người dùng đã tìm thấy
         $transaction = [
             'id' => $rt->id,
             'bank_account' => $rt->bank_account,
