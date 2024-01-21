@@ -24,5 +24,8 @@ class FileUser extends Model
     public static $messages = [
         // Validation messages
     ];
-    
+    public function question()
+    {
+        return $this->belongsTo(Question::class, 'question_id');
+    }
 }

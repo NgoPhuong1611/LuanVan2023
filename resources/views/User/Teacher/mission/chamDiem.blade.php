@@ -3,13 +3,11 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Bài test Toeic</title>
     <script src="{{ asset('resources/js/jquery-1.js') }}"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="{{ asset('resources/js/client/baiTestListening.js') }}"></script>
     <script src="{{ asset('resources/js/client/baiTestReading.js') }}"></script>
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -130,11 +128,9 @@
         color: green;
         font-weight: bold;
     }
-
-    .explain {
+    .explain{
         font-weight: bold;
     }
-
     #listeing-result {
         background-color: #f2f2f2;
         border: 1px solid #ccc;
@@ -230,6 +226,7 @@
         font-size: 16px;
         color: #333;
     }
+
 </style>
 
 <body>
@@ -239,9 +236,7 @@
             <p><b>LISTEING 0/100 => Your score 0/495</b></p>
             <p><b>READING 0/100 => Your score 0/495</b></p>
             <h3>TOTAL SCORE: </h3>
-            <a class="close" href="{{ url('') }}" title="Close"><i aria-hidden="true" class="fa fa-check"></i>
-                Thoát bài thi</a>
-        </div>
+            <a class="close" href="{{ url('') }}" title="Close"><i aria-hidden="true" class="fa fa-check"></i> Thoát bài thi</a>        </div>
     </div>
     <!--Header
 ==========================-->
@@ -250,16 +245,16 @@
             <br>
             <div style="display: block;">
                 <p>
-                    <a href="{{ url('/') }}" id="backhome" style="display: inline;">
-                        Home</a> <span>Bài test Random</span>
+                <a href="{{ url('/') }}" id="backhome" style="display: inline;">
+                                        Home</a> <span>Bài test Random</span>
                 </p>
             </div>
 
             <!--
 <div>
-  <c:forEach begin="1" end="50" varStatus="loop">
-   <div class="numberCircle" id="answer${loop.index}">${loop.index}</div>
-  </c:forEach>
+		<c:forEach begin="1" end="50" varStatus="loop">
+			<div class="numberCircle" id="answer${loop.index}">${loop.index}</div>
+		</c:forEach>
 </div>
 
 -->
@@ -271,9 +266,8 @@
         <!--/End Header-->
 
         <div id="content" class="container-fluid fill">
-            <form action="{{ url('Practice/save') }}" method="post" id="submitForm" name="submitForm">
+            <form action="" method="post" id="submitForm" name="submitForm">
                 @csrf
-                {{-- <input type="hidden" name="exam_id" value="{{ $exam_id }}"> --}}
                 <div class="row">
                     <div id="navigation" class="col-md-4 ">
 
@@ -285,20 +279,19 @@
 
 
                             <?php foreach ($question as $value) : ?>
-                            <?php $count++; ?>
-                            <a href="#<?= $count ?>">
-                                <div class="numberCircle" id="answer<?= $value['id'] ?>">
-                                    <?= $count ?>
-                                </div>
-                            </a>
+                                <?php $count++; ?>
+                                <a href="#<?= $count ?>">
+                                    <div class="numberCircle" id="answer<?= $value['id'] ?>">
+                                        <?= $count ?>
+                                    </div>
+                                </a>
                             <?php endforeach ?>
 
 
                             <br> <br>
                             <!-- 	<input type="button" id="btndoAgain" class="btn btn-warning" value="Làm lại"> -->
 
-                            <input type="submit" class="btn btn-primary" id="#bsw_popup" value="Nộp bài"
-                                onclick="result()" /><br><br>
+                            <input type="submit" class="btn btn-primary" id="#bsw_popup" value="Nộp bài" onclick="result()" /><br><br>
                             <div id="reading-result"></div>
                             <hr width="60%">
 
@@ -308,74 +301,37 @@
                     <div class="col-md-4">
                         <!-- Placeholder - keep empty -->
                     </div>
-
+                    
                     <!--Nội dung bài test -->
                     <div id="main" class="col-md-8 web-font">
 
                         <div class="part">
                             <!--- nếu là part number 13(part writing:Write a sentence based on a picture)--->
                             <?php if ($part[0]['part_number'] == 13) { ?>
-                            <div class="panel panel-primary">
-                                <div class="panel-body">
-                                    <input type="hidden" name="examPart" value=13>
-                                    <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <input type="hidden" name="examPart" value=13>
+                                        <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
+                                        <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <?php foreach ($question as $value) : ?>
-                            <p><b>Question:</b> <?= $value['question'] ?></p>
-                            {{-- load hình ảnh của câu hỏi --}}
-                            <div class="question_image">
-                                <?php foreach ($question_image as $image) : ?>
-                                <?php if ($image['question_id'] == $value['id']) { ?>
-                                <img width="500px" height="300px"
-                                    src="{{ asset('/uploads/images/' . $image['image_name']) }}" alt="Mô tả ảnh">
-                                <?php } ?>
-                                <?php endforeach ?>
-                            </div>
-                            <input type="hidden" name="question_id[]" value="{{ $value['id'] }}">
-                            <textarea class="form-control" id="answer_{{ $value['id'] }}" name="answers[{{ $value['id'] }}]"
-                                placeholder="Your answer..." required></textarea>
-                            <br><br><br>
-                            <?php endforeach ?>
 
-
-                            {{-- nếu là part 14 (Phần WRITING: Respond to a written request) --}}
-                            <?php } elseif ($part[0]['part_number'] == 14) { ?><!--- part 14,15--->
-                            <div class="panel panel-primary">
-                                <div class="panel-body">
-                                    <input type="hidden" name="examPart" value=14>
-                                    <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
+                                {{-- load hình ảnh của câu hỏi --}}
+                                <div class="question_image">
+                                    <?php foreach ($question_image as $image) : ?>
+                                        <?php if ($image['question_id'] == $value['id']) { ?>
+                                            <img width="500px" height="300px" src="{{ asset('uploads/images/' . $image['image_name']) }}" alt="Mô tả ảnh">                                <?php } ?>
+                                    <?php endforeach ?>
                                 </div>
-                            </div>
-                            {{-- form nhập text trả lời --}}
-                            <?php foreach ($question as $value) : ?>
-                            <p><b>Question:</b> <?= $value['question'] ?></p>
-                            <input type="hidden" name="question_id[]" value="{{ $value['id'] }}">
-                            <textarea class="form-control" id="answer_{{ $value['id'] }}" name="answers[{{ $value['id'] }}]"
-                                placeholder="Your answer..." required></textarea>
-                            <br><br><br>
-                            <?php endforeach ?>
+                        {{-- form nhập text trả lời --}}
+                                <?php foreach ($question as $value) : ?>
+                                    <input type="hidden" name="question_id" value="<?= $value['id'] ?>">
+                                    <p><b>Question:</b> <?= $value['question'] ?></p>
+                                    <textarea class="form-control" id="editor" name="" readonly><?= $missionDetail->detail ?></textarea>
+                            
+                                    <?php endforeach ?>
+                                <?php } endif ?>
 
-                            {{-- load trường hợp part 15 Phần WRITING:Write an opinion essay --}}
-                            <?php } elseif ($part[0]['part_number'] == 15) { ?><!--- part 14,15--->
-                            <div class="panel panel-primary">
-                                <div class="panel-body">
-                                    <input type="hidden" name="examPart" value=15>
-                                    <h2><b style="font-weight: bold;">Part <?= $part[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part[0]['direction'] ?></p>
-                                </div>
-                            </div>
-                            {{-- form nhập text trả lời --}}
-                            <?php foreach ($question as $value) : ?>
-                            <p><b>Question:</b> <?= $value['question'] ?></p>
-                            <input type="hidden" name="question_id[]" value="{{ $value['id'] }}">
-                            <textarea class="form-control" id="answer_{{ $value['id'] }}" name="answers[{{ $value['id'] }}]"
-                                placeholder="Your answer..." required></textarea>
-                            <br><br><br>
-                            <?php endforeach ?>
-                            <?php } ?>
 
                             <hr>
                         </div>
@@ -390,7 +346,9 @@
 ==========================-->
 
     <!--/.Footer-->
-    <script></script>
+    <script>
+       
+    </script>
 </body>
 
 </html>

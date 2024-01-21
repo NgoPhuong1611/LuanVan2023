@@ -174,6 +174,7 @@ class HistoryController extends Controller
             $data['question7'] = $question7;
 
         }
+        
         $data['question'] = $question;
          //lay audios
          $audios= QuestionAudio::get();

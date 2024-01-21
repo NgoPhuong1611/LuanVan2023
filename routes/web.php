@@ -32,6 +32,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\TransactionUserController;
 use App\Http\Controllers\TransactionTeacherController;
 use App\Models\ExamHistory;
+use App\Http\Controllers\MissionTeacherController;
 
 // use App\Http\Controllers\Admin\UserController;
 
@@ -129,14 +130,16 @@ Route::group([], function () {
         //
         Route::get('terms',[TeacherController::class, 'terms'] );
         Route::get('detail',[TeacherController::class, 'detail'] );
-        Route::get('mission',[TeacherController::class, 'mission'] );
+        
 
         //
         Route::get('coin',[TransactionTeacherController::class, 'index'] );
         Route::get('transactionHistory',[TransactionTeacherController::class, 'transactionHistory'] );
         Route::match(['get', 'post'], 'showTran',[TransactionTeacherController::class, 'showTransactionForm'] );
         Route::match(['get', 'post'], 'createRequest',[TransactionTeacherController::class, 'createRequest'] );
-
+        //
+        Route::get('mission',[MissionTeacherController::class, 'mission'] );
+        Route::get('showDetail', [MissionTeacherController::class, 'showDetail']);
         // Route::get('Login', [UserController::class, 'index']);
         // Route::post('userlogin', [UserController::class, 'userLogin']);
         // Route::post('updateProfile', [UserController::class, 'updateProfile']);

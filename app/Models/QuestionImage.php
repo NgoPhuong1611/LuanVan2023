@@ -23,4 +23,5 @@ class QuestionImage extends Model
     public static $messages = [
         // Validation messages
     ];
+
 }
