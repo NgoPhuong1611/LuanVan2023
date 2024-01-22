@@ -26,6 +26,12 @@
                             <li><a href="{{ url('/listExam/examrandom') }}">Bài Thi Ngẫu Nhiên</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Giao Dịch<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/transaction') }}">Nạp Xu</a></li>
+                            <li><a href="{{ url('/transactionHistory') }}">Lịch Sử Giao Dịch</a></li>
+                        </ul>
+                    </li>
                     <li><a  href="{{ url('/chat') }}">Diễn Đàn</a></li>
 
                     <li class="dropdown">
@@ -33,16 +39,17 @@
                         $session = session()->all();
                     @endphp
                         <?php if (isset($session['username']) && !empty($session['username'])) : ?>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $session['username'] ?><b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $session['username']?><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                             <li><a href="{{ url('/User/Infor') }}">Tài khoản</a></li>
-                            <li><a href="{{ url('/User/ExamHistory') }}">Lịch sử </a></li>
+                            <li><a href="{{ url('/User/ExamHistory') }}">Lịch Sử Làm Bài </a></li>
                             <li><a href="{{ url('/User/Logout') }}">Thoát</a></li>
                             </ul>
                         <?php else : ?>
                             <a href="{{ url('/User/Login') }}">Đăng nhập</a>
                         <?php endif ?>
                     </li>
+
 
                 </ul>
             </div>

@@ -16,7 +16,9 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = Transaction::all(); // Lấy tất cả các giao dịch từ bảng transaction
+
+        return view('admin.Transaction.index', ['transactions' => $transactions]);
     }
 
     /**
@@ -46,10 +48,7 @@ class TransactionController extends Controller
      * @param  \App\Models\transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(transaction $transaction)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
