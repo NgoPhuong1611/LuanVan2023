@@ -122,9 +122,7 @@
                                                             <a href="<?= url('User/indexExamHistory/' . $item['id']) ?>" class="btn btn-small btn-primary">
                                                             xem
                                                             </a>
-                                                            <!-- <a href="{{ url('User/deleteHistory/' . $item['id']) }}" onclick="delete_account()" class="btn btn-small btn-danger">
-                                                                <i class="icon-trash icon-white"></i> Xóa
-                                                            </a> -->
+            
                                                         </div>
                                                     </td>
                                                 </tr>

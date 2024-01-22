@@ -35,7 +35,9 @@
                                                 <th> Người duyệt</th>
                                                 <th> giao dịch</th>
                                                 <th>Số xu</th>
+                                                <th>Trạng thái</th>
                                                 <th>Thời gian giao dịch</th>
+                                                <th>Quản lý</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -44,8 +46,26 @@
                                                 <td>{{ $transaction->user->username }}</td>
                                                 <td>{{ $transaction->admin_id }}</td>
                                                 <td>  {{ $transaction->title }} </td>
+<<<<<<< HEAD
                                                 <td>{{ $transaction->quantity_coin }}</td>
+=======
+
+                                                <td>{{ $transaction->quantity }}</td>
+
+                                                <td>{{ $transaction->quantity_coin }}</td>
+                                                <td>  {{ $transaction->status }} </td>
+
+>>>>>>> bdd0d733bbee412c731de165d6bb8d2504fd18cf
                                                 <td>{{$transaction->time_date}}</td>
+                                                <td>
+                                                    @if ($transaction->title == 'Rút Xu')
+                                                    <div style="width: 90px;" class="btn-group btn-group-sm">
+                                                    <a  href ="{{ url('dashboard/transaction/detail/' . $transaction['requestTran_id']) }}"  style="margin: 4px;" class="tabledit-edit-button btn btn-primary waves-effect waves-light">
+                                                        <span class="icofont icofont-ui-edit"></span>
+                                                        @endif
+                                                    </a>
+                                                </td>
+                                                <td hidden>{{$transaction->requestTran_id}}</td>
                                             </tr>
                                               @endforeach
                                         </tbody>

@@ -101,6 +101,7 @@ class TransactionUserController extends Controller
                 'user_id'=>$user_id,
                 // 'admin_id'=> null,
                 'title'=>'Nap Xu',
+                'status'=>'Đã Xử Lý',
                 'type'=>0,
                 'quantity_coin'=>$transactionAmount,
             ];

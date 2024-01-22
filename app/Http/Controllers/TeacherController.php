@@ -31,11 +31,11 @@ class TeacherController extends Controller
         return view('User.Teacher.detail');
     }
     public function mission(){
-        return view('User.Teacher.mission');
+        return view('User.Teacher.mission.index');
     }
-    public function coin(){
-        return view('User.Teacher.coin');
-    }
+    // public function coin(){
+    //     return view('User.Teacher.Transaction.index');
+    // }
     public function transaction(){
         return view('User.Teacher.transaction');
     }

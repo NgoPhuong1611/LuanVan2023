@@ -263,7 +263,8 @@
 
         <div id="content" class="container-fluid fill">
             {{-- <form action="record-speaking" method="post" id="submitForm" name="submitForm"> --}}
-            <form action="{{ url('Practice/record') }}" method="POST" id="submitForm" name="submitForm">
+            <form action="{{ url('Practice/record') }}" method="POST" id="submitForm" name="submitForm"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div id="navigation" class="col-md-4 ">
@@ -330,8 +331,7 @@
                             </section>
 
                             <section class="sound-clips">
-
-
+                                <input type="file" name="audio" id="audioInputFile" class="hidden">
                             </section>
 
                             <?php endforeach ?>
@@ -363,8 +363,7 @@
                         </section>
 
                         <section class="sound-clips">
-
-
+                            <input type="file" name="audio" id="audioInputFile" class="hidden">
                         </section>
 
                         <?php endforeach ?>
@@ -387,7 +386,8 @@
                         {{-- <button onclick="startRecording()">Bắt đầu ghi âm</button>
                                 <button onclick="stopRecording()">Kết thúc ghi âm</button> --}}
                         <section class="main-controls">
-                            <canvas class="visualizer" height="60px" style="width: 50%; border-radius: 10px"></canvas>
+                            <canvas class="visualizer" height="60px"
+                                style="width: 50%; border-radius: 10px"></canvas>
                             <div id="buttons">
                                 <button class="record">Record</button>
                                 <button class="stop" disabled="">Stop</button>
@@ -427,8 +427,7 @@
                         </section>
 
                         <section class="sound-clips">
-
-
+                            <input type="file" name="audio" id="audioInputFile" class="hidden">
                         </section>
 
                         <?php endforeach ?>
@@ -459,7 +458,7 @@
                         </section>
 
                         <section class="sound-clips">
-
+                            <input type="file" name="audio" id="audioInputFile" class="hidden">
                         </section>
 
                         <?php endforeach ?>
@@ -524,18 +523,19 @@
                 }
 
                 mediaRecorder.ondataavailable = function(e) {
-                    chunks.push(e.data);
-                    console.log(chunks.length);
+                    if (e.data.size > 0) {
+                        chunks.push(e.data);
+                        console.log('Chunks size:', chunks.length);
+                    }
                 }
 
                 mediaRecorder.onstop = function(e) {
-                    const clipName = prompt('Enter a name for your sound clip?', 'My unnamed clip');
+                    const clipName = prompt('Enter a name for your sound clip?', 'audio');
 
                     const clipContainer = document.createElement('article');
                     const clipLabel = document.createElement('p');
                     const audio = document.createElement('audio');
                     const deleteButton = document.createElement('button');
-                    const audioInput = document.createElement('input');
 
                     clipContainer.classList.add('clip');
                     audio.setAttribute('controls', '');
@@ -543,7 +543,7 @@
                     deleteButton.className = 'delete';
 
                     if (clipName === null) {
-                        clipLabel.textContent = 'My unnamed clip';
+                        clipLabel.textContent = 'audio';
                     } else {
                         clipLabel.textContent = clipName;
                     }
@@ -562,9 +562,18 @@
                     const audioURL = window.URL.createObjectURL(blob);
                     audio.src = audioURL;
 
-                    audioInput.type = 'hidden';
-                    audioInput.name = 'audio';
-                    audioInput.value = audioURL;
+                    // Chuyển đổi Blob thành File
+                    const file = new File([blob], clipName || 'unnamed_clip.mp3');
+                    const fileInput = document.querySelector('form input[name="audio"]');
+
+                    if (fileInput) {
+                        // Đặt giá trị cho input file
+                        const fileList = new DataTransfer();
+                        fileList.items.add(file);
+                        fileInput.files = fileList.files;
+                    } else {
+                        console.error('Không tìm thấy input file có tên "audio"');
+                    }
 
                     deleteButton.onclick = function(e) {
                         e.target.closest(".clip").remove();
