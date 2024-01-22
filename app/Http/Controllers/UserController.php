@@ -227,7 +227,7 @@ class UserController extends Controller
     public function showResetPasswordForm(Request $request)
     {
         $email = $request->query('email');
-        return view('User.inforUser.ResetPassword', compact('email'));
+        return view('User.inforUser.CreatePass', compact('email'));
     }
     
     public function resetPassword(Request $request)

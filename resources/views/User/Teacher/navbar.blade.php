@@ -15,7 +15,7 @@
                 <li><a  href="{{ url('/chatTeacher') }}">Diễn Đàn</a></li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Quản Lý Giao Dịch<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('Teacher/traction') }}">Lịch sử giao dịch</a></li>
+                        <li><a href="{{ url('Teacher/transactionHistory') }}">Lịch sử giao dịch</a></li>
                         <li><a href="{{ url('Teacher/coin') }}">Rút Xu</a></li>
                     </ul>
                 </li>

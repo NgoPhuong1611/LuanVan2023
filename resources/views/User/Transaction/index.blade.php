@@ -57,17 +57,17 @@
                             <li><form action="{{url("/momo_payment")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="total_momo" value=200000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect" value="2300">200.000vnd = 1100 xu</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="2300">200.000vnd = 2300 xu</button>
                             </form></li>
                             <li><form action="{{url("/momo_payment")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="total_momo" value=500000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect" value="6000">500.000vnd = 1100 xu</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="6000">500.000vnd = 6000 xu</button>
                             </form></li>
                             <li><form action="{{url("/momo_payment")}}"method="POST" >
                                 @csrf
                                 <input type="hidden" name="total_momo" value=1000000>
-                                <button type="submit" class="btn btn-default check_out" name="redirect" value="13000">1.000.000vnd = 1100 xu</button>
+                                <button type="submit" class="btn btn-default check_out" name="redirect" value="13000">1.000.000vnd = 13000 xu</button>
                             </form></li>
                         </ul>
 
