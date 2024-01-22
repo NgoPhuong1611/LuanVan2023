@@ -46,12 +46,16 @@
                                                 <td>{{ $transaction->user->username }}</td>
                                                 <td>{{ $transaction->admin_id }}</td>
                                                 <td>  {{ $transaction->title }} </td>
+<<<<<<< HEAD
+                                                <td>{{ $transaction->quantity_coin }}</td>
+=======
 
                                                 <td>{{ $transaction->quantity }}</td>
 
                                                 <td>{{ $transaction->quantity_coin }}</td>
                                                 <td>  {{ $transaction->status }} </td>
 
+>>>>>>> bdd0d733bbee412c731de165d6bb8d2504fd18cf
                                                 <td>{{$transaction->time_date}}</td>
                                                 <td>
                                                     @if ($transaction->title == 'Rút Xu')
