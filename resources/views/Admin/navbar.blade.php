@@ -234,22 +234,7 @@ $menu = [
             ],
         ]
     ],
-    // [
-    //     'url' => '',
-    //     'name' => 'Quản lý QUảng Cáo',
-    //     'active' => 'dashboard/banner',
-    //     'icon' => '<i class="fa fa-bars"></i>',
-    //     'sub_menu' => [
-    //         [
-    //             'url' => url('dashboard/banner/'),
-    //             'name' => 'Danh sách',
-    //         ],
-    //         [
-    //             'url' => url('dashboard/'),
-    //             'name' => 'Thêm mới',
-    //         ],
-    //     ]
-    // ],
+
     [
         'url' => '',
         'name' => 'Quản lý Danh mục',
@@ -283,6 +268,11 @@ $menu = [
             ],
         ]
     ],
+    [
+        'url' => url('dashboard/banner/'),
+        'name' => 'Quản lý Banner',
+        'active' => 'dashboard/banner',
+        'icon' => '<i class="fa fa-picture-o"></i>',    ],
 ];
 ?>
 
