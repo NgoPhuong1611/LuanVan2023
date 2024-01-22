@@ -56,10 +56,12 @@ private function processPurchase(User $user, Exam $exam)
     Transaction::create([
         'user_id' => $user->id,
         'admin_id' => null,
+        'requestTran_id'=>null,
         'title' => $exam->title,
         'type' => 1,
-        'quantity' => $exam->quantity_coin,
+        'quantity_coin' => $exam->quantity_coin,
         'time_date' => now(),
+        'status'=>"Đang Xử Lý"
     ]);
 }
     public function index(Request $request, $exam_id)

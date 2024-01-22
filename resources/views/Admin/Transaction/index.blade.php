@@ -44,7 +44,7 @@
                                                 <td>{{ $transaction->user->username }}</td>
                                                 <td>{{ $transaction->admin_id }}</td>
                                                 <td>  {{ $transaction->title }} </td>
-                                                <td>{{ $transaction->quantity }}</td>
+                                                <td>{{ $transaction->quantity_coin }}</td>
                                                 <td>{{$transaction->time_date}}</td>
                                             </tr>
                                               @endforeach
