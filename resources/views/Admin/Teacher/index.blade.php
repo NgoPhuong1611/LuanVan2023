@@ -37,7 +37,7 @@
                                                 <th>Id</th>
                                                 <th>Username</th>
                                                 <th>Password</th>
-                                                <th>Level</th>
+                                                <th>coin</th>
                                                 <th style="width: 30px;">Last_login_at</th>
                                                 <th>status</th>
                                                 <th style="width: 70px;">Quản lý</th>
@@ -50,7 +50,7 @@
                                             <td><?= $item['id'] ?></td>
                                                 <td><?= $item['username'] ?></td>
                                                 <td><?= $item['password'] ?></td>
-                                                <td><?= $item['level'] ?></td>
+                                                <td><?= $item['quantity_coin'] ?></td>
                                                 <td><?= $item['updated_at'] ?></td>
                                                 <td>
                                                     <div class="checkbox-fade fade-in-primary d-flex justify-content-center">

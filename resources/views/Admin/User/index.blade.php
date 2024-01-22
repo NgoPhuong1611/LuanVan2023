@@ -35,6 +35,7 @@
                                                 <th>name</th>
                                                 <th>Email</th>
                                                 <th>Updated_at	</th>
+                                                <th>coin	</th>
                                                 <th style="width: 30px;">Status</th>
                                                 <th style="width: 70px;">Quản lý</th>
                                             </tr>
@@ -48,6 +49,8 @@
                                                 <td><?= $item['username'] ?></td>
                                                 <td><?= $item['email'] ?></td>
                                                 <td><?= $item['updated_at'] ?></td>
+                                                <td><?= $item['quantity_coin'] ?></td>
+
                                                 <td>
                                                     <div class="checkbox-fade fade-in-primary d-flex justify-content-center">
                                                         <label>

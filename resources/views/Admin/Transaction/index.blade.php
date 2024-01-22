@@ -33,7 +33,7 @@
                                             <tr>
                                             <th>Người nạp</th>
                                                 <th> Người duyệt</th>
-                                                <th>Loại giao dịch</th>
+                                                <th> giao dịch</th>
                                                 <th>Số xu</th>
                                                 <th>Trạng thái</th>
                                                 <th>Thời gian giao dịch</th>
@@ -46,8 +46,12 @@
                                                 <td>{{ $transaction->user->username }}</td>
                                                 <td>{{ $transaction->admin_id }}</td>
                                                 <td>  {{ $transaction->title }} </td>
+
+                                                <td>{{ $transaction->quantity }}</td>
+
                                                 <td>{{ $transaction->quantity_coin }}</td>
                                                 <td>  {{ $transaction->status }} </td>
+
                                                 <td>{{$transaction->time_date}}</td>
                                                 <td>
                                                     @if ($transaction->title == 'Rút Xu')
