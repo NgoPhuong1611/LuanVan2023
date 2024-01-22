@@ -16,8 +16,31 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $Banner = Banner::first();
+        return view('Admin.Banner.index', ['Banner' => $Banner]);
     }
+    public function save(Request $request)
+    {
+        $banner = Banner::first();
+        $questionImage = $request->file('Banner_Banner');
+
+        if ($questionImage) {
+            $fileName = $questionImage->getClientOriginalName();
+            $filePath = $questionImage->move('resources/file/images/slide/', $fileName);
+            $fullPath = public_path('resources/file/images/slide/' . $fileName);
+
+            // Check if the Banner already has an image, then delete the old image
+            if ($banner->img_name) {
+                unlink(public_path('resources/file/images/slide/' . $banner->img_name));
+            }
+
+            // Update the image_name in the Banner table
+            $banner->img_name = $fileName;
+            $banner->save();
+        }
+        return redirect()->to('dashboard/banner');
+    }
+
 
     /**
      * Show the form for creating a new resource.

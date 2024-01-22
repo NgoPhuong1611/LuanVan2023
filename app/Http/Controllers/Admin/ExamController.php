@@ -79,7 +79,8 @@ class ExamController extends Controller
     {
         $selectedQuestions = $request->input('selectedQuestions');
             // $author =Admin::find(session()->get('id'))->id;
-            $author =Admin::find(session()->get('id'))->id;
+            $authorId = session()->get('id');
+            $author =Admin::find($authorId)->id;
             $quantity_coin = $request->input('quantity_coin');
             $level = $request->input('level');
             $title = $request->input('title');
@@ -233,7 +234,9 @@ class ExamController extends Controller
     }
     public function saver(Request $request)
     {
-        $author = 1; // Sửa nếu cần thiết
+           // $author =Admin::find(session()->get('id'))->id;
+           $authorId = session()->get('id');
+           $author =Admin::find($authorId)->id;
         $level = $request->input('level');
         $title = $request->input('title');
         $status = $request->input('status');
@@ -298,9 +301,9 @@ class ExamController extends Controller
             $questionModel->where('exam_part_id', $parts[1]->id)->orderBy('id')->limit(25)->get(),
             $questionModel->where('exam_part_id', $parts[2]->id)->orderBy('id')->limit(39)->get(),
             $questionModel->where('exam_part_id', $parts[3]->id)->orderBy('id')->limit(30)->get(),
-            $questionModel->where('exam_part_id', $parts[3]->id)->orderBy('id')->limit(30)->get(),
-            $questionModel->where('exam_part_id', $parts[4]->id)->orderBy('id')->limit(16)->get(),
-            $questionModel->where('exam_part_id', $parts[4]->id)->orderBy('id')->limit(54)->get(),
+            $questionModel->where('exam_part_id', $parts[4]->id)->orderBy('id')->limit(30)->get(),
+            $questionModel->where('exam_part_id', $parts[5]->id)->orderBy('id')->limit(16)->get(),
+            $questionModel->where('exam_part_id', $parts[6]->id)->orderBy('id')->limit(54)->get(),
         ];
 
         foreach ($questions as $questionSet) {

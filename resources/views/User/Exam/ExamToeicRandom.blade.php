@@ -367,8 +367,8 @@
                             <!--- part 1--->
                             <div class="panel panel-primary">
                                 <div class="panel-body">
-                                    <h2><b style="font-weight: bold;">Part <?= $part1[0]['part_number'] ?></b></h2>
-                                    <p><b>Direction:</b> <?= $part1[0]['direction'] ?></p>
+                                    <h2><b style="font-weight: bold;">Part <?= $part1['part_number'] ?></b></h2>
+                                    <p><b>Direction:</b> <?= $part1['direction'] ?></p>
                                 </div>
                                 <div class="audio-container">
                                     <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -420,8 +420,8 @@
 
                     <div class="panel panel-primary">
                         <div class="panel-body">
-                            <h2><b style="font-weight: bold;">Part <?= $part2[0]['part_number'] ?></b></h2>
-                            <p><b>Direction:</b> <?= $part2[0]['direction'] ?></p>
+                            <h2><b style="font-weight: bold;">Part <?= $part2['part_number'] ?></b></h2>
+                            <p><b>Direction:</b> <?= $part2['direction'] ?></p>
                         </div>
                         <div class="audio-container">
                             <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -459,8 +459,8 @@
             <!--- part 3--->
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h2><b style="font-weight: bold;">Part <?= $part3[0]['part_number'] ?></b></h2>
-                    <p><b>Direction:</b> <?= $part3[0]['direction'] ?></p>
+                    <h2><b style="font-weight: bold;">Part <?= $part3['part_number'] ?></b></h2>
+                    <p><b>Direction:</b> <?= $part3['direction'] ?></p>
                 </div>
                 <div class="audio-container">
                     <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -495,8 +495,8 @@
     <!--- part 4--->
     <div class="panel panel-primary">
         <div class="panel-body">
-            <h2><b style="font-weight: bold;">Part <?= $part4[0]['part_number'] ?></b></h2>
-            <p><b>Direction:</b> <?= $part4[0]['direction'] ?></p>
+            <h2><b style="font-weight: bold;">Part <?= $part4['part_number'] ?></b></h2>
+            <p><b>Direction:</b> <?= $part4['direction'] ?></p>
         </div>
         <div class="audio-container">
             <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -531,8 +531,8 @@
 <!--- part 5--->
 <div class="panel panel-primary">
     <div class="panel-body">
-        <h2><b style="font-weight: bold;">Part <?= $part5[0]['part_number'] ?></b></h2>
-        <p><b>Direction:</b> <?= $part5[0]['direction'] ?></p>
+        <h2><b style="font-weight: bold;">Part <?= $part5['part_number'] ?></b></h2>
+        <p><b>Direction:</b> <?= $part5['direction'] ?></p>
     </div>
 </div>
 <?php $count = 100; ?>
@@ -553,8 +553,8 @@
 <!--- part 6--->
 <div class="panel panel-primary">
     <div class="panel-body">
-        <h2><b style="font-weight: bold;">Part <?= $part6[0]['part_number'] ?></b></h2>
-        <p><b>Direction:</b> <?= $part6[0]['direction'] ?></p>
+        <h2><b style="font-weight: bold;">Part <?= $part6['part_number'] ?></b></h2>
+        <p><b>Direction:</b> <?= $part6['direction'] ?></p>
     </div>
 </div>
 
@@ -596,8 +596,8 @@
 <!--- part 7--->
 <div class="panel panel-primary">
     <div class="panel-body">
-        <h2><b style="font-weight: bold;">Part <?= $part7[0]['part_number'] ?></b></h2>
-        <p><b>Direction:</b> <?= $part6[0]['direction'] ?></p>
+        <h2><b style="font-weight: bold;">Part <?= $part7['part_number'] ?></b></h2>
+        <p><b>Direction:</b> <?= $part6['direction'] ?></p>
     </div>
 </div>
 <?php $count = 146; ?>
@@ -690,7 +690,7 @@
                     if (answers[i].checked && answers[i].value == a) {
                         answers[i].parentElement.classList.add("correct-answer");
                         answerSelected = true; // Đánh dấu
-                        <?php if ($value['exam_part_id'] == $part1[0]['id'] || $value['exam_part_id'] == $part2[0]['id'] || $value['exam_part_id'] == $part3[0]['id'] || $value['exam_part_id'] == $part4[0]['id']) : ?>
+                        <?php if ($value['exam_part_id'] == $part1['id'] || $value['exam_part_id'] == $part2['id'] || $value['exam_part_id'] == $part3['id'] || $value['exam_part_id'] == $part4['id']) : ?>
                             numberListeing++;
                         <?php else : ?>
                             numberReading++;

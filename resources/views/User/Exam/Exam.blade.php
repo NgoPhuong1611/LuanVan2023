@@ -398,7 +398,7 @@
                             <?php foreach ($question1 as $value) : ?>
                                 <?php $count++; ?>
                                 <p id="<?= $count ?>"><b>Question <?= $count ?>:</b> Mark your answer on your answer sheet.
-                                    <?php foreach ($audios as $au) { ?>
+                                    <?php foreach ($audio1 as $au) { ?>
                                         <?php if ($value['audio_id'] == $au['id']) {  ?>
                                 <div class="audio-container">
                                     <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -453,7 +453,7 @@
                         <?php $count++; ?>
                         <p id="<?= $count ?>"><b>Question <?= $count ?>:</b> Mark your answer on your answer sheet.
                         <p><?php $i = 1; ?>
-                            <?php foreach ($audios as $au) { ?>
+                            <?php foreach ($audio2 as $au) { ?>
                                 <?php if ($value['audio_id'] == $au['id']) {  ?>
                         <div class="audio-container">
                             <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -493,7 +493,7 @@
                 <?php $count++; ?>
                 <p id="<?= $count ?>"><b>Question <?= $count ?>:</b> <?= $value['question'] ?>:</b>
                 <p><?php $i = 1; ?>
-                    <?php foreach ($audios as $au) { ?>
+                    <?php foreach ($audio3 as $au) { ?>
                         <?php if ($value['audio_id'] == $au['id']) {  ?>
                 <div class="audio-container">
                     <audio class="audio-player1" id="audio-player<?= $index ?>">
@@ -530,7 +530,7 @@
         <?php $count++; ?>
         <p id="<?= $count ?>"><b>Question <?= $count ?>:</b> <?= $value['question'] ?></b>
         <p><?php $i = 1; ?>
-            <?php foreach ($audios as $au) { ?>
+            <?php foreach ($audio4 as $au) { ?>
                 <?php if ($value['audio_id'] == $au['id']) {  ?>
         <div class="audio-container">
             <audio class="audio-player1" id="audio-player<?= $index ?>">

@@ -6,7 +6,11 @@
 <!--/End Headter-->
 
 <!-- Search -->
+<?php
+use App\Models\Banner;
 
+$banner = Banner::first();
+?>
 <div class="container">
 
     <div class="row">
@@ -53,7 +57,7 @@
                         </div>
 
                         <div class="span6">
-                            <img src="../resources/file/images/slide/aaa.jpg" alt="img not found aab" />
+                        <img src="{{ asset('resources/file/images/slide/' . $banner->img_name) }}" alt="Image not found" />
                         </div>
                     </div>
                 </div>
@@ -194,5 +198,5 @@
     </div>
 </div>
 <!-- End Modal -->
-@endsection
 
+@endsection

@@ -53,6 +53,7 @@ Route::group([], function () {
         Route::get('listlisten',[ListExamController::class, 'listListen']);
         Route::get('listread',[ListExamController::class, 'listRead'] );
         Route::get('examrandom', [ListExamController::class, 'examRandom']);
+        Route::POST('purchase-exam/{any}', [FullTestController::class, 'purchaseExam'])->name('purchase.exam');
     });
 
     Route::group(['prefix' => 'Exam'], function () {
@@ -307,6 +308,7 @@ Route::prefix('dashboard')->middleware('Admin')->group(function () {
     });
     Route::group(['prefix' => 'banner'], function () {
         Route::get('/',[BannerController::class, 'index']);
+        Route::post('save', [BannerController::class, 'save']);
     });
     Route::group(['prefix' => 'history'], function () {
         Route::get('/',[ExamHistory::class, 'index']);
