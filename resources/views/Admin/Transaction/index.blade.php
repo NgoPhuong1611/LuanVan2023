@@ -33,7 +33,7 @@
                                             <tr>
                                             <th>Người nạp</th>
                                                 <th> Người duyệt</th>
-                                                <th>Loại giao dịch</th>
+                                                <th> giao dịch</th>
                                                 <th>Số xu</th>
                                                 <th>Thời gian giao dịch</th>
                                             </tr>
@@ -44,7 +44,7 @@
                                                 <td>{{ $transaction->user->username }}</td>
                                                 <td>{{ $transaction->admin_id }}</td>
                                                 <td>  {{ $transaction->title }} </td>
-                                                <td>{{ $transaction->quantity_coin }}</td>
+                                                <td>{{ $transaction->quantity }}</td>
                                                 <td>{{$transaction->time_date}}</td>
                                             </tr>
                                               @endforeach
